@@ -103,22 +103,23 @@
             </a>
           </li>
 
- <li class="nav-item menu-items">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <span class="menu-icon">
-                <i class="fa-solid fa-upload"></i>
-              </span>
-              <span class="menu-title">Product</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="ui-basic">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="product.php">Add Product</a></li>
-          <li class="nav-item"> <a class="nav-link" href="view_product.php">View Products</a></li>
-          <li class="nav-item"> <a class="nav-link" href="additional_product_images.php">View Added Images</a></li>
-        </ul>
-      </div>
-    </li>
+ <!-- Product Dropdown -->
+<li class="nav-item menu-items">
+  <a class="nav-link" data-toggle="collapse" href="#product-menu" aria-expanded="false" aria-controls="product-menu">
+    <span class="menu-icon">
+      <i class="fa-solid fa-upload"></i>
+    </span>
+    <span class="menu-title">Product</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="product-menu">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="product.php">Add Product</a></li>
+      <li class="nav-item"> <a class="nav-link" href="view_product.php">View Products</a></li>
+      <li class="nav-item"> <a class="nav-link" href="additional_product_images.php">View Added Images</a></li>
+    </ul>
+  </div>
+</li>
 
 <!-- // add-product-page -->
     
@@ -130,8 +131,23 @@
               <span class="menu-title">Admins</span>
             </a>
           </li>
-
-
+          
+      <!-- Custom Jewellery Dropdown -->
+<li class="nav-item menu-items">
+  <a class="nav-link" data-toggle="collapse" href="#custom-jewellery-menu" aria-expanded="false" aria-controls="custom-jewellery-menu">
+    <span class="menu-icon">
+      <i class="fa-solid fa-upload"></i>
+    </span>
+    <span class="menu-title">Custom Jewellery</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="custom-jewellery-menu">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="upload_body.php">Add Jewellery Body</a></li>
+      <li class="nav-item"> <a class="nav-link" href="view_jewellery_body.php">View Jewellery Bodies</a></li>
+    </ul>
+  </div>
+</li>
           
         </ul>
       </nav>

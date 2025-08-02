@@ -14,7 +14,7 @@ if(isset($_POST['submit'])){
  
     $total=mysqli_num_rows($sql);
 
-    if($sql){
+    if(mysqli_num_rows($sql)>0 && $product_name!="Customized jewellery"){
         $data=mysqli_fetch_assoc($sql);
         $new_qty=$data['quantity']+$quantity;
       $update_query="update cart set quantity='$new_qty' where user_id='$user_id' and product_name='$product_name'";

@@ -509,7 +509,13 @@
                                     </div>
                                     <div class='col-lg-4 col-md-5 mb-3 mb-md-0'>
                                         <h6 class='product-name'><?php echo $data['product_name'] ?></h6>
-                                        <p class="delivery-info">Delivery in 3-5 business days</p>
+                                        <p class="delivery-info"><?php
+                                        if($data['product_name']=="Customized jewellery"){
+                                            echo"Delivery in 7-14 business days";
+                                        }else{
+                                            echo"Delivery in 3-5 business days";
+                                        }
+                                        ?></p>
                                         <div class="stock-status">
                                             <i class="fas fa-check-circle"></i>
                                             <span>In Stock</span>

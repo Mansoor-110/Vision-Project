@@ -957,6 +957,9 @@ $acc_title=$acc_data['name'];
             <li class="nav-item">
                 <a href="../pages/contact.php" class="nav-link">Contact</a>
             </li>
+            <li class="nav-item">
+                <a href="../pages/custom_jewellery.php" class="nav-link">Custom Jewellery</a>
+            </li>
         </ul>
     </div>
 </nav>
