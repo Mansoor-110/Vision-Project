@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2025 at 01:32 PM
+-- Generation Time: Aug 02, 2025 at 03:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -408,7 +408,6 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`user_id`, `item`, `product_image`, `product_name`, `product_price`, `quantity`) VALUES
-(23, 55, 'https://lotshop.pk/cdn/shop/files/fish-shaped-mermaid-foundation-applying-makeup-brush-307485.jpg?v=1719858427&width=713', 'Fish-Shaped ', 499, 1),
 (23, 56, '../product_images/r.png', 'RUBY STUD EARRINGS', 4000, 1),
 (24, 57, '../product_images/m.webp', 'Infinite Whisper', 5999, 1),
 (24, 58, '../product_images/m4.png', 'Rhyah Peridot Pendant', 3990, 1),
@@ -418,7 +417,10 @@ INSERT INTO `cart` (`user_id`, `item`, `product_image`, `product_name`, `product
 (25, 62, 'https://cozmetica.pk/cdn/shop/files/SKIN1004_20-_20Madagascar_201004Day_20Signature_20Mini-Set_202024_800x_0c4b0e11-67c9-4f55-a477-0323a98adfb2.webp?v=1748525706&width=1426', 'SKIN1004 Madagascar', 2299, 1),
 (26, 63, '../product_images/m4.png', 'Rhyah Peridot Pendant', 3990, 1),
 (26, 64, '../product_images/m1.webp', 'Ultramarine Necklace', 3499, 1),
-(26, 65, '../product_images/rr.jpg', 'MARINA STUD ', 4999, 1);
+(26, 65, '../product_images/rr.jpg', 'MARINA STUD ', 4999, 1),
+(26, 66, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/ruby.avif', 'Customized jewellery', 1500, 2),
+(26, 69, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/custom%20square%20ring%20ruby%201.avif', 'Customized jewellery', 1500, 1),
+(26, 70, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/rounded%20bracelet%201%20emerald.webp', 'Customized jewellery', 1500, 1);
 
 -- --------------------------------------------------------
 
@@ -449,6 +451,103 @@ INSERT INTO `contact` (`id`, `FirstName`, `Lastname`, `Email`, `Phnum`, `Subject
 (21, 'Abdul', 'Bari', 'abdulbari@gmail.com', 98376777, 'General Inquiry', 'I am just checking that the userid session will work or not.'),
 (22, 'Taha', 'ALi', 'taha08@gmail.com', 312245678, 'General Inquiry', 'this is my  general request for the inquiry of my parcel..'),
 (23, 'Faizan', 'Rizvi', 'faizanrizvi@gmail.com', 987654321, 'Wholesale Inquiries', 'How do you buy the wholesales through..');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jewellery_bodies`
+--
+
+CREATE TABLE `jewellery_bodies` (
+  `id` int(255) NOT NULL,
+  `body_type` varchar(255) NOT NULL,
+  `body_image` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jewellery_bodies`
+--
+
+INSERT INTO `jewellery_bodies` (`id`, `body_type`, `body_image`) VALUES
+(10, 'ring', 'custom_jewellery_admin/jewellery/bodies/ring-body.jpg'),
+(16, 'ring', 'custom_jewellery_admin/jewellery/bodies/ring-body-2 (1).jpg'),
+(17, 'ring', 'custom_jewellery_admin/jewellery/bodies/ruby heart shape ring 1.jpg'),
+(18, 'necklace', 'custom_jewellery_admin/jewellery/bodies/drop diamond 1.avif'),
+(19, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/rounded bracelet 1.webp');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jewellery_variants`
+--
+
+CREATE TABLE `jewellery_variants` (
+  `id` int(255) NOT NULL,
+  `body_id` int(255) NOT NULL,
+  `gem` varchar(255) NOT NULL,
+  `position` int(255) NOT NULL,
+  `images` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jewellery_variants`
+--
+
+INSERT INTO `jewellery_variants` (`id`, `body_id`, `gem`, `position`, `images`) VALUES
+(22, 10, 'diamond', 1, 'custom_jewellery_admin/jewellery/diamond.avif'),
+(23, 10, 'diamond', 2, 'custom_jewellery_admin/jewellery/diamond-1.avif'),
+(24, 10, 'diamond', 3, 'custom_jewellery_admin/jewellery/diamond-2.avif'),
+(25, 10, 'diamond', 4, 'custom_jewellery_admin/jewellery/diamond-3.avif'),
+(26, 10, 'emerald', 1, 'custom_jewellery_admin/jewellery/emerald.avif'),
+(27, 10, 'emerald', 2, 'custom_jewellery_admin/jewellery/emerald-1.avif'),
+(28, 10, 'emerald', 3, 'custom_jewellery_admin/jewellery/emerald-2.avif'),
+(29, 10, 'emerald', 4, 'custom_jewellery_admin/jewellery/emerald-3.avif'),
+(30, 10, 'ruby', 1, 'custom_jewellery_admin/jewellery/ruby.avif'),
+(31, 10, 'ruby', 2, 'custom_jewellery_admin/jewellery/ruby-1.avif'),
+(32, 10, 'ruby', 3, 'custom_jewellery_admin/jewellery/ruby-2.avif'),
+(33, 10, 'ruby', 4, 'custom_jewellery_admin/jewellery/ruby-3.avif'),
+(46, 16, 'diamond', 1, 'custom_jewellery_admin/jewellery/custon_square_ring 1.avif'),
+(47, 16, 'diamond', 2, 'custom_jewellery_admin/jewellery/custon_square_ring 2.avif'),
+(48, 16, 'diamond', 3, 'custom_jewellery_admin/jewellery/custon_square_ring 3.avif'),
+(49, 16, 'diamond', 4, 'custom_jewellery_admin/jewellery/custon_square_ring 4.avif'),
+(50, 16, 'emerald', 1, 'custom_jewellery_admin/jewellery/custom square emerald 1.webp'),
+(51, 16, 'emerald', 2, 'custom_jewellery_admin/jewellery/custom sqare emerald 2.avif'),
+(52, 16, 'emerald', 3, 'custom_jewellery_admin/jewellery/custom sqare emerald 3.avif'),
+(53, 16, 'emerald', 4, 'custom_jewellery_admin/jewellery/custom sqare emerald 4.avif'),
+(54, 16, 'ruby', 1, 'custom_jewellery_admin/jewellery/custom square ring ruby 1.avif'),
+(55, 16, 'ruby', 2, 'custom_jewellery_admin/jewellery/custom square ring ruby 2.avif'),
+(56, 16, 'ruby', 3, 'custom_jewellery_admin/jewellery/custom square ring ruby 3.avif'),
+(57, 16, 'ruby', 4, 'custom_jewellery_admin/jewellery/custom square ring ruby 4.avif'),
+(58, 17, 'diamond', 1, 'custom_jewellery_admin/jewellery/diamond heart shape ring 1.webp'),
+(59, 17, 'diamond', 2, 'custom_jewellery_admin/jewellery/diamond heart shape ring 2.webp'),
+(60, 17, 'diamond', 3, 'custom_jewellery_admin/jewellery/diamond heart shape ring 3.avif'),
+(61, 17, 'diamond', 4, 'custom_jewellery_admin/jewellery/diamond heart shape ring 4.avif'),
+(62, 17, 'emerald', 1, 'custom_jewellery_admin/jewellery/emerald heart shape ring 1.avif'),
+(63, 17, 'emerald', 2, 'custom_jewellery_admin/jewellery/emerald heart shape ring 2.avif'),
+(64, 17, 'emerald', 3, 'custom_jewellery_admin/jewellery/diamond heart shape ring 3.avif'),
+(65, 17, 'emerald', 4, 'custom_jewellery_admin/jewellery/diamond heart shape ring 4.avif'),
+(66, 17, 'ruby', 1, 'custom_jewellery_admin/jewellery/ruby heart shape ring 1.avif'),
+(67, 17, 'ruby', 2, 'custom_jewellery_admin/jewellery/ruby heart shape ring 2.avif'),
+(68, 17, 'ruby', 3, 'custom_jewellery_admin/jewellery/ruby heart shape ring 3.avif'),
+(69, 17, 'ruby', 4, 'custom_jewellery_admin/jewellery/ruby heart shape ring 4.avif'),
+(70, 18, 'diamond', 1, 'custom_jewellery_admin/jewellery/drop diamond 1.avif'),
+(71, 18, 'diamond', 2, 'custom_jewellery_admin/jewellery/drop diamond necklace 2.avif'),
+(72, 18, 'diamond', 3, 'custom_jewellery_admin/jewellery/drop diamond necklace 3.avif'),
+(73, 18, 'emerald', 1, 'custom_jewellery_admin/jewellery/drop emerald necklace 1.avif'),
+(74, 18, 'emerald', 2, 'custom_jewellery_admin/jewellery/drop emrald necklace 2.jpg'),
+(75, 18, 'emerald', 3, 'custom_jewellery_admin/jewellery/drop emrald necklace 3.jpg'),
+(76, 18, 'ruby', 1, 'custom_jewellery_admin/jewellery/drop ruby necklace 1.avif'),
+(77, 18, 'ruby', 2, 'custom_jewellery_admin/jewellery/drop ruby necklace 2.jpg'),
+(78, 18, 'ruby', 3, 'custom_jewellery_admin/jewellery/drop ruby necklace 3.jpg'),
+(79, 19, 'diamond', 1, 'custom_jewellery_admin/jewellery/rounded bracelet 1.webp'),
+(80, 19, 'diamond', 2, 'custom_jewellery_admin/jewellery/rounded bracelet 2.webp'),
+(81, 19, 'diamond', 3, 'custom_jewellery_admin/jewellery/rounded bracelet 3.webp'),
+(82, 19, 'emerald', 1, 'custom_jewellery_admin/jewellery/rounded bracelet 1 emerald.webp'),
+(83, 19, 'emerald', 2, 'custom_jewellery_admin/jewellery/rounded bracelet 2 emerald.avif'),
+(84, 19, 'emerald', 3, 'custom_jewellery_admin/jewellery/rounded bracelet 3emerald.webp'),
+(85, 19, 'ruby', 1, 'custom_jewellery_admin/jewellery/rounded bracelet 1.avif'),
+(86, 19, 'ruby', 2, 'custom_jewellery_admin/jewellery/rounded bracelet  ruby 2.avif'),
+(87, 19, 'ruby', 3, 'custom_jewellery_admin/jewellery/rounded bracelet 3 ruby (2).webp');
 
 -- --------------------------------------------------------
 
@@ -534,6 +633,19 @@ ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `jewellery_bodies`
+--
+ALTER TABLE `jewellery_bodies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jewellery_variants`
+--
+ALTER TABLE `jewellery_variants`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bodies_body_id` (`body_id`);
+
+--
 -- Indexes for table `user_acc`
 --
 ALTER TABLE `user_acc`
@@ -571,13 +683,25 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `jewellery_bodies`
+--
+ALTER TABLE `jewellery_bodies`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `jewellery_variants`
+--
+ALTER TABLE `jewellery_variants`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `user_acc`
@@ -606,6 +730,12 @@ ALTER TABLE `additional_images`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_user` FOREIGN KEY (`user_id`) REFERENCES `user_acc` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `jewellery_variants`
+--
+ALTER TABLE `jewellery_variants`
+  ADD CONSTRAINT `bodies_body_id` FOREIGN KEY (`body_id`) REFERENCES `jewellery_bodies` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
