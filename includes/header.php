@@ -29,7 +29,7 @@ $acc_title=$acc_data['name'];
         }
 
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #2c2c2c;
             background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 50%, #ffffff 100%);
@@ -896,6 +896,7 @@ $acc_title=$acc_data['name'];
                         </a>
                     </button>
                     <button class="action-btn" title="<?php echo $acc_title ?>">
+                        <a href="../account/account.php" class="text-white">
                         <i class="fas fa-user"></i>
                     </button>
                     <button class="action-btn" title="Shopping Cart">

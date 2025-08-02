@@ -85,7 +85,7 @@ if ($_POST) {
         }
 
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
             color: #333333;
             overflow-x: hidden;
@@ -100,7 +100,6 @@ if ($_POST) {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             position: relative;
-            padding: 40px;
         }
 
         h1 {
@@ -396,6 +395,7 @@ if ($_POST) {
             background: transparent;
             color: #800020;
             padding: 20px 50px;
+            margin-bottom: 50px;
             border: 2px solid #800020;
             border-radius: 12px;
             font-size: 1.2rem;

@@ -27,7 +27,7 @@ unset($_SESSION['submited']);
     <style>
         /* Scoped styles to avoid conflicts with header */
 .contact-page-body {
-    font-family: 'Georgia', serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333333;
     background: #ffffff;
