@@ -143,6 +143,8 @@
   </a>
   <div class="collapse" id="custom-jewellery-menu">
     <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="gem_upload.php">Add Gems</a></li>
+      <li class="nav-item"> <a class="nav-link" href="view_gems.php">View Gems</a></li>
       <li class="nav-item"> <a class="nav-link" href="upload_body.php">Add Jewellery Body</a></li>
       <li class="nav-item"> <a class="nav-link" href="view_jewellery_body.php">View Jewellery Bodies</a></li>
     </ul>

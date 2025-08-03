@@ -74,7 +74,6 @@ if(isset($_SESSION['admin_id'])){
                             <td><?php echo $data['position']?></td>
                               <td style="max-width:80px;"><img src="<?php echo $data['images']?>" alt="" style="height:80px; width:80px; border-radius:10%;"></td>
                                 <td> <a href="delete_jewellery_images.php?id=<?php echo $data['id']?>&body_id=<?php echo $body_id?>" class="btn btn-outline-danger" title="delete"><i class="mdi mdi-delete"></i></a>
-                                <a href="view_jewellery_images.php?id=<?php echo $data['id']?>&body_id=<?php echo $body_id?>" class="btn btn-outline-success" title="update"><i class="mdi mdi-lead-pencil"></i></a></td>
                                      
                 </tr>
                               <?php

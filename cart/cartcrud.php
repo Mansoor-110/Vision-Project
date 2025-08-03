@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (isset($_SESSION['user_id'])){
 if(isset($_POST['submit'])){
 
       $product_image        =  $_POST['product_image'];
@@ -28,5 +29,7 @@ if(isset($_POST['submit'])){
     
     } header("location:cart.php");
   }
-
+}else{
+  header("location:cart.php");
+}
 ?>

@@ -33,9 +33,18 @@ include('../includes/connection.php');
           <label for="exampleInputEmail3">Select Gem</label>
           <select name="gem" class="form-control" required>
             <option value=>Select</option>
-            <option value="diamond">Diamond</option>
-            <option value="emerald">Emerald</option>
-            <option value="ruby">Ruby</option>
+            <?php 
+            $query="select * from gems";
+            $sql=mysqli_query($conn,$query);
+            $total=mysqli_num_rows($sql);
+            if($total>0){
+              while($data=mysqli_fetch_assoc($sql)){
+                ?>
+              <option value="<?php echo $data['gem_name']?>"><?php echo ucwords($data['gem_name'])?></option>
+                <?php
+              }
+            }
+              ?>
          </select>
         </div>
 

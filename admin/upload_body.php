@@ -23,6 +23,11 @@ if(isset($_SESSION['admin_id'])){
 
         <!-- File upload -->
         <div class="form-group">
+          <label>Price</label>
+          <input type="number" name="body_price" class="form-control" required>
+        </div>
+
+        <div class="form-group">
           <label>Upload Image</label>
           <input type="file" name="image" class="form-control" required>
         </div>
