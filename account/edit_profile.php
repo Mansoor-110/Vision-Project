@@ -122,6 +122,43 @@
       transition: all 0.3s ease;
     }
 
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    
+    .avatar-form {
+      margin-bottom: 20px;
+    }
+    
+    .upload-btn {
+      background: linear-gradient(135deg, var(--maroon-primary), var(--maroon-light));
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .upload-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    
     .profile-avatar:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 20px rgba(128, 0, 32, 0.4);
@@ -390,20 +427,74 @@
 </head>
 <body>
 
+
 <div class="edit-wrapper">
   <div class="container">
     <?php
     include '../includes/connection.php';
     
-    // Handle form submission
+    // Handle avatar upload
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['upload_avatar'])) {
+      if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
+        $user_id = $_SESSION['user_id'];
+        $upload_dir = '../uploads/avatars/';
+        
+        // Create directory if it doesn't exist
+        if (!is_dir($upload_dir)) {
+          mkdir($upload_dir, 0755, true);
+        }
+        
+        $file = $_FILES['avatar'];
+        $file_name = $file['name'];
+        $file_tmp = $file['tmp_name'];
+        $file_size = $file['size'];
+        
+        // Get file extension
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        
+        // Allowed extensions
+        $allowed = array('jpg', 'jpeg', 'png', 'gif', 'jfif');
+        
+        if (in_array($file_ext, $allowed)) {
+          if ($file_size <= 5000000) { // 5MB max
+            // Generate unique filename
+            $new_name = 'avatar_' . $user_id . '_' . time() . '.' . $file_ext;
+            $file_destination = $upload_dir . $new_name;
+            
+            if (move_uploaded_file($file_tmp, $file_destination)) {
+              // Update database with avatar path
+              $avatar_path = 'uploads/avatars/' . $new_name;
+              $update_avatar = "UPDATE user_acc SET avatar='$avatar_path' WHERE id='$user_id'";
+              
+              if (mysqli_query($conn, $update_avatar)) {
+                $success_message = "Avatar updated successfully!";
+              } else {
+                $error_message = "Failed to update avatar in database.";
+              }
+            } else {
+              $error_message = "Failed to upload avatar.";
+            }
+          } else {
+            $error_message = "File size too large. Maximum 5MB allowed.";
+          }
+        } else {
+          $error_message = "Invalid file type. Only JPG, JPEG, PNG, JFIF, and GIF allowed.";
+        }
+      } else {
+        $error_message = "Please select an avatar file to upload.";
+      }
+    }
+    
+    // Handle profile update
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
       $user_id = $_SESSION['user_id'];
       $name = mysqli_real_escape_string($conn, $_POST['name']);
       $email = mysqli_real_escape_string($conn, $_POST['email']);
-      $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+      $phone = mysqli_real_escape_string($conn, trim($_POST['phone']));
       $address = mysqli_real_escape_string($conn, $_POST['address']);
       $city = mysqli_real_escape_string($conn, $_POST['city']);
       $country = mysqli_real_escape_string($conn, $_POST['country']);
+      $gender = mysqli_real_escape_string($conn, $_POST['gender']);
       
       // Validate email format
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -423,7 +514,8 @@
                           phone='$phone', 
                           address='$address', 
                           city='$city', 
-                          country='$country' 
+                          country='$country',
+                          gender='$gender'
                           WHERE id='$user_id'";
           
           if (mysqli_query($conn, $update_query)) {
@@ -466,20 +558,46 @@
           <?php endif; ?>
           
           <div class='profile-header'>
-            <div class='profile-avatar' onclick="document.getElementById('avatar-upload').click()">
-              <?php echo strtoupper(substr($user_data['name'], 0, 2)); ?>
+            <div class='profile-avatar'>
+              <?php 
+              if (isset($user_data['avatar']) && !empty($user_data['avatar']) && file_exists('../' . $user_data['avatar'])): ?>
+                <img src="../<?php echo htmlspecialchars($user_data['avatar']); ?>" alt="Profile Avatar">
+              <?php else: ?>
+                <?php echo strtoupper(substr($user_data['name'], 0, 2)); ?>
+              <?php endif; ?>
               <div class='avatar-upload'>
                 <i class="fas fa-camera"></i>
               </div>
             </div>
-            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
             <div class='profile-info'>
               <h2><?php echo htmlspecialchars($user_data['name']); ?></h2>
               <p>Member since <?php echo isset($user_data['created_at']) ? date('F Y', strtotime($user_data['created_at'])) : 'N/A'; ?></p>
             </div>
           </div>
 
-          <form method="POST" id="editProfileForm" novalidate>
+          <!-- Separate Avatar Upload Form -->
+          <form method="POST" enctype="multipart/form-data" class="avatar-form">
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fas fa-camera"></i> Profile Picture
+              </h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="avatar">Upload New Avatar</label>
+                  <input type="file" id="avatar" name="avatar" class="form-control" accept="image/*" required>
+                  <small style="color: #666; font-size: 0.85rem;">Maximum file size: 5MB. Allowed formats: JPG, PNG, GIF</small>
+                  <br>
+                  <button type="submit" name="upload_avatar" class="upload-btn">
+                    <i class="fas fa-upload"></i> Upload Avatar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- Profile Information Form -->
+          <form method="POST" id="profileForm">
             <!-- Personal Information Section -->
             <div class="form-section">
               <h3 class="section-title">
@@ -490,24 +608,24 @@
                 <div class="form-group">
                   <label for="name">Full Name <span class="required">*</span></label>
                   <input type="text" id="name" name="name" class="form-control" 
-                         value="<?php echo htmlspecialchars($user_data['name']); ?>" required>
-                  <div class="error-message">Please enter your full name</div>
+                         value="<?php echo htmlspecialchars($user_data['name']); ?>" required
+                         placeholder="Full Name">
                 </div>
                 
-                <div class="form-group has-icon">
+                <div class="form-group">
                   <label for="email">Email Address <span class="required">*</span></label>
                   <input type="email" id="email" name="email" class="form-control" 
-                         value="<?php echo htmlspecialchars($user_data['email']); ?>" required>
-                  <div class="error-message">Please enter a valid email address</div>
+                         value="<?php echo htmlspecialchars($user_data['email']); ?>" required 
+                         placeholder="Email Address">
                 </div>
               </div>
               
               <div class="form-row">
-                <div class="form-group has-icon">
+                <div class="form-group">
                   <label for="phone">Phone Number</label>
-                  <input type="tel" id="phone" name="phone" class="form-control" 
-                         value="<?php echo isset($user_data['phone']) ? htmlspecialchars($user_data['phone']) : ''; ?>">
-                  <div class="error-message">Please enter a valid phone number</div>
+                  <input type="tel" id="phone" name="phone" class="form-control" pattern="[0-9+\-\s()]*"
+                  value="<?php echo isset($user_data['phone']) ? htmlspecialchars($user_data['phone']) : ''; ?>"
+                  placeholder="Phone Number">
                 </div>
                 
                 <div class="form-group">
@@ -521,6 +639,7 @@
                 </div>
               </div>
             </div>
+
 
             <!-- Address Information Section -->
             <div class="form-section">
@@ -540,7 +659,8 @@
                 <div class="form-group">
                   <label for="city">City</label>
                   <input type="text" id="city" name="city" class="form-control" 
-                         value="<?php echo isset($user_data['city']) ? htmlspecialchars($user_data['city']) : ''; ?>">
+                         value="<?php echo isset($user_data['city']) ? htmlspecialchars($user_data['city']) : ''; ?>"
+                         placeholder="Enter your city">
                 </div>
                 
                 <div class="form-group">
@@ -603,127 +723,36 @@
   </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('editProfileForm');
-  const submitBtn = document.getElementById('submitBtn');
-  
-  // Form validation
-  function validateForm() {
-    let isValid = true;
-    
-    // Name validation
-    const name = document.getElementById('name');
-    if (name.value.trim().length < 2) {
-      showError(name, 'Name must be at least 2 characters long');
-      isValid = false;
-    } else {
-      showSuccess(name);
-    }
-    
-    // Email validation
-    const email = document.getElementById('email');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.value)) {
-      showError(email, 'Please enter a valid email address');
-      isValid = false;
-    } else {
-      showSuccess(email);
-    }
-    
-    // Phone validation (optional but if provided, should be valid)
-    const phone = document.getElementById('phone');
-    if (phone.value.trim() && phone.value.trim().length < 10) {
-      showError(phone, 'Please enter a valid phone number');
-      isValid = false;
-    } else if (phone.value.trim()) {
-      showSuccess(phone);
-    }
-    
-    return isValid;
-  }
-  
-  function showError(input, message) {
-    input.classList.add('error');
-    input.classList.remove('success');
-    const errorDiv = input.nextElementSibling.classList.contains('input-icon') ? 
-                     input.parentNode.querySelector('.error-message') : 
-                     input.nextElementSibling;
-    if (errorDiv && errorDiv.classList.contains('error-message')) {
-      errorDiv.textContent = message;
-      errorDiv.classList.add('show');
-    }
-  }
-  
-  function showSuccess(input) {
-    input.classList.add('success');
-    input.classList.remove('error');
-    const errorDiv = input.nextElementSibling.classList.contains('input-icon') ? 
-                     input.parentNode.querySelector('.error-message') : 
-                     input.nextElementSibling;
-    if (errorDiv && errorDiv.classList.contains('error-message')) {
-      errorDiv.classList.remove('show');
-    }
-  }
-  
-  // Real-time validation
-  document.getElementById('name').addEventListener('blur', function() {
-    if (this.value.trim().length < 2) {
-      showError(this, 'Name must be at least 2 characters long');
-    } else {
-      showSuccess(this);
-    }
-  });
-  
-  document.getElementById('email').addEventListener('blur', function() {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.value)) {
-      showError(this, 'Please enter a valid email address');
-    } else {
-      showSuccess(this);
-    }
-  });
-  
-  document.getElementById('phone').addEventListener('blur', function() {
-    if (this.value.trim() && this.value.trim().length < 10) {
-      showError(this, 'Please enter a valid phone number');
-    } else if (this.value.trim()) {
-      showSuccess(this);
-    }
-  });
-  
-  // Form submission
-  form.addEventListener('submit', function(e) {
-    if (!validateForm()) {
-      e.preventDefault();
-      return false;
-    }
-    
-    // Show loading state
-    submitBtn.classList.add('loading');
-    submitBtn.disabled = true;
-  });
-  
-  // Avatar upload handling
-  document.getElementById('avatar-upload').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      // Here you would typically upload the file to server
-      // For now, we'll just show a placeholder
-      console.log('Avatar file selected:', file.name);
-      // You can implement actual file upload functionality here
-    }
-  });
-  
+<script>  
   // Auto-hide success message after 5 seconds
   const successMessage = document.querySelector('.success-message.show');
   if (successMessage) {
     setTimeout(() => {
       successMessage.style.opacity = '0';
       setTimeout(() => {
-        successMessage.remove();
+        if (successMessage.parentNode) {
+          successMessage.remove();
+        }
       }, 300);
     }, 5000);
+  }
+  
+  // Preview avatar before upload
+  const avatarInput = document.getElementById('avatar');
+  if (avatarInput) {
+    avatarInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const avatar = document.querySelector('.profile-avatar');
+          if (avatar) {
+            avatar.innerHTML = `<img src="${e.target.result}" alt="Preview">` + avatar.querySelector('.avatar-upload').outerHTML;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   }
 });
 </script>
