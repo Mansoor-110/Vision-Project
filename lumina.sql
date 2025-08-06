@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2025 at 01:32 PM
+-- Generation Time: Aug 06, 2025 at 10:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -408,7 +408,6 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`user_id`, `item`, `product_image`, `product_name`, `product_price`, `quantity`) VALUES
-(23, 55, 'https://lotshop.pk/cdn/shop/files/fish-shaped-mermaid-foundation-applying-makeup-brush-307485.jpg?v=1719858427&width=713', 'Fish-Shaped ', 499, 1),
 (23, 56, '../product_images/r.png', 'RUBY STUD EARRINGS', 4000, 1),
 (24, 57, '../product_images/m.webp', 'Infinite Whisper', 5999, 1),
 (24, 58, '../product_images/m4.png', 'Rhyah Peridot Pendant', 3990, 1),
@@ -418,7 +417,10 @@ INSERT INTO `cart` (`user_id`, `item`, `product_image`, `product_name`, `product
 (25, 62, 'https://cozmetica.pk/cdn/shop/files/SKIN1004_20-_20Madagascar_201004Day_20Signature_20Mini-Set_202024_800x_0c4b0e11-67c9-4f55-a477-0323a98adfb2.webp?v=1748525706&width=1426', 'SKIN1004 Madagascar', 2299, 1),
 (26, 63, '../product_images/m4.png', 'Rhyah Peridot Pendant', 3990, 1),
 (26, 64, '../product_images/m1.webp', 'Ultramarine Necklace', 3499, 1),
-(26, 65, '../product_images/rr.jpg', 'MARINA STUD ', 4999, 1);
+(26, 65, '../product_images/rr.jpg', 'MARINA STUD ', 4999, 1),
+(26, 78, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/ruby.avif', 'Customized jewellery', 6000, 1),
+(26, 79, '../product_images/r.png', 'PURPLE AMETHYST', 4000, 1),
+(26, 80, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/hrundl%20black%20diamond%201.avif', 'Customized jewellery', 7600, 1);
 
 -- --------------------------------------------------------
 
@@ -453,13 +455,431 @@ INSERT INTO `contact` (`id`, `FirstName`, `Lastname`, `Email`, `Phnum`, `Subject
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gems`
+--
+
+CREATE TABLE `gems` (
+  `gem_id` int(255) NOT NULL,
+  `gem_name` varchar(255) NOT NULL,
+  `gem_price` int(255) NOT NULL,
+  `gem_image` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gems`
+--
+
+INSERT INTO `gems` (`gem_id`, `gem_name`, `gem_price`, `gem_image`) VALUES
+(4, 'ruby', 6000, 'custom_jewellery_admin/gems/ruby-thumb.avif'),
+(5, 'emerald', 8000, 'custom_jewellery_admin/gems/emerald-thumb.avif'),
+(9, 'diamond', 20000, 'custom_jewellery_admin/gems/diamond-thumb.avif'),
+(10, 'black diamond', 7000, 'custom_jewellery_admin/gems/black diamond.avif'),
+(11, 'sapphire', 9000, 'custom_jewellery_admin/gems/sapphire.avif');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jewellery_bodies`
+--
+
+CREATE TABLE `jewellery_bodies` (
+  `id` int(255) NOT NULL,
+  `body_type` varchar(255) NOT NULL,
+  `body_image` varchar(500) NOT NULL,
+  `body_price` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jewellery_bodies`
+--
+
+INSERT INTO `jewellery_bodies` (`id`, `body_type`, `body_image`, `body_price`) VALUES
+(10, 'ring', 'custom_jewellery_admin/jewellery/bodies/ring-body.jpg', 0),
+(16, 'ring', 'custom_jewellery_admin/jewellery/bodies/ring-body-2 (1).jpg', 0),
+(17, 'ring', 'custom_jewellery_admin/jewellery/bodies/ruby heart shape ring 1.jpg', 0),
+(18, 'necklace', 'custom_jewellery_admin/jewellery/bodies/drop diamond 1.avif', 0),
+(19, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/rounded bracelet 1.webp', 0),
+(21, 'ring', 'custom_jewellery_admin/jewellery/bodies/gisu body.jpg', 900),
+(22, 'ring', 'custom_jewellery_admin/jewellery/bodies/body torment.png', 7000),
+(23, 'ring', 'custom_jewellery_admin/jewellery/bodies/lyptop body.jpg', 500),
+(24, 'ring', 'custom_jewellery_admin/jewellery/bodies/hrundl body.jpg', 600),
+(25, 'ring', 'custom_jewellery_admin/jewellery/bodies/body.jpg', 9000),
+(26, 'necklace', 'custom_jewellery_admin/jewellery/bodies/tinatin body.jpg', 7000),
+(27, 'necklace', 'custom_jewellery_admin/jewellery/bodies/zoya body.jpg', 6000),
+(28, 'necklace', 'custom_jewellery_admin/jewellery/bodies/lena body.jpg', 6000),
+(29, 'necklace', 'custom_jewellery_admin/jewellery/bodies/plevna body.jpg', 4000),
+(30, 'necklace', 'custom_jewellery_admin/jewellery/bodies/ahishar body.jpg', 5000),
+(31, 'necklace', 'custom_jewellery_admin/jewellery/bodies/cross body.jpg', 2000),
+(32, 'necklace', 'custom_jewellery_admin/jewellery/bodies/angel body.jpg', 7000),
+(33, 'earrings', 'custom_jewellery_admin/jewellery/bodies/finifugal body.jpg', 4000),
+(34, 'earrings', 'custom_jewellery_admin/jewellery/bodies/verano body.jpg', 5000),
+(35, 'earrings', 'custom_jewellery_admin/jewellery/bodies/darejni body.jpg', 6000),
+(36, 'earrings', 'custom_jewellery_admin/jewellery/bodies/xatu body.jpg', 7000),
+(37, 'earrings', 'custom_jewellery_admin/jewellery/bodies/shalev body.jpg', 6000),
+(38, 'earrings', 'custom_jewellery_admin/jewellery/bodies/legno body.jpg', 5000),
+(39, 'earrings', 'custom_jewellery_admin/jewellery/bodies/possiblitan body.jpg', 4000),
+(40, 'earrings', 'custom_jewellery_admin/jewellery/bodies/palin body.jpg', 3000),
+(41, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/finninuala body.jpg', 4000),
+(42, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/boundness body.jpg', 3000),
+(43, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/soliel body.jpg', 2000),
+(44, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/mae body.jpg', 3000),
+(45, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/krisanta body.jpg', 5000),
+(46, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/menarik body.jpg', 4000),
+(47, 'bracelet', 'custom_jewellery_admin/jewellery/bodies/jodynne  body.jpg', 5000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jewellery_variants`
+--
+
+CREATE TABLE `jewellery_variants` (
+  `id` int(255) NOT NULL,
+  `body_id` int(255) NOT NULL,
+  `gem` varchar(255) NOT NULL,
+  `position` int(255) NOT NULL,
+  `images` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jewellery_variants`
+--
+
+INSERT INTO `jewellery_variants` (`id`, `body_id`, `gem`, `position`, `images`) VALUES
+(22, 10, 'diamond', 1, 'custom_jewellery_admin/jewellery/diamond.avif'),
+(23, 10, 'diamond', 2, 'custom_jewellery_admin/jewellery/diamond-1.avif'),
+(24, 10, 'diamond', 3, 'custom_jewellery_admin/jewellery/diamond-2.avif'),
+(25, 10, 'diamond', 4, 'custom_jewellery_admin/jewellery/diamond-3.avif'),
+(26, 10, 'emerald', 1, 'custom_jewellery_admin/jewellery/emerald.avif'),
+(27, 10, 'emerald', 2, 'custom_jewellery_admin/jewellery/emerald-1.avif'),
+(28, 10, 'emerald', 3, 'custom_jewellery_admin/jewellery/emerald-2.avif'),
+(29, 10, 'emerald', 4, 'custom_jewellery_admin/jewellery/emerald-3.avif'),
+(30, 10, 'ruby', 1, 'custom_jewellery_admin/jewellery/ruby.avif'),
+(31, 10, 'ruby', 2, 'custom_jewellery_admin/jewellery/ruby-1.avif'),
+(32, 10, 'ruby', 3, 'custom_jewellery_admin/jewellery/ruby-2.avif'),
+(33, 10, 'ruby', 4, 'custom_jewellery_admin/jewellery/ruby-3.avif'),
+(46, 16, 'diamond', 1, 'custom_jewellery_admin/jewellery/custon_square_ring 1.avif'),
+(47, 16, 'diamond', 2, 'custom_jewellery_admin/jewellery/custon_square_ring 2.avif'),
+(48, 16, 'diamond', 3, 'custom_jewellery_admin/jewellery/custon_square_ring 3.avif'),
+(49, 16, 'diamond', 4, 'custom_jewellery_admin/jewellery/custon_square_ring 4.avif'),
+(50, 16, 'emerald', 1, 'custom_jewellery_admin/jewellery/custom square emerald 1.webp'),
+(51, 16, 'emerald', 2, 'custom_jewellery_admin/jewellery/custom sqare emerald 2.avif'),
+(52, 16, 'emerald', 3, 'custom_jewellery_admin/jewellery/custom sqare emerald 3.avif'),
+(53, 16, 'emerald', 4, 'custom_jewellery_admin/jewellery/custom sqare emerald 4.avif'),
+(54, 16, 'ruby', 1, 'custom_jewellery_admin/jewellery/custom square ring ruby 1.avif'),
+(55, 16, 'ruby', 2, 'custom_jewellery_admin/jewellery/custom square ring ruby 2.avif'),
+(56, 16, 'ruby', 3, 'custom_jewellery_admin/jewellery/custom square ring ruby 3.avif'),
+(57, 16, 'ruby', 4, 'custom_jewellery_admin/jewellery/custom square ring ruby 4.avif'),
+(58, 17, 'diamond', 1, 'custom_jewellery_admin/jewellery/diamond heart shape ring 1.webp'),
+(59, 17, 'diamond', 2, 'custom_jewellery_admin/jewellery/diamond heart shape ring 2.webp'),
+(60, 17, 'diamond', 3, 'custom_jewellery_admin/jewellery/diamond heart shape ring 3.avif'),
+(61, 17, 'diamond', 4, 'custom_jewellery_admin/jewellery/diamond heart shape ring 4.avif'),
+(62, 17, 'emerald', 1, 'custom_jewellery_admin/jewellery/emerald heart shape ring 1.avif'),
+(63, 17, 'emerald', 2, 'custom_jewellery_admin/jewellery/emerald heart shape ring 2.avif'),
+(64, 17, 'emerald', 3, 'custom_jewellery_admin/jewellery/diamond heart shape ring 3.avif'),
+(65, 17, 'emerald', 4, 'custom_jewellery_admin/jewellery/diamond heart shape ring 4.avif'),
+(66, 17, 'ruby', 1, 'custom_jewellery_admin/jewellery/ruby heart shape ring 1.avif'),
+(67, 17, 'ruby', 2, 'custom_jewellery_admin/jewellery/ruby heart shape ring 2.avif'),
+(68, 17, 'ruby', 3, 'custom_jewellery_admin/jewellery/ruby heart shape ring 3.avif'),
+(69, 17, 'ruby', 4, 'custom_jewellery_admin/jewellery/ruby heart shape ring 4.avif'),
+(70, 18, 'diamond', 1, 'custom_jewellery_admin/jewellery/drop diamond 1.avif'),
+(71, 18, 'diamond', 2, 'custom_jewellery_admin/jewellery/drop diamond necklace 2.avif'),
+(72, 18, 'diamond', 3, 'custom_jewellery_admin/jewellery/drop diamond necklace 3.avif'),
+(73, 18, 'emerald', 1, 'custom_jewellery_admin/jewellery/drop emerald necklace 1.avif'),
+(74, 18, 'emerald', 2, 'custom_jewellery_admin/jewellery/drop emrald necklace 2.jpg'),
+(75, 18, 'emerald', 3, 'custom_jewellery_admin/jewellery/drop emrald necklace 3.jpg'),
+(76, 18, 'ruby', 1, 'custom_jewellery_admin/jewellery/drop ruby necklace 1.avif'),
+(77, 18, 'ruby', 2, 'custom_jewellery_admin/jewellery/drop ruby necklace 2.jpg'),
+(78, 18, 'ruby', 3, 'custom_jewellery_admin/jewellery/drop ruby necklace 3.jpg'),
+(79, 19, 'diamond', 1, 'custom_jewellery_admin/jewellery/rounded bracelet 1.webp'),
+(80, 19, 'diamond', 2, 'custom_jewellery_admin/jewellery/rounded bracelet 2.webp'),
+(81, 19, 'diamond', 3, 'custom_jewellery_admin/jewellery/rounded bracelet 3.webp'),
+(82, 19, 'emerald', 1, 'custom_jewellery_admin/jewellery/rounded bracelet 1 emerald.webp'),
+(83, 19, 'emerald', 2, 'custom_jewellery_admin/jewellery/rounded bracelet 2 emerald.avif'),
+(84, 19, 'emerald', 3, 'custom_jewellery_admin/jewellery/rounded bracelet 3emerald.webp'),
+(85, 19, 'ruby', 1, 'custom_jewellery_admin/jewellery/rounded bracelet 1.avif'),
+(86, 19, 'ruby', 2, 'custom_jewellery_admin/jewellery/rounded bracelet  ruby 2.avif'),
+(87, 19, 'ruby', 3, 'custom_jewellery_admin/jewellery/rounded bracelet 3 ruby (2).webp'),
+(88, 21, 'diamond', 1, 'custom_jewellery_admin/jewellery/gisu diamond 1.avif'),
+(89, 21, 'diamond', 2, 'custom_jewellery_admin/jewellery/gisu diamond 2.avif'),
+(90, 21, 'diamond', 3, 'custom_jewellery_admin/jewellery/gisu diamond 3.avif'),
+(91, 21, 'emerald', 1, 'custom_jewellery_admin/jewellery/gisu emerald 1.avif'),
+(92, 21, 'emerald', 2, 'custom_jewellery_admin/jewellery/gisu emerald 2.avif'),
+(93, 21, 'emerald', 3, 'custom_jewellery_admin/jewellery/gisu diamond 3.avif'),
+(94, 21, 'ruby', 1, 'custom_jewellery_admin/jewellery/gisu ruby 1.avif'),
+(95, 21, 'ruby', 2, 'custom_jewellery_admin/jewellery/gisu ruby 2.avif'),
+(96, 21, 'ruby', 3, 'custom_jewellery_admin/jewellery/gisu ruby 3.avif'),
+(97, 22, 'diamond', 1, 'custom_jewellery_admin/jewellery/torment diamond 1.avif'),
+(98, 22, 'diamond', 2, 'custom_jewellery_admin/jewellery/torment diamond 2.avif'),
+(99, 22, 'diamond', 3, 'custom_jewellery_admin/jewellery/torment diamond 3.avif'),
+(100, 22, 'ruby', 1, 'custom_jewellery_admin/jewellery/torment ruby 1.avif'),
+(101, 22, 'ruby', 2, 'custom_jewellery_admin/jewellery/torment ruby 2.avif'),
+(102, 22, 'ruby', 3, 'custom_jewellery_admin/jewellery/torment ruby 3.avif'),
+(103, 22, 'black diamond', 1, 'custom_jewellery_admin/jewellery/black diamond torment 1.jpg'),
+(104, 22, 'black diamond', 2, 'custom_jewellery_admin/jewellery/black diamond torment 2.avif'),
+(105, 22, 'black diamond', 3, 'custom_jewellery_admin/jewellery/black diamond torment 3.avif'),
+(106, 23, 'diamond', 1, 'custom_jewellery_admin/jewellery/lytop diamond 1.avif'),
+(107, 23, 'diamond', 2, 'custom_jewellery_admin/jewellery/lytop diamond 2.avif'),
+(108, 23, 'diamond', 3, 'custom_jewellery_admin/jewellery/lytop diamond 3.avif'),
+(109, 23, 'emerald', 1, 'custom_jewellery_admin/jewellery/lytop emerald 1.avif'),
+(110, 23, 'emerald', 2, 'custom_jewellery_admin/jewellery/lytop emerald 2.avif'),
+(111, 23, 'emerald', 3, 'custom_jewellery_admin/jewellery/lytop emerald 3.avif'),
+(112, 23, 'ruby', 1, 'custom_jewellery_admin/jewellery/lytop ruby 1.avif'),
+(113, 23, 'ruby', 2, 'custom_jewellery_admin/jewellery/lyptop ruby 2.jpg'),
+(114, 23, 'ruby', 3, 'custom_jewellery_admin/jewellery/lyptop ruby 3.avif'),
+(115, 24, 'diamond', 1, 'custom_jewellery_admin/jewellery/hrundl diamond 1.avif'),
+(116, 24, 'diamond', 2, 'custom_jewellery_admin/jewellery/hrundl diamond 2.avif'),
+(117, 24, 'diamond', 3, 'custom_jewellery_admin/jewellery/hrundl diamond 3.avif'),
+(118, 24, 'emerald', 1, 'custom_jewellery_admin/jewellery/hrundl emerald 1.avif'),
+(119, 24, 'emerald', 2, 'custom_jewellery_admin/jewellery/hrundl emerald 2.avif'),
+(120, 24, 'emerald', 3, 'custom_jewellery_admin/jewellery/hrundl emerald 3.avif'),
+(121, 24, 'ruby', 1, 'custom_jewellery_admin/jewellery/hrundl ruby 1.avif'),
+(122, 24, 'ruby', 2, 'custom_jewellery_admin/jewellery/hrundl ruby 2.avif'),
+(123, 24, 'ruby', 3, 'custom_jewellery_admin/jewellery/hrundl ruby 3.avif'),
+(124, 24, 'black diamond', 1, 'custom_jewellery_admin/jewellery/hrundl black diamond 1.avif'),
+(125, 24, 'black diamond', 2, 'custom_jewellery_admin/jewellery/hrundl black diamond 2.avif'),
+(126, 24, 'black diamond', 3, 'custom_jewellery_admin/jewellery/hrundl black diamond 3.jpg'),
+(127, 24, 'sapphire', 1, 'custom_jewellery_admin/jewellery/hrundl sapphire 1.avif'),
+(128, 24, 'sapphire', 2, 'custom_jewellery_admin/jewellery/hrundl sapphire 2.avif'),
+(129, 24, 'sapphire', 3, 'custom_jewellery_admin/jewellery/hrundl sapphire 3.avif'),
+(130, 25, 'diamond', 1, 'custom_jewellery_admin/jewellery/alcosta diamond 1.avif'),
+(131, 25, 'diamond', 2, 'custom_jewellery_admin/jewellery/alcosta diamond 2.jpg'),
+(132, 25, 'diamond', 3, 'custom_jewellery_admin/jewellery/alcosta diamond 3.avif'),
+(133, 25, 'emerald', 1, 'custom_jewellery_admin/jewellery/alcosta emerald 1.avif'),
+(134, 25, 'emerald', 2, 'custom_jewellery_admin/jewellery/alcosta emerald 2.avif'),
+(135, 25, 'emerald', 3, 'custom_jewellery_admin/jewellery/alcosta emerald 3.jpg'),
+(136, 25, 'ruby', 1, 'custom_jewellery_admin/jewellery/alcosta ruby 1.avif'),
+(137, 25, 'ruby', 2, 'custom_jewellery_admin/jewellery/alcosta ruby 2.jpg'),
+(138, 25, 'ruby', 3, 'custom_jewellery_admin/jewellery/alcosta ruby 3.jpg'),
+(139, 25, 'black diamond', 1, 'custom_jewellery_admin/jewellery/alcosta black diamond 1.avif'),
+(140, 25, 'black diamond', 2, 'custom_jewellery_admin/jewellery/alcosta black diamond 2.avif'),
+(141, 25, 'black diamond', 3, 'custom_jewellery_admin/jewellery/alcosta black diamond 3.jpg'),
+(142, 25, 'sapphire', 1, 'custom_jewellery_admin/jewellery/alcosta sapphire 1.jpg'),
+(143, 25, 'sapphire', 2, 'custom_jewellery_admin/jewellery/alcosta sapphire 2.jpg'),
+(144, 25, 'sapphire', 3, 'custom_jewellery_admin/jewellery/alcosta sapphire 3.jpg'),
+(145, 26, 'diamond', 1, 'custom_jewellery_admin/jewellery/tinatin diamond 1.avif'),
+(146, 26, 'diamond', 2, 'custom_jewellery_admin/jewellery/tinatin diamond 2.jpg'),
+(147, 26, 'diamond', 3, 'custom_jewellery_admin/jewellery/tinatin diamond 3.avif'),
+(148, 26, 'emerald', 1, 'custom_jewellery_admin/jewellery/tinatin emerald 1.avif'),
+(149, 26, 'emerald', 2, 'custom_jewellery_admin/jewellery/tinatin emerald 2.jpg'),
+(150, 26, 'emerald', 3, 'custom_jewellery_admin/jewellery/tinatin emerald 3.jpg'),
+(151, 26, 'ruby', 1, 'custom_jewellery_admin/jewellery/tinatin ruby 1.jpg'),
+(152, 26, 'ruby', 2, 'custom_jewellery_admin/jewellery/tinatin ruby 2.jpg'),
+(153, 26, 'ruby', 3, 'custom_jewellery_admin/jewellery/tinatin ruby 3.jpg'),
+(154, 26, 'sapphire', 1, 'custom_jewellery_admin/jewellery/tinatin sapphire 1.avif'),
+(155, 26, 'sapphire', 2, 'custom_jewellery_admin/jewellery/tinatin sapphire 2.jpg'),
+(156, 26, 'sapphire', 3, 'custom_jewellery_admin/jewellery/tinatin sapphire 3.avif'),
+(157, 27, 'diamond', 1, 'custom_jewellery_admin/jewellery/zoya diamond 1.avif'),
+(158, 27, 'diamond', 2, 'custom_jewellery_admin/jewellery/zoya diamond 2.webp'),
+(159, 27, 'diamond', 3, 'custom_jewellery_admin/jewellery/zoya diamond 3.webp'),
+(160, 27, 'emerald', 1, 'custom_jewellery_admin/jewellery/zoya emerald 1.avif'),
+(161, 27, 'emerald', 2, 'custom_jewellery_admin/jewellery/zoya emerald 2.avif'),
+(162, 27, 'emerald', 3, 'custom_jewellery_admin/jewellery/zoya emerald 3.avif'),
+(163, 27, 'ruby', 1, 'custom_jewellery_admin/jewellery/zoya ruby 1.avif'),
+(164, 27, 'ruby', 2, 'custom_jewellery_admin/jewellery/zoya ruby 2.avif'),
+(165, 27, 'ruby', 3, 'custom_jewellery_admin/jewellery/zoya ruby 3.avif'),
+(166, 28, 'diamond', 1, 'custom_jewellery_admin/jewellery/lena diamond 1.avif'),
+(167, 28, 'diamond', 2, 'custom_jewellery_admin/jewellery/lena diamond 2.avif'),
+(168, 28, 'emerald', 1, 'custom_jewellery_admin/jewellery/lena emerald 1.avif'),
+(170, 28, 'ruby', 1, 'custom_jewellery_admin/jewellery/lena ruby 1.avif'),
+(171, 28, 'ruby', 2, 'custom_jewellery_admin/jewellery/lena ruby 2.avif'),
+(172, 28, 'sapphire', 1, 'custom_jewellery_admin/jewellery/lena sapphire 1.avif'),
+(173, 28, 'sapphire', 2, 'custom_jewellery_admin/jewellery/lena sapphire 2.avif'),
+(174, 29, 'diamond', 1, 'custom_jewellery_admin/jewellery/plevna diamond 1.avif'),
+(175, 29, 'diamond', 2, 'custom_jewellery_admin/jewellery/plevna diamond 2.jpg'),
+(176, 29, 'diamond', 3, 'custom_jewellery_admin/jewellery/plevna diamond 3.jpg'),
+(177, 29, 'emerald', 1, 'custom_jewellery_admin/jewellery/plevna emerald 1.avif'),
+(178, 29, 'emerald', 2, 'custom_jewellery_admin/jewellery/plevna emerald 2.avif'),
+(179, 29, 'emerald', 3, 'custom_jewellery_admin/jewellery/plevna emerald 3.avif'),
+(180, 29, 'ruby', 1, 'custom_jewellery_admin/jewellery/plevna ruby 1.avif'),
+(181, 29, 'ruby', 2, 'custom_jewellery_admin/jewellery/plevna ruby 2.avif'),
+(182, 29, 'ruby', 3, 'custom_jewellery_admin/jewellery/plevna ruby 3.jpg'),
+(183, 30, 'diamond', 1, 'custom_jewellery_admin/jewellery/ahishar diamond 1.avif'),
+(184, 30, 'diamond', 2, 'custom_jewellery_admin/jewellery/ahishar diamond 2.jpg'),
+(185, 30, 'diamond', 3, 'custom_jewellery_admin/jewellery/ahishar diamond 3.avif'),
+(186, 30, 'ruby', 1, 'custom_jewellery_admin/jewellery/ahishar ruby 1.avif'),
+(187, 30, 'ruby', 2, 'custom_jewellery_admin/jewellery/ahishar ruby 2.jpg'),
+(188, 30, 'ruby', 3, 'custom_jewellery_admin/jewellery/ahishar ruby 3.avif'),
+(189, 30, 'black diamond', 1, 'custom_jewellery_admin/jewellery/ahishar black diamond 1.jpg'),
+(190, 30, 'black diamond', 2, 'custom_jewellery_admin/jewellery/ahishar black diamond 2.jpg'),
+(191, 30, 'black diamond', 3, 'custom_jewellery_admin/jewellery/ahishsar black diamond 3.jpg'),
+(192, 31, 'diamond', 1, 'custom_jewellery_admin/jewellery/cross diamond 1.avif'),
+(193, 31, 'diamond', 2, 'custom_jewellery_admin/jewellery/cross diamond 2.avif'),
+(194, 31, 'diamond', 3, 'custom_jewellery_admin/jewellery/cross diamond 3.avif'),
+(195, 31, 'emerald', 1, 'custom_jewellery_admin/jewellery/cross emerald 1.avif'),
+(196, 31, 'emerald', 2, 'custom_jewellery_admin/jewellery/cross emerald 2.jpg'),
+(197, 31, 'emerald', 3, 'custom_jewellery_admin/jewellery/cross emerald 3.avif'),
+(198, 31, 'ruby', 1, 'custom_jewellery_admin/jewellery/cross ruby 1.avif'),
+(199, 31, 'ruby', 2, 'custom_jewellery_admin/jewellery/cross ruby 2.avif'),
+(200, 31, 'ruby', 3, 'custom_jewellery_admin/jewellery/cross ruby 3.avif'),
+(201, 32, 'diamond', 1, 'custom_jewellery_admin/jewellery/angel diamond 1.avif'),
+(202, 32, 'diamond', 2, 'custom_jewellery_admin/jewellery/angel diamond 2.avif'),
+(203, 32, 'diamond', 3, 'custom_jewellery_admin/jewellery/angel diamond 3.avif'),
+(204, 32, 'emerald', 1, 'custom_jewellery_admin/jewellery/angel emerald 1.avif'),
+(205, 32, 'emerald', 2, 'custom_jewellery_admin/jewellery/angel emerald 2.avif'),
+(206, 32, 'emerald', 3, 'custom_jewellery_admin/jewellery/angel emerald 3.jpg'),
+(207, 32, 'ruby', 1, 'custom_jewellery_admin/jewellery/angel ruby 1.avif'),
+(208, 32, 'ruby', 2, 'custom_jewellery_admin/jewellery/angel ruby 2.jpg'),
+(209, 32, 'ruby', 3, 'custom_jewellery_admin/jewellery/angel ruby 3.jpg'),
+(210, 32, 'sapphire', 1, 'custom_jewellery_admin/jewellery/angel sapphire 1.avif'),
+(211, 32, 'sapphire', 2, 'custom_jewellery_admin/jewellery/angel sapphire 2.avif'),
+(212, 32, 'sapphire', 3, 'custom_jewellery_admin/jewellery/angel sapphire 3.avif'),
+(213, 28, 'emerald', 2, 'custom_jewellery_admin/jewellery/lena emerald 2.avif'),
+(214, 33, 'diamond', 1, 'custom_jewellery_admin/jewellery/finifugal diamond 1.avif'),
+(215, 33, 'diamond', 2, 'custom_jewellery_admin/jewellery/finifugal diamond 2.avif'),
+(216, 33, 'diamond', 3, 'custom_jewellery_admin/jewellery/finifugal diamond 3.avif'),
+(217, 33, 'emerald', 1, 'custom_jewellery_admin/jewellery/finifugal emerald 1.avif'),
+(218, 33, 'emerald', 2, 'custom_jewellery_admin/jewellery/finifugal emerald 2.jpg'),
+(219, 33, 'emerald', 3, 'custom_jewellery_admin/jewellery/finifugal emerald 3.jpg'),
+(220, 33, 'ruby', 1, 'custom_jewellery_admin/jewellery/finifugal ruby `.avif'),
+(221, 33, 'ruby', 2, 'custom_jewellery_admin/jewellery/finifugal ruby 2.avif'),
+(222, 33, 'ruby', 3, 'custom_jewellery_admin/jewellery/finifugal ruby 3.jpg'),
+(223, 34, 'diamond', 1, 'custom_jewellery_admin/jewellery/verano diamond 1.avif'),
+(224, 34, 'diamond', 2, 'custom_jewellery_admin/jewellery/verano diamond 2.webp'),
+(225, 34, 'diamond', 3, 'custom_jewellery_admin/jewellery/verano diamond 4.webp'),
+(226, 34, 'ruby', 1, 'custom_jewellery_admin/jewellery/verano ruby 1.jpg'),
+(227, 34, 'ruby', 2, 'custom_jewellery_admin/jewellery/verano ruby 2.webp'),
+(228, 34, 'ruby', 3, 'custom_jewellery_admin/jewellery/verano ruby 3.jpg'),
+(229, 34, 'emerald', 1, 'custom_jewellery_admin/jewellery/verano emerald 1.jpg'),
+(230, 34, 'emerald', 2, 'custom_jewellery_admin/jewellery/verano emerald 2.jpg'),
+(231, 34, 'emerald', 3, 'custom_jewellery_admin/jewellery/verano emerald 3.jpg'),
+(232, 34, 'black diamond', 1, 'custom_jewellery_admin/jewellery/verano black diamond 1.jpg'),
+(233, 34, 'black diamond', 2, 'custom_jewellery_admin/jewellery/verano black diamond 2.jpg'),
+(234, 34, 'black diamond', 3, 'custom_jewellery_admin/jewellery/verano black diamond 3.webp'),
+(235, 35, 'diamond', 1, 'custom_jewellery_admin/jewellery/darejni diamond 1.avif'),
+(236, 35, 'diamond', 2, 'custom_jewellery_admin/jewellery/darejni diamond 2.avif'),
+(237, 35, 'diamond', 3, 'custom_jewellery_admin/jewellery/darejni diamond 3.jpg'),
+(238, 35, 'emerald', 1, 'custom_jewellery_admin/jewellery/darejni emerald 1.avif'),
+(239, 35, 'emerald', 2, 'custom_jewellery_admin/jewellery/darejni emerald 32.avif'),
+(240, 35, 'emerald', 3, 'custom_jewellery_admin/jewellery/darejni emerald 3.avif'),
+(241, 35, 'ruby', 1, 'custom_jewellery_admin/jewellery/darejni ruby.avif'),
+(242, 35, 'ruby', 2, 'custom_jewellery_admin/jewellery/darejni ruby 2.jpg'),
+(243, 35, 'ruby', 3, 'custom_jewellery_admin/jewellery/darejni ruby 3.avif'),
+(244, 36, 'diamond', 1, 'custom_jewellery_admin/jewellery/xatu diamond 1.avif'),
+(245, 36, 'diamond', 2, 'custom_jewellery_admin/jewellery/xatu diamond 2.avif'),
+(246, 36, 'diamond', 3, 'custom_jewellery_admin/jewellery/xatu diamond 3.avif'),
+(247, 36, 'emerald', 1, 'custom_jewellery_admin/jewellery/xatu emerald 1.avif'),
+(248, 36, 'emerald', 2, 'custom_jewellery_admin/jewellery/xatu emerald 2.avif'),
+(249, 36, 'emerald', 3, 'custom_jewellery_admin/jewellery/xatu emerald 3.avif'),
+(250, 36, 'ruby', 1, 'custom_jewellery_admin/jewellery/xatu ruby 1.avif'),
+(251, 36, 'ruby', 2, 'custom_jewellery_admin/jewellery/xatu ruby 2.avif'),
+(252, 36, 'ruby', 3, 'custom_jewellery_admin/jewellery/xatu ruby 3.avif'),
+(253, 37, 'diamond', 1, 'custom_jewellery_admin/jewellery/shalev diamond 1.avif'),
+(254, 37, 'diamond', 2, 'custom_jewellery_admin/jewellery/shaliv diamond 2.avif'),
+(255, 37, 'diamond', 3, 'custom_jewellery_admin/jewellery/shalev diamond 3.jpg'),
+(256, 37, 'emerald', 1, 'custom_jewellery_admin/jewellery/shalev emerald 1.avif'),
+(257, 37, 'emerald', 2, 'custom_jewellery_admin/jewellery/shalev emerald 2.avif'),
+(258, 37, 'emerald', 3, 'custom_jewellery_admin/jewellery/shalev emerald 3.avif'),
+(259, 37, 'ruby', 1, 'custom_jewellery_admin/jewellery/shalev ruby 1.avif'),
+(260, 37, 'ruby', 2, 'custom_jewellery_admin/jewellery/shalev ruby 2.jpg'),
+(261, 37, 'ruby', 3, 'custom_jewellery_admin/jewellery/shalev ruby 3.jpg'),
+(262, 38, 'diamond', 1, 'custom_jewellery_admin/jewellery/legno diamond 1.avif'),
+(263, 38, 'diamond', 2, 'custom_jewellery_admin/jewellery/legno diamond 2.avif'),
+(264, 38, 'diamond', 3, 'custom_jewellery_admin/jewellery/legno diamond 3.jpg'),
+(265, 38, 'emerald', 1, 'custom_jewellery_admin/jewellery/legno emerald 1.avif'),
+(266, 38, 'emerald', 2, 'custom_jewellery_admin/jewellery/legno emerald 2.jpg'),
+(267, 38, 'emerald', 3, 'custom_jewellery_admin/jewellery/legno emerald 3.jpg'),
+(268, 38, 'ruby', 1, 'custom_jewellery_admin/jewellery/legno ruby 1.avif'),
+(269, 38, 'ruby', 2, 'custom_jewellery_admin/jewellery/legno ruby 2.avif'),
+(270, 38, 'ruby', 3, 'custom_jewellery_admin/jewellery/legno ruby 3.avif'),
+(271, 39, 'diamond', 1, 'custom_jewellery_admin/jewellery/diamond possibilitan 1.avif'),
+(272, 39, 'diamond', 2, 'custom_jewellery_admin/jewellery/diamond possibilitan 2.avif'),
+(273, 39, 'diamond', 3, 'custom_jewellery_admin/jewellery/diamond possibilitan.avif'),
+(274, 39, 'emerald', 1, 'custom_jewellery_admin/jewellery/emerald possiblitan 1.avif'),
+(275, 39, 'emerald', 2, 'custom_jewellery_admin/jewellery/emerald possiblitan 2.avif'),
+(276, 39, 'emerald', 3, 'custom_jewellery_admin/jewellery/emerald possiblitan 3.avif'),
+(277, 39, 'ruby', 1, 'custom_jewellery_admin/jewellery/ruby possibilitan 1.avif'),
+(278, 39, 'ruby', 2, 'custom_jewellery_admin/jewellery/ruby possibilitan 2.avif'),
+(279, 39, 'ruby', 3, 'custom_jewellery_admin/jewellery/ruby possibilitan 3.avif'),
+(280, 40, 'diamond', 1, 'custom_jewellery_admin/jewellery/palin diamond 1.avif'),
+(281, 40, 'diamond', 2, 'custom_jewellery_admin/jewellery/palin diamond 2.avif'),
+(282, 40, 'diamond', 3, 'custom_jewellery_admin/jewellery/palin diamond 3.avif'),
+(283, 40, 'emerald', 1, 'custom_jewellery_admin/jewellery/palin emerald 1.avif'),
+(284, 40, 'emerald', 2, 'custom_jewellery_admin/jewellery/palin emerald 2.jpg'),
+(285, 40, 'emerald', 3, 'custom_jewellery_admin/jewellery/palin emerald 3.avif'),
+(286, 40, 'ruby', 1, 'custom_jewellery_admin/jewellery/palin ruby 1.avif'),
+(287, 40, 'ruby', 2, 'custom_jewellery_admin/jewellery/palin ruby 2.avif'),
+(288, 40, 'ruby', 3, 'custom_jewellery_admin/jewellery/palin ruby 3.avif'),
+(289, 41, 'diamond', 1, 'custom_jewellery_admin/jewellery/finninuala diamond 1.avif'),
+(290, 41, 'diamond', 2, 'custom_jewellery_admin/jewellery/finninuala diamond 2.avif'),
+(291, 41, 'diamond', 3, 'custom_jewellery_admin/jewellery/finninuala diamond 3.avif'),
+(292, 41, 'emerald', 1, 'custom_jewellery_admin/jewellery/finninuala emerald 1.avif'),
+(293, 41, 'emerald', 2, 'custom_jewellery_admin/jewellery/finninuala emerald 2.avif'),
+(294, 41, 'emerald', 3, 'custom_jewellery_admin/jewellery/finninuala emerald 3.avif'),
+(295, 41, 'ruby', 1, 'custom_jewellery_admin/jewellery/finnuala ruby 1.webp'),
+(296, 41, 'ruby', 2, 'custom_jewellery_admin/jewellery/finnuala ruby 2.avif'),
+(297, 41, 'ruby', 3, 'custom_jewellery_admin/jewellery/finnuala ruby 3.avif'),
+(298, 42, 'diamond', 1, 'custom_jewellery_admin/jewellery/boundness diamond 1.jpg'),
+(299, 42, 'diamond', 2, 'custom_jewellery_admin/jewellery/boundness diamond 2.avif'),
+(300, 42, 'diamond', 3, 'custom_jewellery_admin/jewellery/boundness diamond 3.avif'),
+(301, 42, 'emerald', 1, 'custom_jewellery_admin/jewellery/boundess emerald 1.avif'),
+(302, 42, 'emerald', 2, 'custom_jewellery_admin/jewellery/boundness emerald 2.avif'),
+(303, 42, 'emerald', 3, 'custom_jewellery_admin/jewellery/boundness emerald 3.jpg'),
+(304, 42, 'ruby', 1, 'custom_jewellery_admin/jewellery/boundness ruby 1.avif'),
+(305, 42, 'ruby', 2, 'custom_jewellery_admin/jewellery/boundness ruby 2.avif'),
+(306, 42, 'ruby', 3, 'custom_jewellery_admin/jewellery/boundness ruby 3.avif'),
+(307, 43, 'diamond', 1, 'custom_jewellery_admin/jewellery/soliel diamond 1.avif'),
+(308, 43, 'diamond', 2, 'custom_jewellery_admin/jewellery/soliel diamond 2.avif'),
+(309, 43, 'diamond', 3, 'custom_jewellery_admin/jewellery/soliel diamond 3.avif'),
+(310, 43, 'emerald', 1, 'custom_jewellery_admin/jewellery/soliel emerald 1.avif'),
+(311, 43, 'emerald', 2, 'custom_jewellery_admin/jewellery/soliel emerald 2.jpg'),
+(312, 43, 'emerald', 3, 'custom_jewellery_admin/jewellery/soliel emerald 3.jpg'),
+(313, 43, 'ruby', 1, 'custom_jewellery_admin/jewellery/soleil ruby 1.jpg'),
+(314, 43, 'ruby', 2, 'custom_jewellery_admin/jewellery/soleil ruby 2.jpg'),
+(315, 43, 'ruby', 3, 'custom_jewellery_admin/jewellery/soleil ruby 3.jpg'),
+(316, 44, 'diamond', 1, 'custom_jewellery_admin/jewellery/mae diamond 1.avif'),
+(317, 44, 'diamond', 2, 'custom_jewellery_admin/jewellery/mae diamond 2.avif'),
+(318, 44, 'diamond', 3, 'custom_jewellery_admin/jewellery/mae diamond 3.avif'),
+(319, 44, 'emerald', 1, 'custom_jewellery_admin/jewellery/mae emerald 1.avif'),
+(320, 44, 'emerald', 2, 'custom_jewellery_admin/jewellery/mae emerald 2.avif'),
+(321, 44, 'emerald', 3, 'custom_jewellery_admin/jewellery/mae emerald 3.jpg'),
+(322, 44, 'ruby', 1, 'custom_jewellery_admin/jewellery/mae ruby 1.avif'),
+(323, 44, 'ruby', 2, 'custom_jewellery_admin/jewellery/mae ruby 2.avif'),
+(324, 44, 'ruby', 3, 'custom_jewellery_admin/jewellery/mae ruby 3.avif'),
+(325, 45, 'diamond', 1, 'custom_jewellery_admin/jewellery/krisanta diamond 1.avif'),
+(326, 45, 'diamond', 2, 'custom_jewellery_admin/jewellery/krisanta diamond 2.avif'),
+(327, 45, 'diamond', 3, 'custom_jewellery_admin/jewellery/krisanta diamond 3.avif'),
+(328, 45, 'emerald', 1, 'custom_jewellery_admin/jewellery/krisanta emerald 3.avif'),
+(329, 45, 'emerald', 2, 'custom_jewellery_admin/jewellery/krisanta emerald 2.avif'),
+(330, 45, 'emerald', 3, 'custom_jewellery_admin/jewellery/krisanta emerald 3.webp'),
+(331, 45, 'ruby', 1, 'custom_jewellery_admin/jewellery/krisanta ruby 1.jpg'),
+(332, 45, 'ruby', 2, 'custom_jewellery_admin/jewellery/krisanta ruby 2.webp'),
+(333, 45, 'ruby', 3, 'custom_jewellery_admin/jewellery/krisanta ruby 3.avif'),
+(334, 46, 'diamond', 1, 'custom_jewellery_admin/jewellery/menarik diamond 1.avif'),
+(335, 46, 'diamond', 2, 'custom_jewellery_admin/jewellery/menarik diamond 2.avif'),
+(336, 46, 'diamond', 3, 'custom_jewellery_admin/jewellery/menarik diamond 3.jpg'),
+(337, 46, 'emerald', 1, 'custom_jewellery_admin/jewellery/menarik emerald `1.jpg'),
+(338, 46, 'emerald', 2, 'custom_jewellery_admin/jewellery/menarik emerald 2.avif'),
+(339, 46, 'emerald', 3, 'custom_jewellery_admin/jewellery/menarik emerald 3.jpg'),
+(340, 46, 'ruby', 1, 'custom_jewellery_admin/jewellery/menarik ruby 1.jpg'),
+(341, 46, 'ruby', 2, 'custom_jewellery_admin/jewellery/menarik ruby 2.jpg'),
+(342, 46, 'ruby', 3, 'custom_jewellery_admin/jewellery/menarik ruby 3.jpg'),
+(343, 47, 'diamond', 1, 'custom_jewellery_admin/jewellery/jodynne diamond 1.avif'),
+(344, 47, 'diamond', 2, 'custom_jewellery_admin/jewellery/jodynne diamond 2.jpg'),
+(345, 47, 'diamond', 3, 'custom_jewellery_admin/jewellery/jodynne diamond 3.jpg'),
+(346, 47, 'emerald', 1, 'custom_jewellery_admin/jewellery/jodynne emerald 1.avif'),
+(347, 47, 'emerald', 2, 'custom_jewellery_admin/jewellery/jodynne emerald 2.avif'),
+(348, 47, 'emerald', 3, 'custom_jewellery_admin/jewellery/jodynne emerald 3.avif'),
+(349, 47, 'ruby', 1, 'custom_jewellery_admin/jewellery/jodynne ruby 1.jpg'),
+(350, 47, 'ruby', 2, 'custom_jewellery_admin/jewellery/jodynne ruby 2.avif'),
+(351, 47, 'ruby', 3, 'custom_jewellery_admin/jewellery/jodynne ruby 3.avif');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_acc`
 --
 
 CREATE TABLE `user_acc` (
   `id` int(255) NOT NULL,
+  `avatar` varchar(300) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` varchar(250) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `country` varchar(150) NOT NULL,
+  `gender` varchar(100) NOT NULL,
   `password` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -467,11 +887,11 @@ CREATE TABLE `user_acc` (
 -- Dumping data for table `user_acc`
 --
 
-INSERT INTO `user_acc` (`id`, `name`, `email`, `password`) VALUES
-(23, 'farazkhan', 'farazkhan61512@gmail.com', 'fk$12345678'),
-(24, 'Miswer', 'miswer@gmail.com', 'miswer'),
-(25, 'Aliyan', 'aliyan6464@gmail.com', 'aliyan'),
-(26, 'Mansoor', 'mansoor@gmail.com', 'mansoor');
+INSERT INTO `user_acc` (`id`, `avatar`, `name`, `email`, `phone`, `address`, `city`, `country`, `gender`, `password`) VALUES
+(23, '', 'farazkhan', 'farazkhan61512@gmail.com', '', '', '', '', '', 'fk$12345678'),
+(24, '', 'Miswer', 'miswer@gmail.com', '', '', '', '', '', 'miswer'),
+(25, '', 'Aliyan', 'aliyan6464@gmail.com', '', '', '', '', '', 'aliyan'),
+(26, '', 'Mansoor', 'mansoor@gmail.com', '', '', '', '', '', 'mansoor');
 
 -- --------------------------------------------------------
 
@@ -534,6 +954,25 @@ ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `gems`
+--
+ALTER TABLE `gems`
+  ADD PRIMARY KEY (`gem_id`);
+
+--
+-- Indexes for table `jewellery_bodies`
+--
+ALTER TABLE `jewellery_bodies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jewellery_variants`
+--
+ALTER TABLE `jewellery_variants`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bodies_body_id` (`body_id`);
+
+--
 -- Indexes for table `user_acc`
 --
 ALTER TABLE `user_acc`
@@ -571,13 +1010,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `gems`
+--
+ALTER TABLE `gems`
+  MODIFY `gem_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `jewellery_bodies`
+--
+ALTER TABLE `jewellery_bodies`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `jewellery_variants`
+--
+ALTER TABLE `jewellery_variants`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
 
 --
 -- AUTO_INCREMENT for table `user_acc`
@@ -606,6 +1063,12 @@ ALTER TABLE `additional_images`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_user` FOREIGN KEY (`user_id`) REFERENCES `user_acc` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `jewellery_variants`
+--
+ALTER TABLE `jewellery_variants`
+  ADD CONSTRAINT `bodies_body_id` FOREIGN KEY (`body_id`) REFERENCES `jewellery_bodies` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

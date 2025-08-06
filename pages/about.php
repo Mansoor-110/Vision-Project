@@ -9,7 +9,7 @@ include "../includes/header.php";
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', serif;
             line-height: 1.6;
             color: #2c1810;
             background: #ffffff;

@@ -22,7 +22,7 @@ if (isset($_GET['search'])) {
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
             color: #ffffff;
             overflow-x: hidden;

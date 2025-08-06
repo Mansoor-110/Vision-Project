@@ -17,7 +17,7 @@ include"../includes/header.php"
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #ffffff 0%, #f8f6f4 100%);
             color: #2c1810;
             overflow-x: hidden;
