@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2025 at 11:12 PM
+-- Generation Time: Aug 06, 2025 at 10:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -872,8 +872,14 @@ INSERT INTO `jewellery_variants` (`id`, `body_id`, `gem`, `position`, `images`) 
 
 CREATE TABLE `user_acc` (
   `id` int(255) NOT NULL,
+  `avatar` varchar(300) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` varchar(250) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `country` varchar(150) NOT NULL,
+  `gender` varchar(100) NOT NULL,
   `password` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -881,11 +887,11 @@ CREATE TABLE `user_acc` (
 -- Dumping data for table `user_acc`
 --
 
-INSERT INTO `user_acc` (`id`, `name`, `email`, `password`) VALUES
-(23, 'farazkhan', 'farazkhan61512@gmail.com', 'fk$12345678'),
-(24, 'Miswer', 'miswer@gmail.com', 'miswer'),
-(25, 'Aliyan', 'aliyan6464@gmail.com', 'aliyan'),
-(26, 'Mansoor', 'mansoor@gmail.com', 'mansoor');
+INSERT INTO `user_acc` (`id`, `avatar`, `name`, `email`, `phone`, `address`, `city`, `country`, `gender`, `password`) VALUES
+(23, '', 'farazkhan', 'farazkhan61512@gmail.com', '', '', '', '', '', 'fk$12345678'),
+(24, '', 'Miswer', 'miswer@gmail.com', '', '', '', '', '', 'miswer'),
+(25, '', 'Aliyan', 'aliyan6464@gmail.com', '', '', '', '', '', 'aliyan'),
+(26, '', 'Mansoor', 'mansoor@gmail.com', '', '', '', '', '', 'mansoor');
 
 -- --------------------------------------------------------
 

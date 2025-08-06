@@ -896,6 +896,7 @@ $acc_title=$acc_data['name'];
                         </a>
                     </button>
                     <button class="action-btn" title="<?php echo $acc_title ?>">
+                        <a href="../account/account.php" class="text-white">
                         <i class="fas fa-user"></i>
                     </button>
                     <button class="action-btn" title="Shopping Cart">

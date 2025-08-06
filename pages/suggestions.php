@@ -100,7 +100,6 @@ if ($_POST) {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             position: relative;
-            padding: 40px;
         }
 
         h1 {
@@ -396,6 +395,7 @@ if ($_POST) {
             background: transparent;
             color: #800020;
             padding: 20px 50px;
+            margin-bottom: 50px;
             border: 2px solid #800020;
             border-radius: 12px;
             font-size: 1.2rem;
