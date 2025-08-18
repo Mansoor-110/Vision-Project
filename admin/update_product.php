@@ -29,7 +29,10 @@ if(isset($_SESSION['admin_id'])){
           <label>Product Name</label>
           <input type="text" class="form-control" name="product_name" value="<?php echo $product_data['product_name']; ?>" required>
         </div>
-
+ <input type="hidden" name="seller_id" value="admin">
+  <input type="hidden" name="redirect_url" value="view_product.php">
+  <input type="hidden" name="seller_name" value="Official Lumina">
+  
         <div class="form-group">
           <label for="product_category">Category</label>
           <select class="form-control" name="product_category" id="category" onchange="updateSubcategories()" required>

@@ -9,7 +9,9 @@ if (isset($_GET['search'])) {
               WHERE product_name LIKE '%$search_term%' 
               OR product_description LIKE '%$search_term%' 
               OR product_category LIKE '%$search_term%' 
-              OR product_subcategory LIKE '%$search_term%'";
+              OR product_category LIKE '%$search_term%' 
+              OR product_subcategory LIKE '%$search_term%' 
+              OR seller_name LIKE '%$search_term%'";
 
     $sql = mysqli_query($conn, $query);
     $total = mysqli_num_rows($sql);

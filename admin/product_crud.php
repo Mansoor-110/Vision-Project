@@ -1,7 +1,9 @@
 <?php
 include('../includes/connection.php');
 if(isset($_POST['submit'])){
-    
+       $redirect_url = $_POST['redirect_url'];
+    $seller_name = mysqli_real_escape_string($conn, $_POST['seller_name']);
+    $seller_id = mysqli_real_escape_string($conn, $_POST['seller_id']);
     $product_name = mysqli_real_escape_string($conn, $_POST['product_name']);
     $product_category = mysqli_real_escape_string($conn, $_POST['product_category']);
     $product_subcategory = mysqli_real_escape_string($conn, $_POST['product_subcategory']);
@@ -20,9 +22,9 @@ if(isset($_POST['submit'])){
      $final_image = '../product_images/'.$product_image_name;
 } 
 }  
-$query = "INSERT INTO add_product(product_name,product_category,product_subcategory,product_price,product_image,product_description,product_tag) 
-Values('$product_name','$product_category','$product_subcategory','$product_price','$final_image','$product_description','$product_tag')";
+$query = "INSERT INTO add_product(product_name,product_category,product_subcategory,product_price,product_image,product_description,product_tag,seller_id,seller_name) 
+Values('$product_name','$product_category','$product_subcategory','$product_price','$final_image','$product_description','$product_tag','$seller_id','$seller_name')";
 $sql=mysqli_query($conn,$query);
-header('location:view_product.php');
+header("location: $redirect_url ");                                   
 }
 ?>

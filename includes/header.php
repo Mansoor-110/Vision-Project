@@ -904,6 +904,28 @@ $acc_title=$acc_data['name'];
                             <i class="fas fa-shopping-bag"></i>
                         </a>
                     </button>
+
+
+                    <?php 
+                    if(isset($_SESSION['role'])){
+                        $user_role=$_SESSION['role'];
+                        if($user_role=="seller"){
+                            ?>
+                             <button class="action-btn" title="Dashboard">
+                        <a href="../seller/seller.php" class="text-white">
+                            <i class="fa-solid fa-chart-bar"></i>
+                        </a>
+                    </button>
+
+                            <?php
+                        }
+
+
+                    }
+                    
+                    ?>
+
+                   
                 </div>
             </div>
         </div>

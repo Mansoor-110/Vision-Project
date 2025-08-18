@@ -16,6 +16,7 @@ if(isset($_SESSION['admin_id'])){
 <div class="col-12 grid-margin stretch-card">
   <div class="card">
     <div class="card-body">
+      <input type="hidden" name="seller_name" value="Offical Lumina">
       <h4 class="card-title text-center h3 font-weight-bold">Insert Product</h4>
 
       <form class="forms-sample" method="post" action="product_crud.php" enctype="multipart/form-data">
@@ -36,7 +37,8 @@ if(isset($_SESSION['admin_id'])){
             <option value="Beauty Tools">Beauty Tools</option>
           </select>
         </div>
-
+        <input type="hidden" name="seller_id" value="admin">
+        <input type="hidden" name="redirect_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
         <!-- Subcategory -->
         <div class="form-group">
           <label for="exampleInputEmail3">Sub-Category</label>

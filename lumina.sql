@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2025 at 10:07 AM
+-- Generation Time: Aug 18, 2025 at 05:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -228,8 +228,6 @@ INSERT INTO `additional_images` (`id`, `product_id`, `product_image`) VALUES
 (214, 111, '../product_images/Rotatable-Black-Vanity-Mirror-5508-Round-SA2405-160-Apricot-9823.webp'),
 (215, 112, '../product_images/81oqdS+ttIL._AC_SX679_.jpg'),
 (216, 112, '../product_images/51szIS7DKQL._AC_SX679_.jpg'),
-(217, 113, '../product_images/1672113463531c5a897140e6ca6280647bf255381d.webp'),
-(218, 113, '../product_images/1672113463cbba6e6f9560ce091265dfb91f0f43cd.webp'),
 (219, 114, '../product_images/pexels-ds-stories-7256160.jpg'),
 (220, 115, '../product_images/images (7).jfif'),
 (221, 116, '../product_images/images (8).jfif'),
@@ -255,115 +253,119 @@ CREATE TABLE `add_product` (
   `product_price` int(255) NOT NULL,
   `product_image` varchar(500) NOT NULL,
   `product_description` varchar(500) NOT NULL,
-  `product_tag` varchar(255) NOT NULL
+  `product_tag` varchar(255) NOT NULL,
+  `seller_id` varchar(100) NOT NULL,
+  `seller_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `add_product`
 --
 
-INSERT INTO `add_product` (`product_id`, `product_name`, `product_category`, `product_subcategory`, `product_price`, `product_image`, `product_description`, `product_tag`) VALUES
-(11, 'Infinite Whisper', 'Jewellery', 'Necklaces', 5999, '../product_images/m.webp', 'The Infinite Whisper necklace', 'Luxury Picks'),
-(12, 'PURPLE AMETHYST', 'Jewellery', 'Earrings', 4000, '../product_images/r.png', 'Elegant purple earrings', 'Luxury Picks'),
-(13, 'The Joran Ring', 'Jewellery', 'Rings', 1499, 'https://thegracepk.com/cdn/shop/products/16004a7d-aed4-4fad-b345-a1162c0987d4.jpg?v=1674476273&width=700', 'Handmade item', 'Best Sellers'),
-(15, 'MARINA STUD ', 'Jewellery', 'Earrings', 4999, '../product_images/rr.jpg', 'An awesome earrings pair', 'Best Sellers'),
-(18, 'Foundation', 'Cosmetics', 'Foundation', 400, 'https://www.toofaced.com/media/export/cms/products/1000x1000/2f_sku_100453_1000x1000_0.jpg', 'This is an amazing yellow foundation', 'Best Sellers'),
-(19, 'Lipstick', 'Cosmetics', 'Lipstick', 600, '../product_images/pexels-valeriya-850801.jpg', 'Red elegant decent lipstick', 'Best Sellers'),
-(20, 'Eye Shadow', 'Cosmetics', 'Eyeshadow', 700, '../product_images/shadow.jpeg', 'An amazing Eye shadow', 'Best Sellers'),
-(24, 'Fish-Shaped ', 'Beauty Tools', 'Brushes', 499, 'https://lotshop.pk/cdn/shop/files/fish-shaped-mermaid-foundation-applying-makeup-brush-307485.jpg?v=1719858427&width=713', 'this is an amazing brush', ''),
-(26, 'Mirror', 'Beauty Tools', 'Mirrors', 500, '../product_images/long mirrors.jpeg', 'amazing long mirrors', ''),
-(29, 'Bracelet', 'Jewellery', 'Bracelets', 4000, 'https://thegracepk.com/cdn/shop/products/BISP0202V01_YAA18DIG6XXXXXXXX_ABCD00-PICS-00000-1024-8319.webp?v=1674476567&width=800', 'Amazing Bracelet for women', 'Best Sellers'),
-(30, 'Beauty Tools ', 'Beauty Tools', 'Accessories', 4000, '../product_images/pexels-lina-5731813.jpg', 'Amazing Beauty accessories', 'New Arrivals'),
-(32, 'Black Maskara', 'Cosmetics', 'New Arrivals', 3000, 'https://www.goldenrose.com.pk/cdn/shop/products/dramatic-lashes-night-black-mascara-new-782213_600x600_crop_center.jpg?v=1717250135', 'this is black maskara', ''),
-(33, 'Yellow Mascara', 'Cosmetics', 'New Arrivals', 899, '../product_images/yellow mascara.jpeg', 'This is yellow mascara', 'Luxury Picks'),
-(34, 'Ultramarine Necklace', 'Jewellery', 'Necklaces', 3499, '../product_images/m1.webp', 'Sterling silver can be worn in the shower', 'Trending'),
-(35, 'Rhyah Peridot Pendant', 'Jewellery', 'Necklaces', 3990, '../product_images/m4.png', 'Avoid direct contact with perfumes, sprays,', 'Trending'),
-(36, 'Motherly Love Necklace', 'Jewellery', 'Necklaces', 3399, '../product_images/m2.png', 'Mother\'s Love Is Peace', 'Best Sellers'),
-(37, 'Willodean Necklace', 'Jewellery', 'Necklaces', 3599, '../product_images/m3.png', ' luxury signature Grace', ''),
-(38, ' Traci Necklace', 'Jewellery', 'Necklaces', 3399, '../product_images/m5.webp', 'luxury Item', 'Luxury Picks'),
-(39, 'A to Z Dangle Letter', 'Jewellery', 'Necklaces', 3899, '../product_images/m6.jpg', 'simple elegant summer layering jewelry.', 'New Arrivals'),
-(40, 'AYAT UL KURSI', 'Jewellery', 'Necklaces', 2199, '../product_images/m7.jpg', 'Engraved in the most elegant manner, ', ''),
-(41, 'Soul Kin Necklace', 'Jewellery', 'Necklaces', 3299, '../product_images/m8.jpg', 'siblings, or loved ones,', ''),
-(42, 'AQUAMARINE ZIRCON', 'Jewellery', 'Earrings', 3599, '../product_images/r6.jpg', 'A pair of Aquamarine Zircon Earrings', ''),
-(43, 'RUBY STUD EARRINGS', 'Jewellery', 'Earrings', 3599, '../product_images/r7.jpg', 'A pair of Ruby Diamond Earring', ''),
-(44, 'ATLANTIS EMERALD DIAMOND', 'Jewellery', 'Earrings', 3299, '../product_images/r4.png', 'A pair of Atlantis Emerald and Diamond Earrings', ''),
-(45, 'Amethyst Elegance Hoop', 'Jewellery', 'Earrings', 2999, '../product_images/r1.png', 'EARINGS Made with Pure SILVER', 'New Arrivals'),
-(46, 'HEART EARRINGS', 'Jewellery', 'Earrings', 3299, '../product_images/r8.jpg', 'Coated with Rhodium for durability', 'Trending'),
-(47, ' Farnell Stud Earrings', 'Jewellery', 'Earrings', 1999, '../product_images/r9.jpg', 'Coated with Rhodium for durability', ''),
-(48, 'HEART SHAPED EARRING', 'Jewellery', 'Earrings', 3599, '../product_images/r0.jpg', 'A pair of Heart shaped Earrings', ''),
-(49, '4-QUL SPIRAL RING', 'Jewellery', 'Rings', 2299, 'https://thegracepk.com/cdn/shop/products/4-Qul-Spiral-Ring---BLK---RG---CLOSE-UP_1_1800x1800_ecb8a2a6-a272-42dc-b474-2d3e633a2eb7.webp?v=1678536729&width=800', 'Al-Kafirun, Al-Ikhlas, Al-Falaq,', 'Trending'),
-(50, 'Harf-e-Ishq', 'Jewellery', 'Rings', 1599, 'https://thegracepk.com/cdn/shop/files/ChatGPTImageJul1_2025_04_53_04PM.png?v=1751376623&width=800', 'Harf-e-Ishq is where delicate design ', ''),
-(51, 'Ruby Rose', 'Jewellery', 'Rings', 5999, 'https://thegracepk.com/cdn/shop/files/BIPM0017R17_WAA18DIG4GARNXXXX_ABCD00-BP-PICS-00000-1024-71139.webp?v=1751975839&width=800', 'A regal masterpiece crafted to captivate.', ''),
-(52, 'ETERNITY DIAMOND', 'Jewellery', 'Rings', 2999, 'https://thegracepk.com/cdn/shop/products/Rhonda-11x8mmEmerald_5.5x4x3mmStepCutTraperzoids-18kYG-Size8-1_1050x1400_c91428b4-5100-4287-aaa7-f8aacf89e313.jpg?v=1709038779&width=800', 'Handmade item', ''),
-(53, 'Promise Aquamarine Ring', 'Jewellery', 'Rings', 2499, 'https://thegracepk.com/cdn/shop/products/il_794xN.1654558311_s99r.jpg?v=1637064534&width=700', 'Gemstone: Aquamarine', ''),
-(54, 'INFINITY LOVE RING', 'Jewellery', 'Rings', 2999, 'https://thegracepk.com/cdn/shop/products/6979db7e-35a4-40a9-84e2-1a2a2657e28a.jpg?v=1674476327&width=700', 'Materials: Sterling Silver ', ''),
-(55, 'The Snake Ring', 'Jewellery', 'Rings', 3299, 'https://thegracepk.com/cdn/shop/files/BIJP0630R281_YAA18SYBSXXXXXXXX_ABCD00-BP-PICS-00001-1024-71118.webp?v=1735224269&width=800', 'its luxurious appeal,', ''),
-(56, ' Love Embrace Ring', 'Jewellery', 'Rings', 3199, 'https://thegracepk.com/cdn/shop/products/BIPM0050R03_YAA18DIG6XXXXXXXX_ABCD00-PICS-00002-1024-11946.webp?v=1663934620&width=800', '925 STERLING SILVER (CHANDI)', ''),
-(57, 'Soul Script Bracelet', 'Jewellery', 'Bracelets', 3599, 'https://thegracepk.com/cdn/shop/files/May2_2025_05_33_41PM.png?v=1746190256&width=800', ' A symbol of elegance and sentiment.', ''),
-(58, 'Galaxy Bracelet ', 'Jewellery', 'Bracelets', 2999, 'https://thegracepk.com/cdn/shop/products/il_794xN.3390133526_jpif.jpg?v=1639763346&width=700', 'Inspired by the light that the stars ', 'New Arrivals'),
-(59, 'Puzzle Bracelet', 'Jewellery', 'Bracelets', 4999, 'https://thegracepk.com/cdn/shop/files/IMG-1961.webp?v=1706279468&width=700', 'Introducing the Puzzle Bracelet – a unique ', 'Luxury Picks'),
-(60, 'Serene Spark Initial ', 'Jewellery', 'Bracelets', 3999, 'https://thegracepk.com/cdn/shop/files/abbott-lyon-birthstone-little-luxe-letter-bracelet-gold-27944780660802_935x1056_crop_center_e0d166cb-ae5b-4fc7-813f-1da8e1359718.webp?v=1745844675&width=800', 'symbol of elegance and sentiment. ', ''),
-(61, 'Diamond Date-Number', 'Jewellery', 'Bracelets', 2499, 'https://thegracepk.com/cdn/shop/files/il_794xN.3448725430_8mx4.webp?v=1693057356&width=700', 'Name Bracelet is the perfect gift ', ''),
-(62, 'EYE OF EVIL BRACELET', 'Jewellery', 'Bracelets', 4999, 'https://thegracepk.com/cdn/shop/products/ezgif-1-3393bde739.jpg?v=1647350269&width=800', 'Handmade item', ''),
-(63, 'The Heart Bracelet', 'Jewellery', 'Bracelets', 2599, 'https://thegracepk.com/cdn/shop/products/BINK0126V02_YAA18DIG6XXXXXXXX_ABCD00-PICS-00001-1024-20998.webp?v=1663927988&width=800', '925 STERLING SILVER (CHANDI)', ''),
-(64, 'The Sweet Rhythm ', 'Jewellery', 'Bracelets', 2799, 'https://thegracepk.com/cdn/shop/products/BIVT0037V05_WAA18DIG6XXXXXXXX_ABCD00-PICS-00001-1024-11663.webp?v=1663929693&width=800', 'Handmade item', ''),
-(65, 'Face & Body Foundation', 'Cosmetics', 'Foundation', 2599, ' https://cutish.pk/wp-content/uploads/2020/09/Makeup-For-Ever-Foundatio-Water-Blend-Face-2.jpg', 'Water Blend Face & Body foundation ', ''),
-(66, 'High Coverage Foundation', 'Cosmetics', 'Foundation', 3599, 'https://m.media-amazon.com/images/I/51b5DqELyRL._SL1500_.jpg', 'Becute Cosmetics High Coverage Foundation', ''),
-(67, 'Professional Makeup Foundation', 'Cosmetics', 'Foundation', 1999, 'https://m.media-amazon.com/images/I/511zi6VylSL._SL1500_.jpg', 'This foundation blends effortlessly', ''),
-(68, ' PORELESS FOUNDATION', 'Cosmetics', 'Foundation', 3999, 'https://cosmeticplanetpk.com/wp-content/uploads/2016/01/FIT-ME-MATTE.png', '24 Hour Oil Control  Foundation ', ''),
-(69, 'Liquid Foundation', 'Cosmetics', 'Foundation', 2899, 'https://www.paccosmetics.com/cdn/shop/files/8904341204276_IMG.main.jpg?v=1742281316&width=600', 'This foundation provides a second-skin feel', ''),
-(70, 'Makeup Beauty Splash', 'Cosmetics', 'Foundation', 2499, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiBcYqsFxBX34h7fkrSEAKgT5uzzZgRw6yXg&s', 'liquid foundation makeup beauty splash ', ''),
-(71, 'Foundation Makeup Shade', 'Cosmetics', 'Foundation', 4999, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-ylPZYNcB9apbdIdDOw5FHovCK-LEgFhphg&s', ' Free Dermatologically and Clinically Tested', ''),
-(72, 'Gold Pro Filter Foundation', 'Cosmetics', 'Foundation', 5499, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl7GiErisbp9GyLKCkPEug8IQiywr4qxkI5g&s', 'This professional-grade foundation', 'Best Sellers'),
-(73, 'Glamorous Lipstick', 'Cosmetics', 'Lipstick', 1499, 'https://www.sweetface.com.pk/cdn/shop/files/01_f9ea1066-e3e4-424f-af53-7f73fa149658.jpg?v=1734606518&width=823', 'longevity with SweetFace Queen Lipstick', ''),
-(74, 'Pure Color Matte Lipstick', 'Cosmetics', 'Lipstick', 999, 'https://media.ulta.com/i/ulta/2604695?w=400&fmt=auto', 'This long lasting lipstick saturates lips ', ''),
-(75, 'Maybelline Color Lipstick', 'Cosmetics', 'Lipstick', 899, 'https://beautypouch.pk/cdn/shop/products/Maybelline-Color-Show-Lipstick-Party-Pink-108.webp?v=1667858707&width=713', 'Shades stay true without drying out your lips', ''),
-(76, ' Lips Long Stay Matte Lipstick', 'Cosmetics', 'Lipstick', 599, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzX96NT5eXMFeIm7vnpznsHAJL1QBrV-DLbg&s', ' love bullet matte lipsticks', ''),
-(77, ' Halal Velvet Matte ', 'Cosmetics', 'Lipstick', 1299, '../product_images/pexels-ebru-akal-1512857-12606864.jpg', ' every day with a premium', ''),
-(78, 'Matte Cream Lipstick', 'Cosmetics', 'Lipstick', 579, '../product_images/pexels-suzyhazelwood-2533266.jpg', 'luxurious Matte Cream Lipstick', ''),
-(79, 'Priming Matte Lipstick ', 'Cosmetics', 'Lipstick', 599, '../product_images/pexels-suzyhazelwood-1213558.jpg', 'Huda Kattan\'s comfort-wear formula ', ''),
-(80, 'ishak-ektiren', 'Cosmetics', 'Lipstick', 799, '../product_images/pexels-ishak-ektiren-327147089-27421762.jpg', 'Comfort Transfer-proof Lipstick', ''),
-(81, 'The New Nude Eyeshadow', 'Cosmetics', 'Eyeshadow', 3999, '../product_images/pexels-828860-2639947.jpg', 'A game-changing palette', ''),
-(82, 'EYESHADOW MAKEUP ', 'Cosmetics', 'Eyeshadow', 2999, '../product_images/pexels-magda-ehlers-pexels-1339340.jpg', 'Professional Makeup Artist and for beginners', ''),
-(83, 'Colorful Makeup Palettes Brushes', 'Cosmetics', 'Eyeshadow', 2599, '../product_images/pexels-michael-obstoj-1772571864-32388553.jpg', 'Eye Shadow And Blush On Palette', ''),
-(84, 'Holding an Eye Shadow ', 'Cosmetics', 'Eyeshadow', 799, '../product_images/pexels-mariacamila-7712432.jpg', 'Holding an Eye Shadow PALLATE', ''),
-(85, 'Butterfly dream makeup', 'Cosmetics', 'Eyeshadow', 5599, '../product_images/pexels-pnw-prod-9219006.jpg', 'Matte And Shimmer Eye Shadow ', ''),
-(86, 'Wet & Dry Eyeshadow', 'Cosmetics', 'Eyeshadow', 1299, 'https://images.pexels.com/photos/354962/pexels-photo-354962.jpeg', ' OCTYLDODECYL STEAROYL STEARATE', ''),
-(87, ' Huda Beauty Brown ', 'Cosmetics', 'Eyeshadow', 2399, '../product_images/pexels-richard-cascaes-figueiredo-37075473-9871630.jpg', 'delicious brown eyeshadow palettes ', ''),
-(88, 'MAEPEOR Jam', 'Cosmetics', 'Eyeshadow', 3599, '../product_images/pexels-pnw-prod-9219006.jpg', 'The MAEPEOR has more choice colorful ', ''),
-(89, 'SKIN1004 Madagascar', 'Cosmetics', 'Skincare', 2299, 'https://cozmetica.pk/cdn/shop/files/SKIN1004_20-_20Madagascar_201004Day_20Signature_20Mini-Set_202024_800x_0c4b0e11-67c9-4f55-a477-0323a98adfb2.webp?v=1748525706&width=1426', 'A Mini Set that combines ', ''),
-(90, 'Gold Radiance', 'Cosmetics', 'Skincare', 1299, 'https://cozmetica.pk/cdn/shop/products/10.jpg?v=1699332533&width=1426', 'The Nutrients are rich', ''),
-(91, 'Zombie Pack ', 'Cosmetics', 'Skincare', 2299, 'https://cozmetica.pk/cdn/shop/products/0005541_rice-in-youth-face-cream_1500.jpg?v=1699344695&width=1426', 'An 8-in-1 full-face TREATMENT MASK', ''),
-(92, 'The Ordinary Hyaluronic ', 'Cosmetics', 'Skincare', 4699, 'https://cozmetica.pk/cdn/shop/products/TheOrdinaryHyaluronicAcid2_B5Cozmetica.jpg?v=1699376231&width=1426', 'Suitable for all skin types', ''),
-(93, 'The Ordinary Vitamin C', 'Cosmetics', 'Skincare', 2299, 'https://cozmetica.pk/cdn/shop/products/vitamin-c_6fe9d67f-4cea-4546-99f5-966f3b506bbe.jpg?v=1699376329&width=1426', 'A water- and silicone-free ', ''),
-(94, 'L\'Oreal Serum', 'Cosmetics', 'Skincare', 1299, 'https://cozmetica.pk/cdn/shop/products/0003136_anti-mark-cream-blemish-less.jpg?v=1699342340&width=1426', 'minute 1 unit is sold in the US.', ''),
-(95, 'Fade Out Cream', 'Cosmetics', 'Skincare', 4299, 'https://cozmetica.pk/cdn/shop/products/0003020_fade-out-cream.jpg?v=1699343097&width=1426', '• Enhances the cell renewal process', ''),
-(96, 'Nyx Soft Matte Lip ', 'Cosmetics', 'Skincare', 4599, 'https://cozmetica.pk/cdn/shop/products/SOFTMATTELIPCREAM-ABUDHABI.jpg?v=1735744083&width=1426', 'Delightfully creamy', ''),
-(97, 'Ponds Bright Beauty ', 'Cosmetics', 'Skincare', 4599, 'https://cozmetica.pk/cdn/shop/files/Hero_e02ee322-898d-477f-b8fb-7f17f380019d.webp?v=1738846643&width=1426', 'Gives radiant, glowing skin', ''),
-(98, 'DUcare Kabuki', 'Beauty Tools', 'Brushes', 1299, 'https://lotshop.pk/cdn/shop/files/ducare-kabuki-flat-foundation-makeup-brush-430211.webp?v=1719858369&width=713', 'Experience Flawless Coverage ', ''),
-(99, 'GLAM Tokyo Girls', 'Beauty Tools', 'Brushes', 999, 'https://lotshop.pk/cdn/shop/files/ur-glam-tokyo-girls-collection-duo-eyebrowspoolie-makeup-brush-526945.jpg?v=1719858364&width=1100', 'eyebrow brush for defining and shaping,', ''),
-(100, 'Beauty Professional', 'Beauty Tools', 'Brushes', 1499, 'https://lotshop.pk/cdn/shop/files/for-your-beauty-professional-strobe-shine-makeup-brushes-192502.jpg?v=1723976802&width=713', 'tools for creating stunning', ''),
-(101, 'Premium Set', 'Beauty Tools', 'Brushes', 1399, 'https://lotshop.pk/cdn/shop/files/premium-set-of-10-makeup-brushes-with-free-gift-branded-quality-4340238.jpg?v=1751987059&width=1100', 'Makeup enthusiasts and professionals alike.', ''),
-(102, 'Branded Professional', 'Beauty Tools', 'Brushes', 1299, '../product_images/pexels-thisisjooh-27026566.jpg', 'Transform your makeup application ', ''),
-(103, 'Brush Set with Black', 'Beauty Tools', 'Brushes', 3999, 'https://lotshop.pk/cdn/shop/files/natural-maker-7-piece-professional-makeup-brush-set-with-black-travel-pouch-960589.jpg?v=1732205055&width=713', 'his set includes 7 essential brushes', ''),
-(104, 'Perfect Diary 3-Piece', 'Beauty Tools', 'Brushes', 1899, 'https://lotshop.pk/cdn/shop/files/perfect-diary-3-piece-makeup-brush-set-with-black-leather-pouch-253910.webp?v=1738170788&width=713', 'Luxury meets perfection ', ''),
-(105, 'EniNa Blossom Beauty', 'Beauty Tools', 'Brushes', 3999, 'https://lotshop.pk/cdn/shop/files/enina-blossom-beauty-12-piece-makeup-brush-set-730128.jpg?v=1727896346&width=1100', 'functionality to your makeup routine.', ''),
-(106, 'Wanderlust Mirror', 'Beauty Tools', 'Mirrors', 7999, 'https://lurella.pk/cdn/shop/products/BIGBLKSM161_02.progressive.jpg?v=1613515244', 'Dimensions: 7.48 x 9.92 x 0.95 in', ''),
-(107, 'Rotatable Golden', 'Beauty Tools', 'Mirrors', 5999, 'https://apricot.com.pk/cdn/shop/files/Rotatable-Golden-Vanity-Mirror-SA2405-157-Apricot-7731.webp?v=1727599801&width=823', 'Swivel Single Sided Makeup', ''),
-(108, ' Golden Vanity Mirror', 'Beauty Tools', 'Mirrors', 4999, 'https://apricot.com.pk/cdn/shop/files/Rotatable-Golden-Vanity-Mirror-5507-Round-SA2405-159-Apricot-6017.jpg?v=1727599691&width=823', 'Power Supply: Use without power', ''),
-(109, ' LED Mirror Curvy ', 'Beauty Tools', 'Mirrors', 4599, 'https://apricot.com.pk/cdn/shop/files/LED-Mirror-Curvy-Cosmetics-Storage-Box-Apricot-8509.jpg?v=1718693305&width=823', 'It is a mobile dressing table', ''),
-(110, 'Jewelry Cabinet', 'Beauty Tools', 'Mirrors', 3599, 'https://apricot.com.pk/cdn/shop/files/Jewelry-Cabinet-With-Led-Mirror-SA2405-72-Apricot-7484.jpg?v=1727599876&width=823', 'Jewelry is an indispensable addition ', ''),
-(111, 'Rotatable Black', 'Beauty Tools', 'Mirrors', 5999, 'https://apricot.com.pk/cdn/shop/files/Rotatable-Black-Vanity-Mirror-5508-Round-SA2405-160-Apricot-9624.jpg?v=1727599703&width=823', 'Power Supply: Use without power', ''),
-(112, '2in1 cosmetics mirror', 'Beauty Tools', 'Mirrors', 6999, 'https://www.medisana.com/thumbnail/45/70/07/1720698869/165ea46f4b329582ccae7dabb8f2cc06_1920x1920.jpg?ts=1720698869', 'The 2in1 cosmetic mirror impresses ', ''),
-(113, 'Wall Mount with Folding Arm Double-Sided', 'Beauty Tools', 'Mirrors', 7999, 'https://luckyhome.pk/cdn/shop/files/SSCosmeticmirror3.jpg?v=1727870341', 'deal for bathrooms or vanities', ''),
-(114, 'Storage Organizer Accessories', 'Beauty Tools', 'Accessories', 8799, '../product_images/pexels-ds-stories-7256120.jpg', ' material suitable for professional', ''),
-(115, 'Hakim Santoso ', 'Beauty Tools', 'Accessories', 7599, '../product_images/pexels-hakimsatoso-6527699.jpg', 'what you need quickly.', ''),
-(116, 'Nester grapher', 'Beauty Tools', 'Accessories', 4999, '../product_images/pexels-nestergrapher-12175442.jpg', 'organized in a sleek and modern way', ''),
-(117, 'karolina-grabowska', 'Beauty Tools', 'Accessories', 8999, '../product_images/pexels-karolina-grabowska-4938514.jpg', 'It will last for a long time.', ''),
-(118, 'jhong-pascua', 'Beauty Tools', 'Accessories', 5899, '../product_images/pexels-jhong-pascua-1062908-3018845.jpg', 'Elegance to your makeup collection', ''),
-(119, 'Lina Kivaka', 'Beauty Tools', 'Accessories', 5999, '../product_images/pexels-lina-5731811.jpg', 'Its also a Perfect Gifts ', ''),
-(120, 'Makeup Cosmetics', 'Beauty Tools', 'Accessories', 2999, '../product_images/pexels-rdne-7755138.jpg', 'save lots of your valuable time', ''),
-(121, 'suzyhazel wood', 'Beauty Tools', 'Accessories', 3699, '../product_images/pexels-suzyhazelwood-1438065.jpg', 'Luxury design make easy to access', '');
+INSERT INTO `add_product` (`product_id`, `product_name`, `product_category`, `product_subcategory`, `product_price`, `product_image`, `product_description`, `product_tag`, `seller_id`, `seller_name`) VALUES
+(11, 'Infinite Whisper', 'Jewellery', 'Necklaces', 599, '../product_images/m.webp', 'The Infinite Whisper necklace', 'Luxury Picks', 'admin', 'Official Lumina'),
+(12, 'PURPLE AMETHYST', 'Jewellery', 'Earrings', 4000, '../product_images/r.png', 'Elegant purple earrings', 'Luxury Picks', '', ''),
+(13, 'The Joran Ring', 'Jewellery', 'Rings', 1499, 'https://thegracepk.com/cdn/shop/products/16004a7d-aed4-4fad-b345-a1162c0987d4.jpg?v=1674476273&width=700', 'Handmade item', 'Best Sellers', '', ''),
+(15, 'MARINA STUD ', 'Jewellery', 'Earrings', 4999, '../product_images/rr.jpg', 'An awesome earrings pair', 'Best Sellers', '', ''),
+(18, 'Foundation', 'Cosmetics', 'Foundation', 400, 'https://www.toofaced.com/media/export/cms/products/1000x1000/2f_sku_100453_1000x1000_0.jpg', 'This is an amazing yellow foundation', 'Best Sellers', '', ''),
+(19, 'Lipstick', 'Cosmetics', 'Lipstick', 600, '../product_images/pexels-valeriya-850801.jpg', 'Red elegant decent lipstick', 'Best Sellers', '', ''),
+(20, 'Eye Shadow', 'Cosmetics', 'Eyeshadow', 700, '../product_images/shadow.jpeg', 'An amazing Eye shadow', 'Best Sellers', '', ''),
+(24, 'Fish-Shaped ', 'Beauty Tools', 'Brushes', 499, 'https://lotshop.pk/cdn/shop/files/fish-shaped-mermaid-foundation-applying-makeup-brush-307485.jpg?v=1719858427&width=713', 'this is an amazing brush', '', '', ''),
+(26, 'Mirror', 'Beauty Tools', 'Mirrors', 500, '../product_images/long mirrors.jpeg', 'amazing long mirrors', '', '', ''),
+(29, 'Bracelet', 'Jewellery', 'Bracelets', 4000, 'https://thegracepk.com/cdn/shop/products/BISP0202V01_YAA18DIG6XXXXXXXX_ABCD00-PICS-00000-1024-8319.webp?v=1674476567&width=800', 'Amazing Bracelet for women', 'Best Sellers', '', ''),
+(30, 'Beauty Tools ', 'Beauty Tools', 'Accessories', 4000, '../product_images/pexels-lina-5731813.jpg', 'Amazing Beauty accessories', 'New Arrivals', '', ''),
+(32, 'Black Maskara', 'Cosmetics', 'New Arrivals', 3000, 'https://www.goldenrose.com.pk/cdn/shop/products/dramatic-lashes-night-black-mascara-new-782213_600x600_crop_center.jpg?v=1717250135', 'this is black maskara', '', '', ''),
+(33, 'Yellow Mascara', 'Cosmetics', 'New Arrivals', 899, '../product_images/yellow mascara.jpeg', 'This is yellow mascara', 'Luxury Picks', '', ''),
+(34, 'Ultramarine Necklace', 'Jewellery', 'Necklaces', 3499, '../product_images/m1.webp', 'Sterling silver can be worn in the shower', 'Trending', '', ''),
+(35, 'Rhyah Peridot Pendant', 'Jewellery', 'Necklaces', 3990, '../product_images/m4.png', 'Avoid direct contact with perfumes, sprays,', 'Trending', '', ''),
+(36, 'Motherly Love Necklace', 'Jewellery', 'Necklaces', 3399, '../product_images/m2.png', 'Mother\'s Love Is Peace', 'Best Sellers', '', ''),
+(37, 'Willodean Necklace', 'Jewellery', 'Necklaces', 3599, '../product_images/m3.png', ' luxury signature Grace', '', '', ''),
+(38, ' Traci Necklace', 'Jewellery', 'Necklaces', 3399, '../product_images/m5.webp', 'luxury Item', 'Luxury Picks', '', ''),
+(39, 'A to Z Dangle Letter', 'Jewellery', 'Necklaces', 3899, '../product_images/m6.jpg', 'simple elegant summer layering jewelry.', 'New Arrivals', '', ''),
+(40, 'AYAT UL KURSI', 'Jewellery', 'Necklaces', 2199, '../product_images/m7.jpg', 'Engraved in the most elegant manner, ', '', '', ''),
+(41, 'Soul Kin Necklace', 'Jewellery', 'Necklaces', 3299, '../product_images/m8.jpg', 'siblings, or loved ones,', '', '', ''),
+(42, 'AQUAMARINE ZIRCON', 'Jewellery', 'Earrings', 3599, '../product_images/r6.jpg', 'A pair of Aquamarine Zircon Earrings', '', '', ''),
+(43, 'RUBY STUD EARRINGS', 'Jewellery', 'Earrings', 3599, '../product_images/r7.jpg', 'A pair of Ruby Diamond Earring', '', '', ''),
+(44, 'ATLANTIS EMERALD DIAMOND', 'Jewellery', 'Earrings', 3299, '../product_images/r4.png', 'A pair of Atlantis Emerald and Diamond Earrings', '', '', ''),
+(45, 'Amethyst Elegance Hoop', 'Jewellery', 'Earrings', 2999, '../product_images/r1.png', 'EARINGS Made with Pure SILVER', 'New Arrivals', '', ''),
+(46, 'HEART EARRINGS', 'Jewellery', 'Earrings', 3299, '../product_images/r8.jpg', 'Coated with Rhodium for durability', 'Trending', '', ''),
+(47, ' Farnell Stud Earrings', 'Jewellery', 'Earrings', 1999, '../product_images/r9.jpg', 'Coated with Rhodium for durability', '', '', ''),
+(48, 'HEART SHAPED EARRING', 'Jewellery', 'Earrings', 3599, '../product_images/r0.jpg', 'A pair of Heart shaped Earrings', '', '', ''),
+(49, '4-QUL SPIRAL RING', 'Jewellery', 'Rings', 2299, 'https://thegracepk.com/cdn/shop/products/4-Qul-Spiral-Ring---BLK---RG---CLOSE-UP_1_1800x1800_ecb8a2a6-a272-42dc-b474-2d3e633a2eb7.webp?v=1678536729&width=800', 'Al-Kafirun, Al-Ikhlas, Al-Falaq,', 'Trending', '', ''),
+(50, 'Harf-e-Ishq', 'Jewellery', 'Rings', 1599, 'https://thegracepk.com/cdn/shop/files/ChatGPTImageJul1_2025_04_53_04PM.png?v=1751376623&width=800', 'Harf-e-Ishq is where delicate design ', '', '', ''),
+(51, 'Ruby Rose', 'Jewellery', 'Rings', 5999, 'https://thegracepk.com/cdn/shop/files/BIPM0017R17_WAA18DIG4GARNXXXX_ABCD00-BP-PICS-00000-1024-71139.webp?v=1751975839&width=800', 'A regal masterpiece crafted to captivate.', '', '', ''),
+(52, 'ETERNITY DIAMOND', 'Jewellery', 'Rings', 2999, 'https://thegracepk.com/cdn/shop/products/Rhonda-11x8mmEmerald_5.5x4x3mmStepCutTraperzoids-18kYG-Size8-1_1050x1400_c91428b4-5100-4287-aaa7-f8aacf89e313.jpg?v=1709038779&width=800', 'Handmade item', '', '', ''),
+(53, 'Promise Aquamarine Ring', 'Jewellery', 'Rings', 2499, 'https://thegracepk.com/cdn/shop/products/il_794xN.1654558311_s99r.jpg?v=1637064534&width=700', 'Gemstone: Aquamarine', '', '', ''),
+(54, 'INFINITY LOVE RING', 'Jewellery', 'Rings', 2999, 'https://thegracepk.com/cdn/shop/products/6979db7e-35a4-40a9-84e2-1a2a2657e28a.jpg?v=1674476327&width=700', 'Materials: Sterling Silver ', '', '', ''),
+(55, 'The Snake Ring', 'Jewellery', 'Rings', 3299, 'https://thegracepk.com/cdn/shop/files/BIJP0630R281_YAA18SYBSXXXXXXXX_ABCD00-BP-PICS-00001-1024-71118.webp?v=1735224269&width=800', 'its luxurious appeal,', '', '', ''),
+(56, ' Love Embrace Ring', 'Jewellery', 'Rings', 3199, 'https://thegracepk.com/cdn/shop/products/BIPM0050R03_YAA18DIG6XXXXXXXX_ABCD00-PICS-00002-1024-11946.webp?v=1663934620&width=800', '925 STERLING SILVER (CHANDI)', '', '', ''),
+(57, 'Soul Script Bracelet', 'Jewellery', 'Bracelets', 3599, 'https://thegracepk.com/cdn/shop/files/May2_2025_05_33_41PM.png?v=1746190256&width=800', ' A symbol of elegance and sentiment.', '', '', ''),
+(58, 'Galaxy Bracelet ', 'Jewellery', 'Bracelets', 2999, 'https://thegracepk.com/cdn/shop/products/il_794xN.3390133526_jpif.jpg?v=1639763346&width=700', 'Inspired by the light that the stars ', 'New Arrivals', '', ''),
+(59, 'Puzzle Bracelet', 'Jewellery', 'Bracelets', 4999, 'https://thegracepk.com/cdn/shop/files/IMG-1961.webp?v=1706279468&width=700', 'Introducing the Puzzle Bracelet – a unique ', 'Luxury Picks', '', ''),
+(60, 'Serene Spark Initial ', 'Jewellery', 'Bracelets', 3999, 'https://thegracepk.com/cdn/shop/files/abbott-lyon-birthstone-little-luxe-letter-bracelet-gold-27944780660802_935x1056_crop_center_e0d166cb-ae5b-4fc7-813f-1da8e1359718.webp?v=1745844675&width=800', 'symbol of elegance and sentiment. ', '', '', ''),
+(61, 'Diamond Date-Number', 'Jewellery', 'Bracelets', 2499, 'https://thegracepk.com/cdn/shop/files/il_794xN.3448725430_8mx4.webp?v=1693057356&width=700', 'Name Bracelet is the perfect gift ', '', '', ''),
+(62, 'EYE OF EVIL BRACELET', 'Jewellery', 'Bracelets', 4999, 'https://thegracepk.com/cdn/shop/products/ezgif-1-3393bde739.jpg?v=1647350269&width=800', 'Handmade item', '', '', ''),
+(63, 'The Heart Bracelet', 'Jewellery', 'Bracelets', 2599, 'https://thegracepk.com/cdn/shop/products/BINK0126V02_YAA18DIG6XXXXXXXX_ABCD00-PICS-00001-1024-20998.webp?v=1663927988&width=800', '925 STERLING SILVER (CHANDI)', '', '', ''),
+(64, 'The Sweet Rhythm ', 'Jewellery', 'Bracelets', 2799, 'https://thegracepk.com/cdn/shop/products/BIVT0037V05_WAA18DIG6XXXXXXXX_ABCD00-PICS-00001-1024-11663.webp?v=1663929693&width=800', 'Handmade item', '', '', ''),
+(65, 'Face & Body Foundation', 'Cosmetics', 'Foundation', 2599, ' https://cutish.pk/wp-content/uploads/2020/09/Makeup-For-Ever-Foundatio-Water-Blend-Face-2.jpg', 'Water Blend Face & Body foundation ', '', '', ''),
+(66, 'High Coverage Foundation', 'Cosmetics', 'Foundation', 3599, 'https://m.media-amazon.com/images/I/51b5DqELyRL._SL1500_.jpg', 'Becute Cosmetics High Coverage Foundation', '', '', ''),
+(67, 'Professional Makeup Foundation', 'Cosmetics', 'Foundation', 1999, 'https://m.media-amazon.com/images/I/511zi6VylSL._SL1500_.jpg', 'This foundation blends effortlessly', '', '', ''),
+(68, ' PORELESS FOUNDATION', 'Cosmetics', 'Foundation', 3999, 'https://cosmeticplanetpk.com/wp-content/uploads/2016/01/FIT-ME-MATTE.png', '24 Hour Oil Control  Foundation ', '', '', ''),
+(69, 'Liquid Foundation', 'Cosmetics', 'Foundation', 2899, 'https://www.paccosmetics.com/cdn/shop/files/8904341204276_IMG.main.jpg?v=1742281316&width=600', 'This foundation provides a second-skin feel', '', '', ''),
+(70, 'Makeup Beauty Splash', 'Cosmetics', 'Foundation', 2499, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiBcYqsFxBX34h7fkrSEAKgT5uzzZgRw6yXg&s', 'liquid foundation makeup beauty splash ', '', '', ''),
+(71, 'Foundation Makeup Shade', 'Cosmetics', 'Foundation', 4999, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-ylPZYNcB9apbdIdDOw5FHovCK-LEgFhphg&s', ' Free Dermatologically and Clinically Tested', '', '', ''),
+(72, 'Gold Pro Filter Foundation', 'Cosmetics', 'Foundation', 5499, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl7GiErisbp9GyLKCkPEug8IQiywr4qxkI5g&s', 'This professional-grade foundation', 'Best Sellers', '', ''),
+(73, 'Glamorous Lipstick', 'Cosmetics', 'Lipstick', 1499, 'https://www.sweetface.com.pk/cdn/shop/files/01_f9ea1066-e3e4-424f-af53-7f73fa149658.jpg?v=1734606518&width=823', 'longevity with SweetFace Queen Lipstick', '', '', ''),
+(74, 'Pure Color Matte Lipstick', 'Cosmetics', 'Lipstick', 999, 'https://media.ulta.com/i/ulta/2604695?w=400&fmt=auto', 'This long lasting lipstick saturates lips ', '', '', ''),
+(75, 'Maybelline Color Lipstick', 'Cosmetics', 'Lipstick', 899, 'https://beautypouch.pk/cdn/shop/products/Maybelline-Color-Show-Lipstick-Party-Pink-108.webp?v=1667858707&width=713', 'Shades stay true without drying out your lips', '', '', ''),
+(76, ' Lips Long Stay Matte Lipstick', 'Cosmetics', 'Lipstick', 599, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzX96NT5eXMFeIm7vnpznsHAJL1QBrV-DLbg&s', ' love bullet matte lipsticks', '', '', ''),
+(77, ' Halal Velvet Matte ', 'Cosmetics', 'Lipstick', 1299, '../product_images/pexels-ebru-akal-1512857-12606864.jpg', ' every day with a premium', '', '', ''),
+(78, 'Matte Cream Lipstick', 'Cosmetics', 'Lipstick', 579, '../product_images/pexels-suzyhazelwood-2533266.jpg', 'luxurious Matte Cream Lipstick', '', '', ''),
+(79, 'Priming Matte Lipstick ', 'Cosmetics', 'Lipstick', 599, '../product_images/pexels-suzyhazelwood-1213558.jpg', 'Huda Kattan\'s comfort-wear formula ', '', '', ''),
+(80, 'ishak-ektiren', 'Cosmetics', 'Lipstick', 799, '../product_images/pexels-ishak-ektiren-327147089-27421762.jpg', 'Comfort Transfer-proof Lipstick', '', '', ''),
+(81, 'The New Nude Eyeshadow', 'Cosmetics', 'Eyeshadow', 3999, '../product_images/pexels-828860-2639947.jpg', 'A game-changing palette', '', '', ''),
+(82, 'EYESHADOW MAKEUP ', 'Cosmetics', 'Eyeshadow', 2999, '../product_images/pexels-magda-ehlers-pexels-1339340.jpg', 'Professional Makeup Artist and for beginners', '', '', ''),
+(83, 'Colorful Makeup Palettes Brushes', 'Cosmetics', 'Eyeshadow', 2599, '../product_images/pexels-michael-obstoj-1772571864-32388553.jpg', 'Eye Shadow And Blush On Palette', '', '', ''),
+(84, 'Holding an Eye Shadow ', 'Cosmetics', 'Eyeshadow', 799, '../product_images/pexels-mariacamila-7712432.jpg', 'Holding an Eye Shadow PALLATE', '', '', ''),
+(85, 'Butterfly dream makeup', 'Cosmetics', 'Eyeshadow', 5599, '../product_images/pexels-pnw-prod-9219006.jpg', 'Matte And Shimmer Eye Shadow ', '', '', ''),
+(86, 'Wet & Dry Eyeshadow', 'Cosmetics', 'Eyeshadow', 1299, 'https://images.pexels.com/photos/354962/pexels-photo-354962.jpeg', ' OCTYLDODECYL STEAROYL STEARATE', '', '', ''),
+(87, ' Huda Beauty Brown ', 'Cosmetics', 'Eyeshadow', 2399, '../product_images/pexels-richard-cascaes-figueiredo-37075473-9871630.jpg', 'delicious brown eyeshadow palettes ', '', '', ''),
+(88, 'MAEPEOR Jam', 'Cosmetics', 'Eyeshadow', 3599, '../product_images/pexels-pnw-prod-9219006.jpg', 'The MAEPEOR has more choice colorful ', '', '', ''),
+(89, 'SKIN1004 Madagascar', 'Cosmetics', 'Skincare', 2299, 'https://cozmetica.pk/cdn/shop/files/SKIN1004_20-_20Madagascar_201004Day_20Signature_20Mini-Set_202024_800x_0c4b0e11-67c9-4f55-a477-0323a98adfb2.webp?v=1748525706&width=1426', 'A Mini Set that combines ', '', '', ''),
+(90, 'Gold Radiance', 'Cosmetics', 'Skincare', 1299, 'https://cozmetica.pk/cdn/shop/products/10.jpg?v=1699332533&width=1426', 'The Nutrients are rich', '', '', ''),
+(91, 'Zombie Pack ', 'Cosmetics', 'Skincare', 2299, 'https://cozmetica.pk/cdn/shop/products/0005541_rice-in-youth-face-cream_1500.jpg?v=1699344695&width=1426', 'An 8-in-1 full-face TREATMENT MASK', '', '', ''),
+(92, 'The Ordinary Hyaluronic ', 'Cosmetics', 'Skincare', 4699, 'https://cozmetica.pk/cdn/shop/products/TheOrdinaryHyaluronicAcid2_B5Cozmetica.jpg?v=1699376231&width=1426', 'Suitable for all skin types', '', '', ''),
+(93, 'The Ordinary Vitamin C', 'Cosmetics', 'Skincare', 2299, 'https://cozmetica.pk/cdn/shop/products/vitamin-c_6fe9d67f-4cea-4546-99f5-966f3b506bbe.jpg?v=1699376329&width=1426', 'A water- and silicone-free ', '', '', ''),
+(94, 'L\'Oreal Serum', 'Cosmetics', 'Skincare', 1299, 'https://cozmetica.pk/cdn/shop/products/0003136_anti-mark-cream-blemish-less.jpg?v=1699342340&width=1426', 'minute 1 unit is sold in the US.', '', '', ''),
+(95, 'Fade Out Cream', 'Cosmetics', 'Skincare', 4299, 'https://cozmetica.pk/cdn/shop/products/0003020_fade-out-cream.jpg?v=1699343097&width=1426', '• Enhances the cell renewal process', '', '', ''),
+(96, 'Nyx Soft Matte Lip ', 'Cosmetics', 'Skincare', 4599, 'https://cozmetica.pk/cdn/shop/products/SOFTMATTELIPCREAM-ABUDHABI.jpg?v=1735744083&width=1426', 'Delightfully creamy', '', '', ''),
+(97, 'Ponds Bright Beauty ', 'Cosmetics', 'Skincare', 4599, 'https://cozmetica.pk/cdn/shop/files/Hero_e02ee322-898d-477f-b8fb-7f17f380019d.webp?v=1738846643&width=1426', 'Gives radiant, glowing skin', '', '', ''),
+(98, 'DUcare Kabuki', 'Beauty Tools', 'Brushes', 1299, 'https://lotshop.pk/cdn/shop/files/ducare-kabuki-flat-foundation-makeup-brush-430211.webp?v=1719858369&width=713', 'Experience Flawless Coverage ', '', '', ''),
+(99, 'GLAM Tokyo Girls', 'Beauty Tools', 'Brushes', 999, 'https://lotshop.pk/cdn/shop/files/ur-glam-tokyo-girls-collection-duo-eyebrowspoolie-makeup-brush-526945.jpg?v=1719858364&width=1100', 'eyebrow brush for defining and shaping,', '', '', ''),
+(100, 'Beauty Professional', 'Beauty Tools', 'Brushes', 1499, 'https://lotshop.pk/cdn/shop/files/for-your-beauty-professional-strobe-shine-makeup-brushes-192502.jpg?v=1723976802&width=713', 'tools for creating stunning', '', '', ''),
+(101, 'Premium Set', 'Beauty Tools', 'Brushes', 1399, 'https://lotshop.pk/cdn/shop/files/premium-set-of-10-makeup-brushes-with-free-gift-branded-quality-4340238.jpg?v=1751987059&width=1100', 'Makeup enthusiasts and professionals alike.', '', '', ''),
+(102, 'Branded Professional', 'Beauty Tools', 'Brushes', 1299, '../product_images/pexels-thisisjooh-27026566.jpg', 'Transform your makeup application ', '', '', ''),
+(103, 'Brush Set with Black', 'Beauty Tools', 'Brushes', 3999, 'https://lotshop.pk/cdn/shop/files/natural-maker-7-piece-professional-makeup-brush-set-with-black-travel-pouch-960589.jpg?v=1732205055&width=713', 'his set includes 7 essential brushes', '', '', ''),
+(104, 'Perfect Diary 3-Piece', 'Beauty Tools', 'Brushes', 1899, 'https://lotshop.pk/cdn/shop/files/perfect-diary-3-piece-makeup-brush-set-with-black-leather-pouch-253910.webp?v=1738170788&width=713', 'Luxury meets perfection ', '', '', ''),
+(105, 'EniNa Blossom Beauty', 'Beauty Tools', 'Brushes', 3999, 'https://lotshop.pk/cdn/shop/files/enina-blossom-beauty-12-piece-makeup-brush-set-730128.jpg?v=1727896346&width=1100', 'functionality to your makeup routine.', '', '', ''),
+(106, 'Wanderlust Mirror', 'Beauty Tools', 'Mirrors', 7999, 'https://lurella.pk/cdn/shop/products/BIGBLKSM161_02.progressive.jpg?v=1613515244', 'Dimensions: 7.48 x 9.92 x 0.95 in', '', '', ''),
+(107, 'Rotatable Golden', 'Beauty Tools', 'Mirrors', 5999, 'https://apricot.com.pk/cdn/shop/files/Rotatable-Golden-Vanity-Mirror-SA2405-157-Apricot-7731.webp?v=1727599801&width=823', 'Swivel Single Sided Makeup', '', '', ''),
+(108, ' Golden Vanity Mirror', 'Beauty Tools', 'Mirrors', 4999, 'https://apricot.com.pk/cdn/shop/files/Rotatable-Golden-Vanity-Mirror-5507-Round-SA2405-159-Apricot-6017.jpg?v=1727599691&width=823', 'Power Supply: Use without power', '', '', ''),
+(109, ' LED Mirror Curvy ', 'Beauty Tools', 'Mirrors', 4599, 'https://apricot.com.pk/cdn/shop/files/LED-Mirror-Curvy-Cosmetics-Storage-Box-Apricot-8509.jpg?v=1718693305&width=823', 'It is a mobile dressing table', '', '', ''),
+(110, 'Jewelry Cabinet', 'Beauty Tools', 'Mirrors', 3599, 'https://apricot.com.pk/cdn/shop/files/Jewelry-Cabinet-With-Led-Mirror-SA2405-72-Apricot-7484.jpg?v=1727599876&width=823', 'Jewelry is an indispensable addition ', '', '', ''),
+(111, 'Rotatable Black', 'Beauty Tools', 'Mirrors', 5999, 'https://apricot.com.pk/cdn/shop/files/Rotatable-Black-Vanity-Mirror-5508-Round-SA2405-160-Apricot-9624.jpg?v=1727599703&width=823', 'Power Supply: Use without power', '', '', ''),
+(112, '2in1 cosmetics mirror', 'Beauty Tools', 'Mirrors', 6999, 'https://www.medisana.com/thumbnail/45/70/07/1720698869/165ea46f4b329582ccae7dabb8f2cc06_1920x1920.jpg?ts=1720698869', 'The 2in1 cosmetic mirror impresses ', '', '', ''),
+(114, 'Storage Organizer Accessories', 'Beauty Tools', 'Accessories', 8799, '../product_images/pexels-ds-stories-7256120.jpg', ' material suitable for professional', '', '', ''),
+(115, 'Hakim Santoso ', 'Beauty Tools', 'Accessories', 7599, '../product_images/pexels-hakimsatoso-6527699.jpg', 'what you need quickly.', '', '', ''),
+(116, 'Nester grapher', 'Beauty Tools', 'Accessories', 4999, '../product_images/pexels-nestergrapher-12175442.jpg', 'organized in a sleek and modern way', '', '', ''),
+(117, 'karolina-grabowska', 'Beauty Tools', 'Accessories', 8999, '../product_images/pexels-karolina-grabowska-4938514.jpg', 'It will last for a long time.', '', '', ''),
+(118, 'jhong-pascua', 'Beauty Tools', 'Accessories', 5899, '../product_images/pexels-jhong-pascua-1062908-3018845.jpg', 'Elegance to your makeup collection', '', '', ''),
+(119, 'Lina Kivaka', 'Beauty Tools', 'Accessories', 5999, '../product_images/pexels-lina-5731811.jpg', 'Its also a Perfect Gifts ', '', '', ''),
+(120, 'Makeup Cosmetics', 'Beauty Tools', 'Accessories', 2999, '../product_images/pexels-rdne-7755138.jpg', 'save lots of your valuable time', '', '', ''),
+(121, 'suzyhazel wood', 'Beauty Tools', 'Accessories', 3699, '../product_images/pexels-suzyhazelwood-1438065.jpg', 'Luxury design make easy to access', '', '', ''),
+(130, 'Ivy Earrings', 'Jewellery', 'Earrings', 3000, '../product_images/Ivy_.webp', 'The Ivy Earrings showcase a mesmerizing combination of elegance and luxury', '', '28', ''),
+(133, 'Burro\'s-tail', 'Jewellery', 'Necklaces', 4000, '../product_images/necklace.jpg', 'this is an amazing burro\'\'s tail necklace', '', '27', 'Buyer Store'),
+(135, 'Beautifull Necklace ', 'Jewellery', 'Necklaces', 4000, '../product_images/cross ruby 3.avif', 'nothing but a necklace', '', '27', 'Buyer Store');
 
 -- --------------------------------------------------------
 
@@ -420,7 +422,10 @@ INSERT INTO `cart` (`user_id`, `item`, `product_image`, `product_name`, `product
 (26, 65, '../product_images/rr.jpg', 'MARINA STUD ', 4999, 1),
 (26, 78, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/ruby.avif', 'Customized jewellery', 6000, 1),
 (26, 79, '../product_images/r.png', 'PURPLE AMETHYST', 4000, 1),
-(26, 80, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/hrundl%20black%20diamond%201.avif', 'Customized jewellery', 7600, 1);
+(26, 80, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/hrundl%20black%20diamond%201.avif', 'Customized jewellery', 7600, 1),
+(27, 83, '../product_images/r.png', 'PURPLE AMETHYST', 4000, 1),
+(27, 84, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/palin%20emerald%201.avif', 'Customized jewellery', 11000, 1),
+(27, 85, '../product_images/long mirrors.jpeg', 'Mirror', 500, 1);
 
 -- --------------------------------------------------------
 
@@ -880,18 +885,21 @@ CREATE TABLE `user_acc` (
   `city` varchar(100) NOT NULL,
   `country` varchar(150) NOT NULL,
   `gender` varchar(100) NOT NULL,
-  `password` varchar(225) NOT NULL
+  `password` varchar(225) NOT NULL,
+  `user_role` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_acc`
 --
 
-INSERT INTO `user_acc` (`id`, `avatar`, `name`, `email`, `phone`, `address`, `city`, `country`, `gender`, `password`) VALUES
-(23, '', 'farazkhan', 'farazkhan61512@gmail.com', '', '', '', '', '', 'fk$12345678'),
-(24, '', 'Miswer', 'miswer@gmail.com', '', '', '', '', '', 'miswer'),
-(25, '', 'Aliyan', 'aliyan6464@gmail.com', '', '', '', '', '', 'aliyan'),
-(26, '', 'Mansoor', 'mansoor@gmail.com', '', '', '', '', '', 'mansoor');
+INSERT INTO `user_acc` (`id`, `avatar`, `name`, `email`, `phone`, `address`, `city`, `country`, `gender`, `password`, `user_role`) VALUES
+(23, '', 'farazkhan', 'farazkhan61512@gmail.com', '', '', '', '', '', 'fk$12345678', ''),
+(24, '', 'Miswer', 'miswer@gmail.com', '', '', '', '', '', 'miswer', ''),
+(25, '', 'Aliyan', 'aliyan6464@gmail.com', '', '', '', '', '', 'aliyan', ''),
+(26, '', 'Mansoor', 'mansoor@gmail.com', '', '', '', '', '', 'mansoor', ''),
+(27, '', 'Buyer Store', 'buyer123@gmail.com', '', '', '', '', '', '123', 'seller'),
+(28, '', 'Sample Buyer', 'sample@gmail.com', '', '', '', '', '', '1111', 'seller');
 
 -- --------------------------------------------------------
 
@@ -915,7 +923,10 @@ CREATE TABLE `wishlist` (
 INSERT INTO `wishlist` (`id`, `user_id`, `product_name`, `product_image`, `product_price`, `quantity`) VALUES
 (44, 26, 'RUBY STUD EARRINGS', '../product_images/r.png', 4000, 1),
 (45, 26, 'The Joran Ring', 'https://thegracepk.com/cdn/shop/products/16004a7d-aed4-4fad-b345-a1162c0987d4.jpg?v=1674476273&width=700', 1499, 1),
-(46, 26, 'MARINA STUD ', '../product_images/rr.jpg', 4999, 1);
+(46, 26, 'MARINA STUD ', '../product_images/rr.jpg', 4999, 1),
+(48, 27, 'Infinite Whisper', '../product_images/m.webp', 599, 1),
+(49, 27, 'PURPLE AMETHYST', '../product_images/r.png', 4000, 1),
+(50, 27, 'Eye Shadow', '../product_images/shadow.jpeg', 700, 1);
 
 --
 -- Indexes for dumped tables
@@ -992,13 +1003,13 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `additional_images`
 --
 ALTER TABLE `additional_images`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT for table `add_product`
 --
 ALTER TABLE `add_product`
-  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -1010,7 +1021,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -1040,13 +1051,13 @@ ALTER TABLE `jewellery_variants`
 -- AUTO_INCREMENT for table `user_acc`
 --
 ALTER TABLE `user_acc`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Constraints for dumped tables

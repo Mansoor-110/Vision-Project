@@ -301,19 +301,12 @@ if (isset($_GET['id'])) {
         <!-- Product Details -->
         <div class="col-md-6 col-12">
             <h2 class="mb-3"><?php echo $product_name ?></h2>
-            <p class="text-white-50 mb-4">SKU: WH1000XM4</p>
+            <p class="text-black">Store Name: <h5 style="font-weight:bold;"><?php echo ucwords($data['seller_name'])?></h5></p>
             <div class="mb-3">
                 <span class="h4 me-2">Rs.<?php echo $product_price ?></span>
-                <span class="text-white-50"><s>Rs.<?php echo $product_price + 300; ?></s></span>
+                <span class="text-black-50"><s>Rs.<?php echo $product_price + 300; ?></s></span>
             </div>
-            <div class="mb-3">
-                <i class="bi bi-star-fill text-warning"></i>
-                <i class="bi bi-star-fill text-warning"></i>
-                <i class="bi bi-star-fill text-warning"></i>
-                <i class="bi bi-star-fill text-warning"></i>
-                <i class="bi bi-star-half text-warning"></i>
-                <span class="ms-2">4.5 (120 reviews)</span>
-            </div>
+            
             <p class="mb-3"><?php echo $product_description ?></p>
 
             <form action="../cart/cartcrud.php" method="post">

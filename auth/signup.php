@@ -480,6 +480,14 @@
 
         <form action="signup_process.php" class="signup-form" id="signupForm" method="post" >
             <div class="form-group">
+                
+<select name="role" id="" required>
+    <option value="">Select..</option>
+    <option value="buyer">Seller Account</option>
+    <option value="seller">Buyer Account</option>
+</select>
+            </div>
+            <div class="form-group">
                 <i class="form-icon fas fa-user"></i>
                 <input type="text" class="form-input" name = "name" placeholder="Full Name" required>
             </div>

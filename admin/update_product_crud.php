@@ -10,6 +10,10 @@ if(isset($_POST['submit'])){
     $product_description = mysqli_real_escape_string($conn, $_POST['product_description']);
     $product_tag = mysqli_real_escape_string($conn, $_POST['product_tag']);
     $product_url = mysqli_real_escape_string($conn, $_POST['product_url']);
+      $redirect_url = $_POST['redirect_url'];
+    $seller_id = mysqli_real_escape_string($conn, $_POST['seller_id']);
+    $seller_name = mysqli_real_escape_string($conn, $_POST['seller_name']);
+   
 
     $final_image = $product_url; // default: URL use hoga
 
@@ -28,10 +32,13 @@ if(isset($_POST['submit'])){
                 product_price='$product_price', 
                 product_image='$final_image', 
                 product_description='$product_description',
-                product_tag='$product_tag'
+                product_tag='$product_tag',
+                seller_id='$seller_id',
+                seller_name='$seller_name'
+
               WHERE product_id='$product_id'";
 
     $sql = mysqli_query($conn, $query);
-    header('location:view_product.php');
+   header("location: $redirect_url ");      
 }
 ?>

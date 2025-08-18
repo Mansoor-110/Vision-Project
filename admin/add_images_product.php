@@ -11,7 +11,7 @@ include('../includes/connection.php');
 
 if (isset($_POST['submit'])) {
     $product_id = $_POST['product_id'];
-
+    $redirect_url = $_POST['redirect_url'];
     foreach ($_FILES['added_image']['name'] as $key => $product_image_name) {
         $product_image_tmp = $_FILES['added_image']['tmp_name'][$key];
           move_uploaded_file($product_image_tmp,'../product_images/'.$product_image_name);
@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
      $sql=mysqli_query($conn,$query);
 
 } 
-header('location:view_product.php');
+header("location:$redirect_url");
 
     }
 ?>
