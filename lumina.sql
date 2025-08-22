@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2025 at 05:44 PM
+-- Generation Time: Aug 22, 2025 at 03:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -886,20 +886,22 @@ CREATE TABLE `user_acc` (
   `country` varchar(150) NOT NULL,
   `gender` varchar(100) NOT NULL,
   `password` varchar(225) NOT NULL,
-  `user_role` varchar(100) NOT NULL
+  `user_role` varchar(100) NOT NULL,
+  `email_verified` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_acc`
 --
 
-INSERT INTO `user_acc` (`id`, `avatar`, `name`, `email`, `phone`, `address`, `city`, `country`, `gender`, `password`, `user_role`) VALUES
-(23, '', 'farazkhan', 'farazkhan61512@gmail.com', '', '', '', '', '', 'fk$12345678', ''),
-(24, '', 'Miswer', 'miswer@gmail.com', '', '', '', '', '', 'miswer', ''),
-(25, '', 'Aliyan', 'aliyan6464@gmail.com', '', '', '', '', '', 'aliyan', ''),
-(26, '', 'Mansoor', 'mansoor@gmail.com', '', '', '', '', '', 'mansoor', ''),
-(27, '', 'Buyer Store', 'buyer123@gmail.com', '', '', '', '', '', '123', 'seller'),
-(28, '', 'Sample Buyer', 'sample@gmail.com', '', '', '', '', '', '1111', 'seller');
+INSERT INTO `user_acc` (`id`, `avatar`, `name`, `email`, `phone`, `address`, `city`, `country`, `gender`, `password`, `user_role`, `email_verified`, `created_at`) VALUES
+(23, '', 'farazkhan', 'farazkhan61512@gmail.com', '', '', '', '', '', 'fk$12345678', '', 0, '2025-08-22 07:47:13'),
+(24, '', 'Miswer', 'miswer@gmail.com', '', '', '', '', '', 'miswer', '', 0, '2025-08-22 07:47:13'),
+(25, '', 'Aliyan', 'aliyan6464@gmail.com', '', '', '', '', '', 'aliyan', '', 0, '2025-08-22 07:47:13'),
+(26, '', 'Mansoor', 'mansoor@gmail.com', '', '', '', '', '', 'mansoor', '', 0, '2025-08-22 07:47:13'),
+(27, '', 'Buyer Store', 'buyer123@gmail.com', '', '', '', '', '', '123', 'seller', 0, '2025-08-22 07:47:13'),
+(28, '', 'Sample Buyer', 'sample@gmail.com', '', '', '', '', '', '1111', 'seller', 0, '2025-08-22 07:47:13');
 
 -- --------------------------------------------------------
 
@@ -1051,7 +1053,7 @@ ALTER TABLE `jewellery_variants`
 -- AUTO_INCREMENT for table `user_acc`
 --
 ALTER TABLE `user_acc`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `wishlist`

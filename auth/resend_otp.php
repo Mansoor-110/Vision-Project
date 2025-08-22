@@ -2,70 +2,38 @@
 session_start();
 
 // include PHPMailer files
-require '../PHPMailer/src/Exception.php';
-require '../PHPMailer/src/PHPMailer.php';
-require '../PHPMailer/src/SMTP.php';
+ require '../PHPMailer/src/Exception.php';
+ require '../PHPMailer/src/PHPMailer.php';
+ require '../PHPMailer/src/SMTP.php';
 
-// Add these use statements to fix the error
-use PHPMailer\PHPMailer\PHPMailer;
+ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-if(isset($_POST['submit'])){
-    $role = $_POST['role'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-    
-    if($password == $confirm_password){
-        include '../includes/connection.php';
-        
-        // Check if email already exists
-        $check_email = "SELECT * FROM user_acc WHERE email = '$email'";
-        $check_result = mysqli_query($conn, $check_email);
-        
-        if(mysqli_num_rows($check_result) > 0){
-            $_SESSION['email_exists'] = 'Email already registered';
-            header('location:signup.php');
-            exit();
-        }
-        
-        // Generate 6-digit OTP
-        $otp = sprintf("%06d", mt_rand(1, 999999));
-        $otp_expiry = date('Y-m-d H:i:s', strtotime('+10 minutes'));
-        
-        // Store user data and OTP in session temporarily (DO NOT CREATE ACCOUNT YET!)
-        $_SESSION['temp_user'] = [
-            'role' => $role,
-            'name' => $name,
-            'email' => $email,
-            'password' => $password, // We'll hash this in the verification process
-            'otp' => $otp,
-            'otp_expiry' => $otp_expiry
-        ];
-        
-        // Send OTP via email
-        if(sendOTPEmail($email, $name, $otp)){
-            $_SESSION['otp_sent'] = 'OTP sent successfully to your email';
-            header('location:otp.php');
-            exit();
-        } else {
-            $_SESSION['email_error'] = 'Failed to send OTP. Please try again.';
-            header('location:signup.php');
-            exit();
-        }
-        
-    } else {
-        $_SESSION['not-matched'] = 'not-matched';
-        header('location:signup.php');
-        exit();
-    }
-} else {
-    // If accessed without form submission, redirect to signup
+if(!isset($_SESSION['temp_user'])){
     header('location:signup.php');
     exit();
 }
+
+// Generate new OTP
+$new_otp = sprintf("%06d", mt_rand(1, 999999));
+$new_otp_expiry = date('Y-m-d H:i:s', strtotime('+10 minutes'));
+
+// Update session data
+$_SESSION['temp_user']['otp'] = $new_otp;
+$_SESSION['temp_user']['otp_expiry'] = $new_otp_expiry;
+
+$email = $_SESSION['temp_user']['email'];
+$name = $_SESSION['temp_user']['name'];
+
+// Send new OTP
+if(sendOTPEmail($email, $name, $new_otp)){
+    $_SESSION['otp_success'] = 'New OTP sent successfully!';
+} else {
+    $_SESSION['otp_error'] = 'Failed to send new OTP. Please try again.';
+}
+
+header('location:otp.php');
 
 function sendOTPEmail($email, $name, $otp) {
     $mail = new PHPMailer(true);
@@ -86,7 +54,7 @@ function sendOTPEmail($email, $name, $otp) {
 
         // Content
         $mail->isHTML(true);
-        $mail->Subject = 'Email Verification - Lumina Account';
+        $mail->Subject = 'Email Verification - Lumina Account (Resent)';
         $mail->Body    = getOTPEmailTemplate($name, $otp);
 
         $mail->send();
@@ -115,10 +83,10 @@ function getOTPEmailTemplate($name, $otp) {
         <div class='container'>
             <div class='header'>
                 <div class='logo'>LUMINA</div>
-                <h2>Email Verification</h2>
+                <h2>Email Verification (Resent)</h2>
             </div>
             <p>Hello $name,</p>
-            <p>Thank you for signing up with Lumina! Please use the following OTP to verify your email address:</p>
+            <p>Here's your new verification code:</p>
             <div class='otp-code'>$otp</div>
             <p><strong>This OTP will expire in 10 minutes.</strong></p>
             <p>If you didn't request this verification, please ignore this email.</p>
