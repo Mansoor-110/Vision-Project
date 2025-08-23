@@ -1,3 +1,4 @@
+<?php include '../includes/header.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -416,45 +417,19 @@
             margin: 10px 0;
         }
 
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            border: 2px solid #800020;
-            background: white;
-            color: #800020;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .quantity-btn:hover {
-            background: #800020;
-            color: white;
-        }
-
         .quantity-display {
             font-weight: 600;
             min-width: 20px;
             text-align: center;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
         .item-price {
             font-weight: 700;
             color: #800020;
             font-size: 16px;
-        }
-
-        .remove-item {
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 8px;
-            cursor: pointer;
-            font-size: 12px;
         }
 
         .summary-totals {
@@ -497,7 +472,6 @@
             color: #28a745;
         }
 
-        /* Loading Spinner */
         .loading-spinner {
             display: none;
             width: 20px;
@@ -514,7 +488,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Success Modal */
         .success-modal {
             position: fixed;
             top: 0;
@@ -599,7 +572,6 @@
             transform: translateY(-2px);
         }
 
-        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
@@ -634,7 +606,43 @@
             background: #17a2b8;
         }
 
-        /* Responsive Design */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: #800020;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .empty-state p {
+            margin-bottom: 30px;
+        }
+
+        .empty-state a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #800020;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .empty-state a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(128, 0, 32, 0.3);
+        }
+
         @media (max-width: 1024px) {
             .checkout-container {
                 grid-template-columns: 1fr;
@@ -681,12 +689,55 @@
     </style>
 </head>
 <body>
-    <div class="checkout-container">
+    <?php
+    include '../includes/connection.php';
+    
+    if (!isset($_SESSION['user_id'])) {
+        echo '<div class="empty-state">
+                <i class="fas fa-user-lock"></i>
+                <h3>Please log in to continue</h3>
+                <p>Sign in to access checkout and complete your purchase</p>
+                <a href="../auth/login.php">Login Now</a>
+              </div>';
+        exit;
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $query = "SELECT * FROM cart WHERE user_id='$user_id'";
+    $sql = mysqli_query($conn, $query);
+    $total_items = mysqli_num_rows($sql);
+    $subtotal = 0;
+    $cart_data = [];
+
+    if ($total_items == 0) {
+        echo '<div class="empty-state">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Add some items to your cart before proceeding to checkout</p>
+                <a href="../pages/index.php">Start Shopping</a>
+              </div>';
+        exit;
+    }
+
+    // Fetch cart data
+    while ($data = mysqli_fetch_assoc($sql)) {
+        $item_total = (float)$data['product_price'] * (int)$data['quantity'];
+        $subtotal += $item_total;
+        $cart_data[] = $data;
+    }
+
+    // Calculate totals
+    $discount = 50.00;
+    $shipping = 150;
+    $total_amount = $subtotal - $discount + $shipping;
+    ?>
+
+    <div class="checkout-container mt-5">
         <!-- Main Checkout Form -->
         <div class="main-content">
             <div class="checkout-header">
                 <h1><i class="fas fa-shopping-cart"></i> Secure Checkout</h1>
-                <p>Complete your purchase safely and securely</p>
+                <p>Complete your purchase safely and securely - <?php echo $total_items; ?> items</p>
             </div>
 
             <div class="checkout-steps">
@@ -799,7 +850,7 @@
                         </label>
                     </div>
 
-                    <!-- JazzCash Payment Details -->
+                    <!-- Payment Details Sections (keeping the same structure) -->
                     <div id="jazzcash-details" class="payment-details">
                         <h3 style="margin-bottom: 15px; color: #e74c3c;">
                             <i class="fas fa-mobile-alt"></i> JazzCash Payment
@@ -814,7 +865,6 @@
                         </div>
                     </div>
 
-                    <!-- EasyPaisa Payment Details -->
                     <div id="easypaisa-details" class="payment-details">
                         <h3 style="margin-bottom: 15px; color: #27ae60;">
                             <i class="fas fa-wallet"></i> EasyPaisa Payment
@@ -829,7 +879,6 @@
                         </div>
                     </div>
 
-                    <!-- Card Payment Details -->
                     <div id="card-details" class="payment-details">
                         <h3 style="margin-bottom: 15px; color: #3498db;">
                             <i class="fas fa-credit-card"></i> Card Payment
@@ -854,7 +903,6 @@
                         </div>
                     </div>
 
-                    <!-- Bank Transfer Details -->
                     <div id="bank-details" class="payment-details">
                         <h3 style="margin-bottom: 15px; color: #9b59b6;">
                             <i class="fas fa-university"></i> Bank Transfer
@@ -904,26 +952,50 @@
                 <h2><i class="fas fa-receipt"></i> Order Summary</h2>
             </div>
 
-            <div class="cart-items" id="cartItems">
-                <!-- Cart items will be populated by JavaScript -->
+            <div class="cart-items">
+                <?php foreach ($cart_data as $item): ?>
+                <div class="cart-item">
+                    <img src="<?php echo $item['product_image']; ?>" alt="<?php echo $item['product_name']; ?>" class="item-image">
+                    <div class="item-details">
+                        <div class="item-name"><?php echo $item['product_name']; ?></div>
+                        <div class="item-delivery">
+                            <?php
+                            if($item['product_name'] == "Customized jewellery"){
+                                echo "Delivery in 7-14 business days";
+                            } else {
+                                echo "Delivery in 3-5 business days";
+                            }
+                            ?>
+                        </div>
+                        <div class="item-stock">
+                            <i class="fas fa-check-circle"></i>
+                            In Stock
+                        </div>
+                        <div class="item-quantity">
+                            <span class="quantity-display">Qty: <?php echo $item['quantity']; ?></span>
+                        </div>
+                    </div>
+                    <div class="item-price">Rs. <?php echo number_format($item['product_price']); ?></div>
+                </div>
+                <?php endforeach; ?>
             </div>
 
             <div class="summary-totals">
                 <div class="total-row">
-                    <span>Subtotal:</span>
-                    <span id="subtotal">Rs. 15,000</span>
+                    <span>Subtotal (<?php echo $total_items; ?> items):</span>
+                    <span>Rs. <?php echo number_format($subtotal, 2); ?></span>
                 </div>
                 <div class="total-row">
                     <span>Shipping:</span>
-                    <span id="shipping">Rs. 200</span>
+                    <span>Rs. <?php echo number_format($shipping, 2); ?></span>
                 </div>
                 <div class="total-row discount">
                     <span>Discount:</span>
-                    <span id="discount">-Rs. 500</span>
+                    <span>-Rs. <?php echo number_format($discount, 2); ?></span>
                 </div>
                 <div class="total-row final">
                     <span>Total:</span>
-                    <span id="total">Rs. 14,700</span>
+                    <span>Rs. <?php echo number_format($total_amount, 2); ?></span>
                 </div>
 
                 <div class="secure-checkout">
@@ -952,85 +1024,15 @@
     </div>
 
     <script>
-        // Cart data
-        let cartData = [
-            {
-                id: 1,
-                name: "PURPLE AMETHYST",
-                price: 4000,
-                quantity: 1,
-                image: "https://via.placeholder.com/60x60/800020/FFFFFF?text=Earrings",
-                delivery: "Delivery in 3-5 business days"
-            },
-            {
-                id: 2,
-                name: "Customized jewellery",
-                price: 11000,
-                quantity: 1,
-                image: "https://via.placeholder.com/60x60/800020/FFFFFF?text=Custom",
-                delivery: "Delivery in 7-14 business days"
-            },
-            {
-                id: 3,
-                name: "Mirror",
-                price: 2500,
-                quantity: 1,
-                image: "https://via.placeholder.com/60x60/800020/FFFFFF?text=Mirror",
-                delivery: "Delivery in 3-5 business days"
-            }
-        ];
-
-        // Payment API configurations
-        const PAYMENT_CONFIG = {
-            jazzcash: {
-                apiUrl: 'https://sandbox.jazzcash.com.pk/ApplicationAPI/API/Payment/DoTransaction',
-                merchantId: 'MC12345', // Replace with actual merchant ID
-                password: 'your_password', // Replace with actual password
-                salt: 'your_salt' // Replace with actual salt
-            },
-            easypaisa: {
-                apiUrl: 'https://easypaisa.com.pk/easypay/Index.jsf',
-                storeId: 'your_store_id', // Replace with actual store ID
-                merchantId: 'your_merchant_id' // Replace with actual merchant ID
-            },
-            card: {
-                // Using a payment gateway like Stripe or local Pakistani gateway
-                apiUrl: 'https://api.stripe.com/v1/payment_intents',
-                publicKey: 'pk_test_your_key' // Replace with actual key
-            }
-        };
+        // Pass PHP cart data to JavaScript
+        const cartData = <?php echo json_encode($cart_data); ?>;
+        const totalAmount = <?php echo $total_amount; ?>;
+        const totalItems = <?php echo $total_items; ?>;
 
         // Initialize the checkout system
         document.addEventListener('DOMContentLoaded', function() {
-            initializeCheckout();
             setupEventListeners();
-            renderCartItems();
-            updateTotals();
         });
-
-        function initializeCheckout() {
-            // Format phone number input
-            const phoneInput = document.querySelector('input[name="phone"]');
-            phoneInput.addEventListener('input', formatPhoneNumber);
-
-            // Format card number input
-            const cardNumberInput = document.querySelector('input[name="card_number"]');
-            if (cardNumberInput) {
-                cardNumberInput.addEventListener('input', formatCardNumber);
-            }
-
-            // Format expiry date input
-            const expiryInput = document.querySelector('input[name="card_expiry"]');
-            if (expiryInput) {
-                expiryInput.addEventListener('input', formatExpiryDate);
-            }
-
-            // Format mobile wallet numbers
-            const walletInputs = document.querySelectorAll('.mobile-wallet-input');
-            walletInputs.forEach(input => {
-                input.addEventListener('input', formatMobileNumber);
-            });
-        }
 
         function setupEventListeners() {
             // Payment method selection
@@ -1057,70 +1059,25 @@
                     this.classList.add('selected');
                 });
             });
-        }
 
-        function renderCartItems() {
-            const cartContainer = document.getElementById('cartItems');
-            cartContainer.innerHTML = '';
+            // Format inputs
+            const phoneInput = document.querySelector('input[name="phone"]');
+            phoneInput.addEventListener('input', formatPhoneNumber);
 
-            cartData.forEach(item => {
-                const cartItem = createCartItemHTML(item);
-                cartContainer.appendChild(cartItem);
-            });
-        }
-
-        function createCartItemHTML(item) {
-            const div = document.createElement('div');
-            div.className = 'cart-item';
-            div.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="item-image">
-                <div class="item-details">
-                    <div class="item-name">${item.name}</div>
-                    <div class="item-delivery">${item.delivery}</div>
-                    <div class="item-stock">
-                        <i class="fas fa-check-circle"></i>
-                        In Stock
-                    </div>
-                    <div class="item-quantity">
-                        <button type="button" class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                        <span class="quantity-display" id="qty${item.id}">${item.quantity}</span>
-                        <button type="button" class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                        <button type="button" class="remove-item" onclick="removeItem(${item.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="item-price" id="price${item.id}">Rs. ${item.price.toLocaleString()}</div>
-            `;
-            return div;
-        }
-
-        function updateQuantity(itemId, change) {
-            const item = cartData.find(i => i.id === itemId);
-            if (item) {
-                item.quantity = Math.max(1, item.quantity + change);
-                document.getElementById(`qty${itemId}`).textContent = item.quantity;
-                updateTotals();
+            const cardNumberInput = document.querySelector('input[name="card_number"]');
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', formatCardNumber);
             }
-        }
 
-        function removeItem(itemId) {
-            cartData = cartData.filter(item => item.id !== itemId);
-            renderCartItems();
-            updateTotals();
-            showNotification('Item removed from cart', 'info');
-        }
+            const expiryInput = document.querySelector('input[name="card_expiry"]');
+            if (expiryInput) {
+                expiryInput.addEventListener('input', formatExpiryDate);
+            }
 
-        function updateTotals() {
-            const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const shipping = subtotal > 10000 ? 0 : 200;
-            const discount = subtotal > 15000 ? 500 : 0;
-            const total = subtotal + shipping - discount;
-
-            document.getElementById('subtotal').textContent = `Rs. ${subtotal.toLocaleString()}`;
-            document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `Rs. ${shipping.toLocaleString()}`;
-            document.getElementById('discount').textContent = discount > 0 ? `-Rs. ${discount.toLocaleString()}` : 'Rs. 0';
-            document.getElementById('total').textContent = `Rs. ${total.toLocaleString()}`;
+            const walletInputs = document.querySelectorAll('.mobile-wallet-input');
+            walletInputs.forEach(input => {
+                input.addEventListener('input', formatMobileNumber);
+            });
         }
 
         function handlePaymentMethodChange(event) {
@@ -1158,7 +1115,6 @@
                 value = '+92' + value;
             }
             
-            // Format as +92 XXX XXXXXXX
             if (value.length > 3) {
                 value = value.substring(0, 3) + ' ' + value.substring(3);
             }
@@ -1172,7 +1128,6 @@
         function formatMobileNumber(event) {
             let value = event.target.value.replace(/\D/g, '');
             
-            // Format as 03XX XXXXXXX
             if (value.length > 4) {
                 value = value.substring(0, 4) + ' ' + value.substring(4, 11);
             }
@@ -1221,14 +1176,11 @@
             showLoadingState(true);
             
             try {
-                // Process payment based on selected method
+                // Simulate payment processing
                 const paymentResult = await processPayment(orderData);
                 
                 if (paymentResult.success) {
-                    // Update step to confirmation
                     updateStepIndicator(4);
-                    
-                    // Show success modal
                     showSuccessModal(paymentResult);
                 } else {
                     throw new Error(paymentResult.message || 'Payment failed');
@@ -1245,7 +1197,6 @@
             const requiredFields = ['first_name', 'last_name', 'email', 'phone', 'address', 'city'];
             const errors = [];
 
-            // Check required fields
             requiredFields.forEach(field => {
                 if (!orderData[field] || orderData[field].trim() === '') {
                     errors.push(`${field.replace('_', ' ')} is required`);
@@ -1255,21 +1206,14 @@
                 }
             });
 
-            // Validate email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (orderData.email && !emailRegex.test(orderData.email)) {
                 errors.push('Please enter a valid email address');
                 document.querySelector('[name="email"]').classList.add('error');
             }
 
-            // Validate payment method
             if (!orderData.payment_method) {
                 errors.push('Please select a payment method');
-            } else {
-                // Validate payment-specific fields
-                if (!validatePaymentFields(orderData)) {
-                    errors.push('Please fill in all payment details');
-                }
             }
 
             if (errors.length > 0) {
@@ -1280,75 +1224,8 @@
             return true;
         }
 
-        function validatePaymentFields(orderData) {
-            const paymentMethod = orderData.payment_method;
-            
-            switch (paymentMethod) {
-                case 'jazzcash':
-                    return orderData.jazzcash_number && orderData.jazzcash_pin;
-                case 'easypaisa':
-                    return orderData.easypaisa_number && orderData.easypaisa_pin;
-                case 'card':
-                    return orderData.card_number && orderData.card_name && 
-                           orderData.card_expiry && orderData.card_cvv;
-                case 'bank':
-                    return orderData.selected_bank;
-                default:
-                    return false;
-            }
-        }
-
         async function processPayment(orderData) {
             const paymentMethod = orderData.payment_method;
-            const totalAmount = calculateTotal();
-
-            switch (paymentMethod) {
-                case 'jazzcash':
-                    return await processJazzCashPayment(orderData, totalAmount);
-                case 'easypaisa':
-                    return await processEasyPaisaPayment(orderData, totalAmount);
-                case 'card':
-                    return await processCardPayment(orderData, totalAmount);
-                case 'bank':
-                    return await processBankTransfer(orderData, totalAmount);
-                default:
-                    throw new Error('Invalid payment method');
-            }
-        }
-
-        async function processJazzCashPayment(orderData, amount) {
-            // Simulate JazzCash API integration
-            // In a real implementation, you would call the actual JazzCash API
-            
-            const transactionId = generateTransactionId();
-            
-            // Simulate API call
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    // Simulate success/failure
-                    const isSuccess = Math.random() > 0.1; // 90% success rate for demo
-                    
-                    if (isSuccess) {
-                        resolve({
-                            success: true,
-                            transactionId: transactionId,
-                            method: 'JazzCash',
-                            amount: amount,
-                            message: 'Payment successful via JazzCash'
-                        });
-                    } else {
-                        resolve({
-                            success: false,
-                            message: 'JazzCash payment failed. Please check your PIN and balance.'
-                        });
-                    }
-                }, 2000);
-            });
-        }
-
-        async function processEasyPaisaPayment(orderData, amount) {
-            // Simulate EasyPaisa API integration
-            const transactionId = generateTransactionId();
             
             return new Promise((resolve) => {
                 setTimeout(() => {
@@ -1357,101 +1234,19 @@
                     if (isSuccess) {
                         resolve({
                             success: true,
-                            transactionId: transactionId,
-                            method: 'EasyPaisa',
-                            amount: amount,
-                            message: 'Payment successful via EasyPaisa'
+                            transactionId: 'TXN' + Date.now(),
+                            method: paymentMethod,
+                            amount: totalAmount,
+                            message: `Payment successful via ${paymentMethod}`
                         });
                     } else {
                         resolve({
                             success: false,
-                            message: 'EasyPaisa payment failed. Please verify your account details.'
+                            message: 'Payment failed. Please try again.'
                         });
                     }
                 }, 2000);
             });
-        }
-
-        async function processCardPayment(orderData, amount) {
-            // Simulate Card payment processing
-            const transactionId = generateTransactionId();
-            
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    const isSuccess = Math.random() > 0.15; // 85% success rate
-                    
-                    if (isSuccess) {
-                        resolve({
-                            success: true,
-                            transactionId: transactionId,
-                            method: 'Card Payment',
-                            amount: amount,
-                            message: 'Card payment processed successfully'
-                        });
-                    } else {
-                        resolve({
-                            success: false,
-                            message: 'Card payment declined. Please check your card details.'
-                        });
-                    }
-                }, 3000);
-            });
-        }
-
-        async function processBankTransfer(orderData, amount) {
-            // Simulate Bank transfer processing
-            const transactionId = generateTransactionId();
-            
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        success: true,
-                        transactionId: transactionId,
-                        method: 'Bank Transfer',
-                        amount: amount,
-                        message: 'Bank transfer initiated successfully. Please complete the transfer within 24 hours.',
-                        bankDetails: getBankDetails(orderData.selected_bank)
-                    });
-                }, 1500);
-            });
-        }
-
-        function getBankDetails(bankCode) {
-            const bankDetails = {
-                hbl: {
-                    name: 'Habib Bank Limited',
-                    account: '1234567890',
-                    iban: 'PK12HABB0000001234567890'
-                },
-                ubl: {
-                    name: 'United Bank Limited',
-                    account: '0987654321',
-                    iban: 'PK34UNIL0000000987654321'
-                },
-                mcb: {
-                    name: 'Muslim Commercial Bank',
-                    account: '1122334455',
-                    iban: 'PK56MUCB0000001122334455'
-                },
-                allied: {
-                    name: 'Allied Bank Limited',
-                    account: '5544332211',
-                    iban: 'PK78ABPA0000005544332211'
-                }
-            };
-            
-            return bankDetails[bankCode] || bankDetails.hbl;
-        }
-
-        function calculateTotal() {
-            const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const shipping = subtotal > 10000 ? 0 : 200;
-            const discount = subtotal > 15000 ? 500 : 0;
-            return subtotal + shipping - discount;
-        }
-
-        function generateTransactionId() {
-            return 'TXN' + Date.now() + Math.random().toString(36).substr(2, 9).toUpperCase();
         }
 
         function showLoadingState(show) {
@@ -1472,28 +1267,14 @@
 
         function showSuccessModal(paymentResult) {
             const modal = document.getElementById('successModal');
-            const messageEl = modal.querySelector('.success-message');
-            
-            let message = `Your payment of Rs. ${paymentResult.amount.toLocaleString()} via ${paymentResult.method} was successful. `;
-            message += `Transaction ID: ${paymentResult.transactionId}. `;
-            
-            if (paymentResult.bankDetails) {
-                message += `Please transfer the amount to ${paymentResult.bankDetails.name} (Account: ${paymentResult.bankDetails.account}) within 24 hours.`;
-            } else {
-                message += 'You will receive a confirmation email shortly with tracking details.';
-            }
-            
-            messageEl.textContent = message;
             modal.style.display = 'flex';
             
-            // Auto close after 10 seconds
             setTimeout(() => {
-                modal.style.display = 'none';
+                window.location.href = '../pages/index.php';
             }, 10000);
         }
 
         function showNotification(message, type = 'info') {
-            // Remove existing notifications
             const existingNotifications = document.querySelectorAll('.notification');
             existingNotifications.forEach(notification => notification.remove());
             
@@ -1503,28 +1284,19 @@
             
             document.body.appendChild(notification);
             
-            // Show notification
             setTimeout(() => notification.classList.add('show'), 100);
             
-            // Hide notification after 5 seconds
             setTimeout(() => {
                 notification.classList.remove('show');
                 setTimeout(() => notification.remove(), 300);
             }, 5000);
         }
 
-        // Close modal when clicking outside
         document.getElementById('successModal').addEventListener('click', function(event) {
             if (event.target === this) {
                 this.style.display = 'none';
             }
         });
-
-        // Initialize cart on page load
-        window.onload = function() {
-            renderCartItems();
-            updateTotals();
-        };
     </script>
 </body>
 </html>

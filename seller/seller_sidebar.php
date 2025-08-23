@@ -510,10 +510,10 @@
             <li><a href="seller.php" class=""><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
             <li><a href="seller_add_product.php"><i class="fas fa-plus-circle"></i> Add Product</a></li>
             <li><a href="manage_product.php"><i class="fas fa-boxes"></i> Manage Products</a></li>
-            <li><a href="#"><i class="fas fa-shopping-cart"></i> Orders</a></li>
-            <li><a href="#"><i class="fas fa-comments"></i> Messages</a></li>
+            <li><a href="orders.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+            <li><a href="messages.php"><i class="fas fa-comments"></i> Messages</a></li>
             <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            <li><a href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
     

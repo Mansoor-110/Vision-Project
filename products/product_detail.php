@@ -327,6 +327,9 @@ if (isset($_GET['id'])) {
     </div>
 </div>
 
+
+
+
 <script>
     function changeImage(event, src) {
         document.getElementById('mainImage').src = src;

@@ -298,6 +298,7 @@
             border: 1px solid var(--gray-200);
             box-shadow: var(--shadow-lg);
             overflow: hidden;
+
         }
 
         .summary-header {
@@ -310,6 +311,7 @@
 
         .summary-content {
             padding: 1.5rem;
+            
         }
 
         .summary-row {
@@ -318,6 +320,8 @@
             align-items: center;
             margin-bottom: 1rem;
             font-size: 0.95rem;
+            margin-left:5px;
+            margin-right:5px;
         }
 
         .summary-row:last-child {
@@ -704,9 +708,9 @@
                                 <span class='total-amount'>Rs. <?php echo number_format($Total, 2); ?></span>
                             </div>
                             
-                            <button class='checkout-btn'>
-                                <i class="fas fa-credit-card"></i> Proceed to Checkout
-                            </button>
+                            <button href="" class='checkout-btn'>
+                                <i class="fas fa-credit-card"></i><a href="../checkout/checkout.php"> Proceed to Checkout</a>
+                    </button>
                             
                             <div class='security-badge'>
                                 <i class='fas fa-shield-alt'></i>

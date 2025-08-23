@@ -25,8 +25,8 @@ if (isset($_GET['search'])) {
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            color: #2c2c2c;
             overflow-x: hidden;
             min-height: 100vh;
         }
@@ -53,19 +53,15 @@ if (isset($_GET['search'])) {
             padding: 80px 20px;
             text-align: center;
             position: relative;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(128, 0, 32, 0.1) 0%, transparent 70%);
         }
-
-
-
-
 
         .ta-button {
             display: inline-block;
             padding: 15px 40px;
             background: transparent;
-            border: 2px solid #ffd700;
-            color: #ffd700;
+            border: 2px solid #800020;
+            color: #800020;
             text-decoration: none;
             font-size: 1.1rem;
             letter-spacing: 1px;
@@ -83,7 +79,7 @@ if (isset($_GET['search'])) {
             left: -100%;
             width: 100%;
             height: 100%;
-            background: #ffd700;
+            background: #800020;
             transition: left 0.3s ease;
             z-index: -1;
         }
@@ -93,9 +89,9 @@ if (isset($_GET['search'])) {
         }
 
         .ta-button:hover {
-            color: #000;
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(128, 0, 32, 0.3);
         }
 
         /* Featured Products Slider */
@@ -112,7 +108,7 @@ if (isset($_GET['search'])) {
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(128, 0, 32, 0.2);
         }
 
         .slider-track {
@@ -125,7 +121,7 @@ if (isset($_GET['search'])) {
             display: flex;
             align-items: center;
             padding: 60px;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(128, 0, 32, 0.1) 0%, transparent 100%);
         }
 
         .slide-content {
@@ -139,13 +135,13 @@ if (isset($_GET['search'])) {
             justify-content: center;
             align-items: center;
             font-size: 8rem;
-            color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            color: #800020;
+            text-shadow: 0 0 20px rgba(128, 0, 32, 0.5);
         }
 
         .slide-title {
             font-size: 3rem;
-            color: #ffd700;
+            color: #800020;
             margin-bottom: 20px;
             font-weight: 300;
         }
@@ -159,7 +155,7 @@ if (isset($_GET['search'])) {
 
         .slide-price {
             font-size: 2rem;
-            color: #ffd700;
+            color: #800020;
             font-weight: 600;
             margin-bottom: 30px;
         }
@@ -177,13 +173,13 @@ if (isset($_GET['search'])) {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.3);
+            background: rgba(128, 0, 32, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .nav-dot.active {
-            background: #ffd700;
+            background: #800020;
             transform: scale(1.2);
         }
 
@@ -191,8 +187,8 @@ if (isset($_GET['search'])) {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
+            background: rgba(128, 0, 32, 0.2);
+            color: #800020;
             border: none;
             width: 50px;
             height: 50px;
@@ -204,8 +200,8 @@ if (isset($_GET['search'])) {
         }
 
         .slider-arrows:hover {
-            background: #ffd700;
-            color: #000;
+            background: #800020;
+            color: #ffffff;
             transform: translateY(-50%) scale(1.1);
         }
 
@@ -228,7 +224,7 @@ if (isset($_GET['search'])) {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 60px;
-            color: #ffd700;
+            color: #800020;
             font-weight: 300;
             letter-spacing: 2px;
         }
@@ -248,7 +244,7 @@ if (isset($_GET['search'])) {
             transition: all 0.4s ease;
             position: relative;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(128, 0, 32, 0.1);
             cursor: pointer;
         }
 
@@ -258,7 +254,7 @@ if (isset($_GET['search'])) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(128, 0, 32, 0.1), transparent);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -269,22 +265,22 @@ if (isset($_GET['search'])) {
 
         .product-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
-            border-color: #ffd700;
+            box-shadow: 0 20px 40px rgba(128, 0, 32, 0.2);
+            border-color: #800020;
         }
 
         .card-image {
             width: 100%;
             height: 250px;
-            background: linear-gradient(135deg, #333, #555);
+            background: linear-gradient(135deg, #f8f8f8, #ffffff);
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: #ffd700;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            color: #800020;
+            text-shadow: 0 0 15px rgba(128, 0, 32, 0.5);
         }
 
         .card-image::after {
@@ -294,7 +290,7 @@ if (isset($_GET['search'])) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(128, 0, 32, 0.1), transparent);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -310,12 +306,12 @@ if (isset($_GET['search'])) {
         .card-title {
             font-size: 1.4rem;
             margin-bottom: 10px;
-            color: #fff;
+            color: #2c2c2c;
             font-weight: 400;
         }
 
         .card-description {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(44, 44, 44, 0.7);
             line-height: 1.6;
             margin-bottom: 20px;
             font-size: 0.95rem;
@@ -323,7 +319,7 @@ if (isset($_GET['search'])) {
 
         .card-price {
             font-size: 1.3rem;
-            color: #ffd700;
+            color: #800020;
             font-weight: 600;
             margin-bottom: 15px;
         }
@@ -332,8 +328,8 @@ if (isset($_GET['search'])) {
             display: inline-block;
             padding: 10px 25px;
             background: transparent;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            color: #ffd700;
+            border: 1px solid rgba(128, 0, 32, 0.5);
+            color: #800020;
             text-decoration: none;
             font-size: 0.9rem;
             letter-spacing: 1px;
@@ -343,10 +339,10 @@ if (isset($_GET['search'])) {
         }
 
         .view-btn:hover {
-            background: #ffd700;
-            color: #000;
+            background: #800020;
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(128, 0, 32, 0.3);
         }
 
         /* Category Sections */
@@ -356,7 +352,7 @@ if (isset($_GET['search'])) {
 
         .category-title {
             font-size: 2rem;
-            color: #ffd700;
+            color: #800020;
             margin-bottom: 40px;
             text-align: center;
             font-weight: 300;
@@ -457,11 +453,10 @@ if (isset($_GET['search'])) {
         }
 
         .wishlist-icon i {
-            color: #ff4d4d;
-            /* Soft reddish tone */
+            color: #800020;
             font-size: 27px;
             transition: all 0.3s ease-in-out;
-            text-shadow: 0 0 2px #ff4d4d, 0 0 4px #e60000;
+            text-shadow: 0 0 2px rgba(128, 0, 32, 0.3), 0 0 4px rgba(128, 0, 32, 0.2);
             margin-left: 10px;
             justify-content: center;
             align-items: center;
@@ -469,7 +464,7 @@ if (isset($_GET['search'])) {
 
         .wishlist-icon i:hover {
             transform: scale(1.15);
-            text-shadow: 0 0 4px #ff1a1a, 0 0 8px #cc0000;
+            text-shadow: 0 0 4px rgba(128, 0, 32, 0.5), 0 0 8px rgba(128, 0, 32, 0.3);
         }
 
         .video-showcase {
@@ -574,7 +569,7 @@ if (isset($_GET['search'])) {
     </style>
 
     <div class="container mt-5 mb-5">
-        <h2 class="text-warning">Search Results for "<?php echo $search_term ?>"</h2>
+        <h2 >Search Results for "<?php echo $search_term ?>"</h2>
 
         <div class="product-grid mt-4">
             <?php
