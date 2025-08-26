@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2025 at 03:29 PM
+-- Generation Time: Aug 26, 2025 at 03:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -411,18 +411,6 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`user_id`, `item`, `product_image`, `product_name`, `product_price`, `quantity`) VALUES
 (23, 56, '../product_images/r.png', 'RUBY STUD EARRINGS', 4000, 1),
-(24, 57, '../product_images/m.webp', 'Infinite Whisper', 5999, 1),
-(24, 58, '../product_images/m4.png', 'Rhyah Peridot Pendant', 3990, 1),
-(24, 59, '../product_images/r1.png', 'Amethyst Elegance Hoop', 2999, 1),
-(25, 60, '../product_images/long mirrors.jpeg', 'Mirror', 500, 1),
-(25, 61, '../product_images/pexels-thisisjooh-27026566.jpg', 'Branded Professional', 1299, 1),
-(25, 62, 'https://cozmetica.pk/cdn/shop/files/SKIN1004_20-_20Madagascar_201004Day_20Signature_20Mini-Set_202024_800x_0c4b0e11-67c9-4f55-a477-0323a98adfb2.webp?v=1748525706&width=1426', 'SKIN1004 Madagascar', 2299, 1),
-(26, 63, '../product_images/m4.png', 'Rhyah Peridot Pendant', 3990, 1),
-(26, 64, '../product_images/m1.webp', 'Ultramarine Necklace', 3499, 1),
-(26, 65, '../product_images/rr.jpg', 'MARINA STUD ', 4999, 1),
-(26, 78, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/ruby.avif', 'Customized jewellery', 6000, 1),
-(26, 79, '../product_images/r.png', 'PURPLE AMETHYST', 4000, 1),
-(26, 80, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/hrundl%20black%20diamond%201.avif', 'Customized jewellery', 7600, 1),
 (27, 83, '../product_images/r.png', 'PURPLE AMETHYST', 4000, 1),
 (27, 84, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/palin%20emerald%201.avif', 'Customized jewellery', 11000, 1),
 (27, 85, '../product_images/long mirrors.jpeg', 'Mirror', 500, 1);
@@ -872,6 +860,100 @@ INSERT INTO `jewellery_variants` (`id`, `body_id`, `gem`, `position`, `images`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `order_number` varchar(20) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` text NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `postal_code` varchar(10) DEFAULT NULL,
+  `payment_method` enum('jazzcash','easypaisa','card','bank') NOT NULL,
+  `payment_status` enum('pending','processing','completed','failed','cancelled') DEFAULT 'pending',
+  `transaction_id` varchar(50) DEFAULT NULL,
+  `subtotal` decimal(10,2) NOT NULL,
+  `shipping_cost` decimal(10,2) NOT NULL,
+  `discount_amount` decimal(10,2) DEFAULT 0.00,
+  `total_amount` decimal(10,2) NOT NULL,
+  `order_status` enum('pending','confirmed','processing','shipped','delivered','cancelled') DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `order_number`, `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `postal_code`, `payment_method`, `payment_status`, `transaction_id`, `subtotal`, `shipping_cost`, `discount_amount`, `total_amount`, `order_status`, `created_at`, `updated_at`) VALUES
+(1, 25, 'ORD202508268926', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'UP', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826095544312', 4098.00, 150.00, 50.00, 4198.00, 'confirmed', '2025-08-26 07:55:44', '2025-08-26 07:55:44'),
+(8, 26, 'ORD202508265195', 'Mansoor', 'Ahmed', 'mansoor@gmail.com', '+923122349613', 'Gulshan', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826101341312', 3599.00, 150.00, 50.00, 3699.00, 'confirmed', '2025-08-26 08:13:41', '2025-08-26 08:13:41'),
+(9, 24, 'ORD202508269984', 'Miswer', 'Ali', 'miswer@gmail.com', '+923146510383', 'Liyari', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826152709315', 12988.00, 150.00, 50.00, 13088.00, 'confirmed', '2025-08-26 13:27:06', '2025-08-26 13:27:09'),
+(10, 24, 'ORD202508265886', 'Miswer', 'Ali', 'miswer@gmail.com', '+923146510383', 'Liyari', 'Karachi', '75850', 'easypaisa', 'completed', 'TXNEASYPAISA20250826153008182', 1499.00, 150.00, 50.00, 1599.00, 'confirmed', '2025-08-26 13:30:08', '2025-08-26 13:30:08'),
+(11, 25, 'ORD202508266184', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826153542776', 4999.00, 150.00, 50.00, 5099.00, 'confirmed', '2025-08-26 13:35:42', '2025-08-26 13:35:42'),
+(12, 25, 'ORD202508267674', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'Up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826154641447', 2999.00, 150.00, 50.00, 3099.00, 'confirmed', '2025-08-26 13:46:41', '2025-08-26 13:46:41'),
+(13, 25, 'ORD202508269367', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826155108632', 3599.00, 150.00, 50.00, 3699.00, 'confirmed', '2025-08-26 13:51:08', '2025-08-26 13:51:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `product_image` varchar(500) DEFAULT NULL,
+  `product_price` decimal(10,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `quantity`, `total_price`, `created_at`) VALUES
+(1, 1, 0, 'Mirror', '../product_images/long mirrors.jpeg', 500.00, 1, 500.00, '2025-08-26 07:55:44'),
+(2, 1, 0, 'Branded Professional', '../product_images/pexels-thisisjooh-27026566.jpg', 1299.00, 1, 1299.00, '2025-08-26 07:55:44'),
+(3, 1, 0, 'SKIN1004 Madagascar', 'https://cozmetica.pk/cdn/shop/files/SKIN1004_20-_20Madagascar_201004Day_20Signature_20Mini-Set_202024_800x_0c4b0e11-67c9-4f55-a477-0323a98adfb2.webp?v=1748525706&width=1426', 2299.00, 1, 2299.00, '2025-08-26 07:55:44'),
+(10, 8, 0, 'AQUAMARINE ZIRCON', '../product_images/r6.jpg', 3599.00, 1, 3599.00, '2025-08-26 08:13:41'),
+(11, 9, 57, 'Infinite Whisper', '../product_images/m.webp', 5999.00, 1, 5999.00, '2025-08-26 13:27:09'),
+(12, 9, 58, 'Rhyah Peridot Pendant', '../product_images/m4.png', 3990.00, 1, 3990.00, '2025-08-26 13:27:09'),
+(13, 9, 59, 'Amethyst Elegance Hoop', '../product_images/r1.png', 2999.00, 1, 2999.00, '2025-08-26 13:27:09'),
+(14, 10, 89, 'The Joran Ring', 'https://thegracepk.com/cdn/shop/products/16004a7d-aed4-4fad-b345-a1162c0987d4.jpg?v=1674476273&width=700', 1499.00, 1, 1499.00, '2025-08-26 13:30:08'),
+(15, 11, 90, 'Puzzle Bracelet', 'https://thegracepk.com/cdn/shop/files/IMG-1961.webp?v=1706279468&width=700', 4999.00, 1, 4999.00, '2025-08-26 13:35:42'),
+(16, 12, 91, 'Galaxy Bracelet ', 'https://thegracepk.com/cdn/shop/products/il_794xN.3390133526_jpif.jpg?v=1639763346&width=700', 2999.00, 1, 2999.00, '2025-08-26 13:46:41'),
+(17, 13, 92, 'RUBY STUD EARRINGS', '../product_images/r7.jpg', 3599.00, 1, 3599.00, '2025-08-26 13:51:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_details`
+--
+
+CREATE TABLE `payment_details` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `payment_method` varchar(20) NOT NULL,
+  `wallet_number` varchar(20) DEFAULT NULL,
+  `card_last_four` varchar(4) DEFAULT NULL,
+  `card_holder_name` varchar(100) DEFAULT NULL,
+  `bank_name` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_acc`
 --
 
@@ -986,6 +1068,28 @@ ALTER TABLE `jewellery_variants`
   ADD KEY `bodies_body_id` (`body_id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `order_number` (`order_number`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `payment_details`
+--
+ALTER TABLE `payment_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
 -- Indexes for table `user_acc`
 --
 ALTER TABLE `user_acc`
@@ -1023,7 +1127,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -1048,6 +1152,24 @@ ALTER TABLE `jewellery_bodies`
 --
 ALTER TABLE `jewellery_variants`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `payment_details`
+--
+ALTER TABLE `payment_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_acc`
@@ -1082,6 +1204,24 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `jewellery_variants`
   ADD CONSTRAINT `bodies_body_id` FOREIGN KEY (`body_id`) REFERENCES `jewellery_bodies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_acc` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `payment_details`
+--
+ALTER TABLE `payment_details`
+  ADD CONSTRAINT `payment_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
