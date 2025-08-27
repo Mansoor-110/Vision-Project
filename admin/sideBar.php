@@ -131,6 +131,14 @@
               <span class="menu-title">Admins</span>
             </a>
           </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="orders.php">
+              <span class="menu-icon">
+                <i class="icon-md fa-solid fa-user-secret text-danger"></i>
+              </span>
+              <span class="menu-title">Orders</span>
+            </a>
+          </li>
           
       <!-- Custom Jewellery Dropdown -->
 <li class="nav-item menu-items">
@@ -150,6 +158,7 @@
     </ul>
   </div>
 </li>
+ 
           
         </ul>
       </nav>

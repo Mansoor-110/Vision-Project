@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="stats-grid">
+        <!-- <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-info">
                     <div class="stat-label">Total Products</div>
@@ -54,7 +54,7 @@
                     <i class="fas fa-envelope"></i>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="actions-section">
             <h2 class="section-title">Quick Actions</h2>
