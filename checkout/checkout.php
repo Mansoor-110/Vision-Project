@@ -721,7 +721,7 @@ function simulatePayment($method, $amount) {
             <p>Thank you for your purchase! Your order has been confirmed and will be processed within 24 hours.</p>
             <div class="success-actions">
                 <a href="../pages/index.php" class="btn btn-primary">Continue Shopping</a>
-                <a href="../checkout/order_history.php" class="btn btn-secondary">View Orders</a>
+                <a href="../orders/order_history.php" class="btn btn-secondary">View Orders</a>
             </div>
         </div>
     <?php else: ?>
