@@ -2,6 +2,8 @@
 session_start();
 unset($_SESSION['login_success']);
 unset($_SESSION['user_id']);
+unset($_SESSION['role']);
+unset($_SESSION['store_name']);
 $_SESSION['logout']="logout";
 header("location:../pages/index.php");
 ?>

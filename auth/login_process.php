@@ -10,12 +10,14 @@ if ( isset( $_POST[ 'submit' ] ) ) {
     $data = mysqli_fetch_assoc( $sql );
     $welcome_name = $data[ 'name' ];
     $_SESSION[ 'user_id' ] = $data[ 'id' ];
+    $_SESSION['role'] = $data['user_role'];
 
     $total = mysqli_num_rows( $sql );
     if ( $total>0 ) {
         if ( $data[ 'password' ] === $password ) {
             $_SESSION[ 'login_success' ] = 'login_success';
             $_SESSION[ 'welcome' ] = "$welcome_name" ;
+            $_SESSION[ 'store_name' ] = $data['name'];
             header( 'location:../pages/index.php' );
         } else {
             $_SESSION[ 'status' ] = 'Incorrect Password or Email';

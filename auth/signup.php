@@ -8,7 +8,6 @@
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-
   <style>
         * {
             margin: 0;
@@ -133,6 +132,34 @@
         .form-group {
             margin-bottom: 22px;
             position: relative;
+        }
+
+        .role-select {
+            width: 100%;
+            padding: 18px 25px 18px 55px;
+            background: rgba(248, 248, 248, 0.8);
+            border: 2px solid rgba(128, 0, 32, 0.3);
+            border-radius: 50px;
+            color: #2c2c2c;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .role-select:focus {
+            border-color: #800020;
+            background: rgba(248, 248, 248, 1);
+            box-shadow: 0 0 25px rgba(128, 0, 32, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .role-select option {
+            background: #fff;
+            color: #2c2c2c;
+            padding: 10px;
         }
 
         .form-input {
@@ -317,37 +344,6 @@
             transform: translateY(-2px);
         }
 
-        .social-login {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .social-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px;
-            background: rgba(248, 248, 248, 0.8);
-            border: 2px solid rgba(128, 0, 32, 0.3);
-            border-radius: 50px;
-            color: #2c2c2c;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            background: rgba(128, 0, 32, 0.1);
-            border-color: #800020;
-            color: #800020;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(128, 0, 32, 0.3);
-        }
-
         .login-link {
             text-align: center;
             color: rgba(44, 44, 44, 0.8);
@@ -364,6 +360,26 @@
         .login-link a:hover {
             text-shadow: 0 0 10px rgba(128, 0, 32, 0.8);
             text-decoration: underline;
+        }
+
+        .error-message {
+            color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .success-message {
+            color: #28a745;
+            background: rgba(40, 167, 69, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: 500;
+            font-size: 14px;
         }
 
         /* Responsive Design */
@@ -391,11 +407,7 @@
                 max-width: 350px;
             }
 
-            .social-login {
-                grid-template-columns: 1fr;
-            }
-
-            .form-input {
+            .form-input, .role-select {
                 padding: 16px 20px 16px 50px;
                 font-size: 15px;
             }
@@ -413,56 +425,6 @@
                 font-size: 16px;
             }
         }
-
-        /* Loading animation */
-        .loading {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        .loading .submit-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid transparent;
-            border-top: 2px solid #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Success state */
-        .success .form-input {
-            border-color: #4CAF50;
-        }
-
-        .success .form-icon {
-            color: #4CAF50;
-        }
-
-        /* Error state */
-        .error .form-input {
-            border-color: #f44336;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        .error .form-icon {
-            color: #f44336;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
     </style>   
 </head>
 <body>
@@ -478,10 +440,39 @@
             <div class="subtitle">Create your luxury account</div>
         </div>
 
-        <form action="signup_process.php" class="signup-form" id="signupForm" method="post" >
+        <?php 
+        // Display error messages
+        if(isset($_SESSION['not-matched'])){
+            echo '<div class="error-message">Password confirmation does not match. Please double-check your password.</div>';
+            unset($_SESSION['not-matched']);  
+        }
+        if(isset($_SESSION['email_exists'])){
+            echo '<div class="error-message">' . $_SESSION['email_exists'] . '</div>';
+            unset($_SESSION['email_exists']);  
+        }
+        if(isset($_SESSION['email_error'])){
+            echo '<div class="error-message">' . $_SESSION['email_error'] . '</div>';
+            unset($_SESSION['email_error']);  
+        }
+        if(isset($_SESSION['otp_sent'])){
+            echo '<div class="success-message">' . $_SESSION['otp_sent'] . '</div>';
+            unset($_SESSION['otp_sent']);  
+        }
+        ?>
+
+        <form action="signup_process.php" class="signup-form" id="signupForm" method="post">
+            <div class="form-group">
+                <i class="form-icon fas fa-user-tag"></i>
+                <select name="role" class="role-select" required>
+                    <option value="">Select Account Type</option>
+                    <option value="buyer">Buyer Account</option>
+                    <option value="seller">Seller Account</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <i class="form-icon fas fa-user"></i>
-                <input type="text" class="form-input" name = "name" placeholder="Full Name" required>
+                <input type="text" class="form-input" name="name" placeholder="Full Name" required>
             </div>
 
             <div class="form-group">
@@ -504,14 +495,7 @@
                     <i class="fas fa-eye" id="confirmPassword-eye"></i>
                 </button>
             </div>
-                 <?php 
-                if(isset($_SESSION['not-matched'])){
-                 ?>
-                 <p class="text-danger">Sorry your doesn't matched. Please double-check your password.</p>
-                <?php 
-              unset($_SESSION['not-matched']);  
-              }
-                ?>   
+                 
             <div class="terms-group">
                 <label class="custom-checkbox">
                     <input type="checkbox" required>
@@ -522,7 +506,7 @@
                 </div>
             </div>
 
-            <input type="submit" value = "Create Account" name = "submit" class="submit-btn">
+            <input type="submit" value="Create Account" name="submit" class="submit-btn">
         </form>
 
         <div class="login-link">
@@ -548,7 +532,7 @@
         }
 
         // Enhanced input focus effects
-        document.querySelectorAll('.form-input').forEach(input => {
+        document.querySelectorAll('.form-input, .role-select').forEach(input => {
             input.addEventListener('focus', function() {
                 this.closest('.form-group').classList.add('focused');
             });
@@ -564,7 +548,6 @@
                 }
             });
         });
-
     </script>
 </body>
 </html>
