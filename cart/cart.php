@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
+       :root {
             --maroon-primary: #800020;
             --maroon-light: #a0002a;
             --maroon-dark: #600018;
@@ -47,7 +47,7 @@
         }
 
         .cart-wrapper {
-            padding: 2rem 0 4rem;
+            padding: 2.5rem 0 4rem;
         }
 
         .container {
@@ -106,12 +106,11 @@
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
+            padding: 2rem 2rem;
+            border-radius: 20px;
+            font-size: 1rem;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            margin-left: 1rem;
         }
 
         /* Product Cards */
@@ -299,6 +298,7 @@
             border: 1px solid var(--gray-200);
             box-shadow: var(--shadow-lg);
             overflow: hidden;
+
         }
 
         .summary-header {
@@ -311,6 +311,7 @@
 
         .summary-content {
             padding: 1.5rem;
+            
         }
 
         .summary-row {
@@ -319,6 +320,8 @@
             align-items: center;
             margin-bottom: 1rem;
             font-size: 0.95rem;
+            margin-left:5px;
+            margin-right:5px;
         }
 
         .summary-row:last-child {
@@ -372,6 +375,12 @@
             box-shadow: var(--shadow-md);
             margin: 1.5rem 0 1rem;
             cursor: pointer;
+        }
+
+        .checkout-btn a{
+            text-decoration: none;
+            color: white;
+            
         }
 
         .checkout-btn:hover {
@@ -595,12 +604,8 @@
             
             if ($total > 0) {
                 echo '<div class="page-header">
-                        <div class="page-header-content">
-                            <h1>
-                                <i class="fas fa-shopping-cart"></i> 
-                                Shopping Cart
-                                <span class="cart-count">' . $total . ' ' . ($total == 1 ? 'item' : 'items') . '</span>
-                            </h1>
+                        <div class="container">
+                            <h1><i class="fas fa-shopping-cart"></i> Shopping Cart<span class="cart-count">' . $total . ' items</span></h1>
                             <p>Review your selected items and proceed to checkout</p>
                         </div>
                       </div>';
@@ -609,120 +614,107 @@
                 <div class="row g-4">
                     <!-- LEFT: Product list -->
                     <div class="col-lg-8">
-                        <div class="products-section">
-                            <!-- Header Row -->
-                            <div class="cart-header-card d-none d-md-block">
-                                <div class="cart-header">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-2 text-center">Product</div>
-                                        <div class="col-md-4">Details</div>
-                                        <div class="col-md-3 text-center">Quantity</div>
-                                        <div class="col-md-2 text-center">Price</div>
-                                        <div class="col-md-1 text-center">Remove</div>
+                        <!-- Header Row -->
+                        <div class="product-card p-3 mb-3">
+                            <div class="cart-header p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2 text-center">Product</div>
+                                    <div class="col-md-4">Details</div>
+                                    <div class="col-md-3 text-center">Quantity</div>
+                                    <div class="col-md-2 text-center">Price</div>
+                                    <div class="col-md-1 text-center">Remove</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <?php
+                        while ($data = mysqli_fetch_assoc($sql)) {
+                            $item_total = (float)$data['product_price'] * (int)$data['quantity'];
+                            $subtotal += $item_total;
+                            ?>
+                            <div class='product-card p-4'>
+                                <div class='row align-items-center'>
+                                    <div class='col-lg-2 col-md-3 mb-3 mb-md-0'>
+                                        <img src="<?php echo $data['product_image'] ?>" alt='<?php echo $data['product_name'] ?>' class='product-image'>
+                                    </div>
+                                    <div class='col-lg-4 col-md-5 mb-3 mb-md-0'>
+                                        <h6 class='product-name'><?php echo $data['product_name'] ?></h6>
+                                        <p class="delivery-info"><?php
+                                        if($data['product_name']=="Customized jewellery"){
+                                            echo"Delivery in 7-14 business days";
+                                        }else{
+                                            echo"Delivery in 3-5 business days";
+                                        }
+                                        ?></p>
+                                        <div class="stock-status">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>In Stock</span>
+                                        </div>
+                                    </div>
+                                    <div class='col-lg-3 col-md-2 mb-3 mb-md-0'>
+                                        <div class='quantity-controls'>
+                                            <a href="minusone.php?item=<?php echo $data['item'] ?>" class='quantity-btn'>
+                                                <i class="fas fa-minus"></i>
+                                            </a>
+                                            <input type='text' class='quantity-input' value="<?php echo $data['quantity'] ?>" readonly>
+                                            <a href="addone.php?item=<?php echo $data['item'] ?>" class='quantity-btn'>
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class='col-lg-2 col-md-1 mb-3 mb-md-0'>
+                                        <div class='price-display'>Rs. <?php echo number_format($data['product_price']); ?></div>
+                                    </div>
+                                    <div class='col-lg-1 col-md-1'>
+                                        <a href="remove.php?item=<?php echo $data['item'] ?>" class="remove-btn" onclick="return confirm('Are you sure you want to remove this item from your cart?')" title="Remove from cart">
+                                            <i class='fas fa-trash-alt'></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-
                             <?php
-                            while ($data = mysqli_fetch_assoc($sql)) {
-                                $item_total = (float)$data['product_price'] * (int)$data['quantity'];
-                                $subtotal += $item_total;
-                                ?>
-                                <div class='product-card'>
-                                    <div class='product-card-content'>
-                                        <div class='row align-items-center'>
-                                            <div class='col-lg-2 col-md-3 col-4 mb-3 mb-md-0'>
-                                                <img src="<?php echo $data['product_image'] ?>" alt='<?php echo $data['product_name'] ?>' class='product-image'>
-                                            </div>
-                                            <div class='col-lg-4 col-md-5 col-8 mb-3 mb-md-0'>
-                                                <div class="product-details">
-                                                    <h6 class='product-name'><?php echo $data['product_name'] ?></h6>
-                                                    <div class="product-meta">
-                                                        <div class="delivery-info">
-                                                            <i class="fas fa-truck"></i>
-                                                            <span>Delivery in 3-5 business days</span>
-                                                        </div>
-                                                        <div class="stock-status">
-                                                            <i class="fas fa-check-circle"></i>
-                                                            <span>In Stock</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class='col-lg-3 col-md-2 col-6 mb-3 mb-md-0'>
-                                                <div class='quantity-controls'>
-                                                    <a href="minusone.php?item=<?php echo $data['item'] ?>" class='quantity-btn'>
-                                                        <i class="fas fa-minus"></i>
-                                                    </a>
-                                                    <input type='text' class='quantity-input' value="<?php echo $data['quantity'] ?>" readonly>
-                                                    <a href="addone.php?item=<?php echo $data['item'] ?>" class='quantity-btn'>
-                                                        <i class="fas fa-plus"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class='col-lg-2 col-md-1 col-4 mb-3 mb-md-0'>
-                                                <div class='price-display'>Rs. <?php echo number_format($data['product_price']); ?></div>
-                                            </div>
-                                            <div class='col-lg-1 col-md-1 col-2 d-flex justify-content-end'>
-                                                <a href="remove.php?item=<?php echo $data['item'] ?>" class="remove-btn" onclick="return confirm('Are you sure you want to remove this item from your cart?')" title="Remove from cart">
-                                                    <i class='fas fa-trash-alt'></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                            }
+                        }
 
-                            $discount = 50.00;
-                            $shipping = 150;
-                            $Total = $subtotal - $discount + $shipping;
-                            ?>
-                        </div>
+                        $discount = 50.00;
+                        $shipping = 150;
+                        $Total = $subtotal - $discount + $shipping;
+                        ?>
                     </div>
 
                     <!-- RIGHT: Summary Section -->
                     <div class='col-lg-4'>
-                        <div class='summary-section'>
-                            <div class='summary-card'>
-                                <div class='summary-header'>
-                                    <i class="fas fa-receipt"></i> Order Summary
-                                </div>
-                                
-                                <div class='summary-content'>
-                                    <div class='summary-row'>
-                                        <span>Subtotal (<?php echo $total; ?> <?php echo $total == 1 ? 'item' : 'items'; ?>)</span>
-                                        <span>Rs. <?php echo number_format($subtotal, 2); ?></span>
-                                    </div>
-                                    
-                                    <div class='summary-row'>
-                                        <span>Discount</span>
-                                        <span class='discount-amount'>-Rs. <?php echo number_format($discount, 2); ?></span>
-                                    </div>
-                                    
-                                    <div class='summary-row'>
-                                        <span>Shipping Fee</span>
-                                        <span>Rs. <?php echo number_format($shipping, 2); ?></span>
-                                    </div>
-                                    
-                                    <div class="summary-divider"></div>
-                                    
-                                    <div class='total-row summary-row'>
-                                        <span>Total Amount</span>
-                                        <span class='total-amount'>Rs. <?php echo number_format($Total, 2); ?></span>
-                                    </div>
-                                </div>
-                                
-                                <div class='summary-content'>
-                                    <button class='checkout-btn'>
-                                        <i class="fas fa-credit-card"></i> Proceed to Checkout
-                                    </button>
-                                    
-                                    <div class='security-badge'>
-                                        <i class='fas fa-shield-alt'></i>
-                                        <span>100% Secure Checkout</span>
-                                    </div>
-                                </div>
+                        <div class='summary-card'>
+                            <div class='summary-header'>
+                                <i class="fas fa-receipt"></i> Order Summary
+                            </div>
+                            
+                            <div class='summary-row'>
+                                <span>Subtotal (<?php echo $total; ?> items)</span>
+                                <span>Rs. <?php echo number_format($subtotal, 2); ?></span>
+                            </div>
+                            
+                            <div class='summary-row'>
+                                <span>Discount</span>
+                                <span class='discount-amount'>-Rs. <?php echo number_format($discount, 2); ?></span>
+                            </div>
+                            
+                            <div class='summary-row'>
+                                <span>Shipping Fee</span>
+                                <span>Rs. <?php echo number_format($shipping, 2); ?></span>
+                            </div>
+                            
+                            <div class='total-row summary-row'>
+                                <span>Total Amount</span>
+                                <span class='total-amount'>Rs. <?php echo number_format($Total, 2); ?></span>
+                            </div>
+                            
+                            <button href="" class='checkout-btn'>
+                                <i class="fas fa-credit-card"></i><a href="../checkout/checkout.php"> Proceed to Checkout</a>
+                    </button>
+                            
+                            <div class='security-badge'>
+                                <i class='fas fa-shield-alt'></i>
+                                <span>100% Secure Checkout</span>
                             </div>
                         </div>
                     </div>

@@ -85,7 +85,7 @@ $product_id=$_GET['id'];
                             <td><img src="<?php echo $data['product_image']?>" alt="" style="height:100px; width:100px; border-radius:0%;"></td>
                             <td style="max-width: 250px; word-wrap: break-word; white-space: normal;"><?php echo $data['product_description']?></td>
                             <td style="max-width: 250px; word-wrap: break-word; white-space: normal;"><?php echo $tag?></td>
-                            <td><a href="update_product.php?id=<?php echo $data['product_id']?>" class="btn btn-success"><i class="mdi mdi-lead-pencil"></i></a> <a href="delete_product.php?id=<?php echo $data['product_id']?>" class="btn btn-danger"><i class="mdi mdi-delete"></i></a> <a href="view_product.php?id=<?php echo $data['product_id']?>" class="btn btn-info "><i class="mdi mdi-plus " title="Add more images"></i></a></td>
+                            <td><a href="update_product.php?id=<?php echo $data['product_id']?>" class="btn btn-success"><i class="mdi mdi-lead-pencil"></i></a> <a href="delete_product.php?id=<?php echo $data['product_id']?>&redirect_url=view_product.php" class="btn btn-danger"><i class="mdi mdi-delete"></i></a> <a href="view_product.php?id=<?php echo $data['product_id']?>" class="btn btn-info "><i class="mdi mdi-plus " title="Add more images"></i></a></td>
                          </tr>
 
 

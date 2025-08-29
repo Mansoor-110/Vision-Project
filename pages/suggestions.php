@@ -85,7 +85,7 @@ if ($_POST) {
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
             color: #333333;
             overflow-x: hidden;

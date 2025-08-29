@@ -29,7 +29,7 @@ $acc_title=$acc_data['name'];
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', serif;
             line-height: 1.6;
             color: #2c2c2c;
             background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 50%, #ffffff 100%);
@@ -904,6 +904,28 @@ $acc_title=$acc_data['name'];
                             <i class="fas fa-shopping-bag"></i>
                         </a>
                     </button>
+
+
+                    <?php 
+                    if(isset($_SESSION['role'])){
+                        $user_role=$_SESSION['role'];
+                        if($user_role=="seller"){
+                            ?>
+                             <button class="action-btn" title="Dashboard">
+                        <a href="../seller/seller.php" class="text-white">
+                            <i class="fa-solid fa-chart-bar"></i>
+                        </a>
+                    </button>
+
+                            <?php
+                        }
+
+
+                    }
+                    
+                    ?>
+
+                   
                 </div>
             </div>
         </div>
@@ -957,6 +979,9 @@ $acc_title=$acc_data['name'];
             </li>
             <li class="nav-item">
                 <a href="../pages/contact.php" class="nav-link">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a href="../pages/custom_jewellery.php" class="nav-link">Custom Jewellery</a>
             </li>
         </ul>
     </div>

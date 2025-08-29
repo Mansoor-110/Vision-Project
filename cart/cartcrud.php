@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (isset($_SESSION['user_id'])){
 if(isset($_POST['submit'])){
 
       $product_image        =  $_POST['product_image'];
@@ -14,7 +15,7 @@ if(isset($_POST['submit'])){
  
     $total=mysqli_num_rows($sql);
 
-    if($sql){
+    if(mysqli_num_rows($sql)>0 && $product_name!="Customized jewellery"){
         $data=mysqli_fetch_assoc($sql);
         $new_qty=$data['quantity']+$quantity;
       $update_query="update cart set quantity='$new_qty' where user_id='$user_id' and product_name='$product_name'";
@@ -28,5 +29,7 @@ if(isset($_POST['submit'])){
     
     } header("location:cart.php");
   }
-
+}else{
+  header("location:cart.php");
+}
 ?>
