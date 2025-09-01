@@ -647,12 +647,12 @@ function getPaymentStatusBadge($status) {
                                 </div>
                             </div>
                             
-                            <div class="order-badges">
+                            <div class="order-badges md-2">
                                 <div class="status-badge <?php echo $status_badge['class']; ?>">
                                     <i class="<?php echo $status_badge['icon']; ?>"></i>
                                     <?php echo $status_badge['text']; ?>
                                 </div>
-                                <div class="payment-badge <?php echo $payment_badge['class']; ?>">
+                                <div class="payment-badge <?php echo $payment_badge['class']; ?> mt-2">
                                     <?php echo $payment_badge['text']; ?>
                                 </div>
                             </div>
@@ -783,7 +783,7 @@ function getPaymentStatusBadge($status) {
                                     </a>
                                 <?php endif; ?>
                                 
-                                <a href="invoice.php?order_id=<?php echo $order['id']; ?>" class="btn btn-secondary">
+                                <a href="invoice.php?order_id=<?php echo $order['id']; ?>&download=1" class="btn btn-secondary">
                                     <i class="fas fa-download"></i>
                                     Download Invoice
                                 </a>

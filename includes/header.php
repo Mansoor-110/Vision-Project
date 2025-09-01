@@ -904,6 +904,15 @@ $acc_title=$acc_data['name'];
                             <i class="fas fa-shopping-bag"></i>
                         </a>
                     </button>
+                     <?php if(isset($_SESSION['login_success'])){?>
+                    <button class="action-btn" title="Order history">
+                        <a href="../orders/order_history.php" class="text-white">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </a>
+                    </button>
+                    <?php
+                     }
+                    ?>
 
 
                     <?php 

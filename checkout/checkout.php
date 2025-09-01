@@ -99,10 +99,34 @@ while ($data = mysqli_fetch_assoc($sql)) {
     $cart_data[] = $data;
 }
 
+// Check for applied coupon from session
+$coupon_discount = 0;
+$applied_coupon_code = '';
+
+if (isset($_SESSION['applied_coupon'])) {
+    $applied_coupon = $_SESSION['applied_coupon'];
+    $applied_coupon_code = $applied_coupon['coupon_code'];
+    
+    // Check if coupon is still valid and meets minimum amount requirement
+    if ($subtotal >= $applied_coupon['minimum_amount']) {
+        if ($applied_coupon['discount_type'] == 'percentage') {
+            $coupon_discount = ($subtotal * $applied_coupon['discount_value']) / 100;
+            
+            // Apply maximum discount limit if set
+            if ($applied_coupon['maximum_discount'] && $coupon_discount > $applied_coupon['maximum_discount']) {
+                $coupon_discount = $applied_coupon['maximum_discount'];
+            }
+        } else {
+            // Fixed amount discount
+            $coupon_discount = $applied_coupon['discount_value'];
+        }
+    }
+}
+
 // Calculate totals
-$discount = 50.00;
+$default_discount = 50.00;
 $shipping = 150;
-$total_amount = $subtotal - $discount + $shipping;
+$total_amount = $subtotal - $default_discount - $coupon_discount + $shipping;
 
 // Function to process order
 function processOrder($form_data, $user_id, $conn) {
@@ -124,9 +148,31 @@ function processOrder($form_data, $user_id, $conn) {
             $cart_items[] = $item;
         }
         
-        $discount = 50.00;
+        $default_discount = 50.00;
         $shipping = 150.00;
-        $total_amount = $subtotal - $discount + $shipping;
+        
+        // Check for applied coupon
+        $coupon_discount = 0;
+        $applied_coupon_code = '';
+        
+        if (isset($_SESSION['applied_coupon'])) {
+            $applied_coupon = $_SESSION['applied_coupon'];
+            $applied_coupon_code = $applied_coupon['coupon_code'];
+            
+            if ($subtotal >= $applied_coupon['minimum_amount']) {
+                if ($applied_coupon['discount_type'] == 'percentage') {
+                    $coupon_discount = ($subtotal * $applied_coupon['discount_value']) / 100;
+                    if ($applied_coupon['maximum_discount'] && $coupon_discount > $applied_coupon['maximum_discount']) {
+                        $coupon_discount = $applied_coupon['maximum_discount'];
+                    }
+                } else {
+                    $coupon_discount = $applied_coupon['discount_value'];
+                }
+            }
+        }
+        
+        $total_discount = $default_discount + $coupon_discount;
+        $total_amount = $subtotal - $total_discount + $shipping;
         
         // Generate unique order number
         $order_number = 'ORD' . date('Ymd') . rand(1000, 9999);
@@ -138,7 +184,7 @@ function processOrder($form_data, $user_id, $conn) {
         $order_sql = "INSERT INTO orders (
             user_id, order_number, first_name, last_name, email, phone, 
             address, city, postal_code, payment_method, 
-            subtotal, shipping_cost, discount_amount, total_amount
+            subtotal, shipping_cost, discount_amount, coupon_code, coupon_discount, total_amount
         ) VALUES (
             '$user_id', '$order_number', '" . mysqli_real_escape_string($conn, $form_data['first_name']) . "', 
             '" . mysqli_real_escape_string($conn, $form_data['last_name']) . "', 
@@ -148,7 +194,7 @@ function processOrder($form_data, $user_id, $conn) {
             '" . mysqli_real_escape_string($conn, $form_data['city']) . "',
             '" . mysqli_real_escape_string($conn, $form_data['postal_code'] ?? '') . "',
             '" . mysqli_real_escape_string($conn, $form_data['payment_method']) . "',
-            '$subtotal', '$shipping', '$discount', '$total_amount'
+            '$subtotal', '$shipping', '$default_discount', '$applied_coupon_code', '$coupon_discount', '$total_amount'
         )";
         
         if (!mysqli_query($conn, $order_sql)) {
@@ -187,9 +233,18 @@ function processOrder($form_data, $user_id, $conn) {
                           WHERE id = '$order_id'";
             mysqli_query($conn, $update_sql);
             
+            // Update coupon usage count if coupon was applied
+            if (!empty($applied_coupon_code)) {
+                $update_coupon_sql = "UPDATE coupons SET used_count = used_count + 1 WHERE coupon_code = '$applied_coupon_code'";
+                mysqli_query($conn, $update_coupon_sql);
+            }
+            
             // Clear user's cart
             $clear_cart_sql = "DELETE FROM cart WHERE user_id = '$user_id'";
             mysqli_query($conn, $clear_cart_sql);
+            
+            // Clear applied coupon from session
+            unset($_SESSION['applied_coupon']);
             
             // Commit transaction
             mysqli_commit($conn);
@@ -994,12 +1049,20 @@ function simulatePayment($method, $amount) {
                         <span>Rs. <?php echo number_format($subtotal, 2); ?></span>
                     </div>
                     <div class="total-row">
+                        <span>Store Discount:</span>
+                        <span class="discount">-Rs. <?php echo number_format($default_discount, 2); ?></span>
+                    </div>
+                    
+                    <?php if ($coupon_discount > 0): ?>
+                    <div class="total-row">
+                        <span>Coupon Discount (<?php echo $applied_coupon_code; ?>):</span>
+                        <span class="discount">-Rs. <?php echo number_format($coupon_discount, 2); ?></span>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <div class="total-row">
                         <span>Shipping:</span>
                         <span>Rs. <?php echo number_format($shipping, 2); ?></span>
-                    </div>
-                    <div class="total-row discount">
-                        <span>Discount:</span>
-                        <span>-Rs. <?php echo number_format($discount, 2); ?></span>
                     </div>
                     <div class="total-row final">
                         <span>Total:</span>

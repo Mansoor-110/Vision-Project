@@ -286,6 +286,127 @@
             box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
+        /* Coupon Code Section */
+        .coupon-section {
+            background: var(--white-primary);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .coupon-header {
+            background: linear-gradient(135deg, var(--maroon-primary), var(--maroon-light));
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .coupon-content {
+            padding: 1.5rem;
+        }
+
+        .coupon-form {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .coupon-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius-md);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            background: var(--gray-50);
+        }
+
+        .coupon-input:focus {
+            outline: none;
+            border-color: var(--maroon-primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
+        }
+
+        .apply-coupon-btn {
+            background: linear-gradient(135deg, var(--maroon-primary), var(--maroon-light));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .apply-coupon-btn:hover {
+            background: linear-gradient(135deg, var(--maroon-light), var(--maroon-primary));
+            transform: translateY(-1px);
+        }
+
+        .applied-coupon {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(5, 150, 105, 0.1);
+            border: 1px solid var(--green-success);
+            border-radius: var(--border-radius-md);
+            padding: 0.75rem 1rem;
+            color: var(--green-success);
+            font-weight: 600;
+        }
+
+        .applied-coupon-code {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .remove-coupon-btn {
+            background: none;
+            border: none;
+            color: var(--green-success);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .remove-coupon-btn:hover {
+            background: rgba(5, 150, 105, 0.1);
+        }
+
+        .coupon-message {
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 0.75rem;
+        }
+
+        .coupon-success {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--green-success);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .coupon-error {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--red-danger);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
         /* Summary Card */
         .summary-section {
             position: sticky;
@@ -541,6 +662,14 @@
                 margin: 0 -1rem;
                 padding: 1rem;
             }
+
+            .coupon-form {
+                flex-direction: column;
+            }
+
+            .apply-coupon-btn {
+                width: 100%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -595,6 +724,52 @@
     <div class="container">
         <?php
         include '../includes/connection.php';
+        
+        // Initialize variables
+        $coupon_discount = 0;
+        $applied_coupon_code = '';
+        $coupon_message = '';
+        $message_type = '';
+        
+        // Handle coupon application
+        if (isset($_POST['apply_coupon']) && !empty($_POST['coupon_code'])) {
+            $coupon_code = strtoupper(trim($_POST['coupon_code']));
+            $current_date = date('Y-m-d');
+            
+            $coupon_query = "SELECT * FROM coupons WHERE coupon_code = '$coupon_code' AND status = 'active' AND valid_from <= '$current_date' AND valid_until >= '$current_date'";
+            $coupon_result = mysqli_query($conn, $coupon_query);
+            
+            if (mysqli_num_rows($coupon_result) > 0) {
+                $coupon_data = mysqli_fetch_assoc($coupon_result);
+                
+                // Check if usage limit is reached
+                if ($coupon_data['usage_limit'] && $coupon_data['used_count'] >= $coupon_data['usage_limit']) {
+                    $coupon_message = "This coupon has reached its usage limit.";
+                    $message_type = 'error';
+                } else {
+                    $_SESSION['applied_coupon'] = $coupon_data;
+                    $coupon_message = "Coupon applied successfully!";
+                    $message_type = 'success';
+                }
+            } else {
+                $coupon_message = "Invalid or expired coupon code.";
+                $message_type = 'error';
+            }
+        }
+        
+        // Handle coupon removal
+        if (isset($_POST['remove_coupon'])) {
+            unset($_SESSION['applied_coupon']);
+            $coupon_message = "Coupon removed successfully.";
+            $message_type = 'success';
+        }
+        
+        // Get applied coupon from session
+        if (isset($_SESSION['applied_coupon'])) {
+            $applied_coupon = $_SESSION['applied_coupon'];
+            $applied_coupon_code = $applied_coupon['coupon_code'];
+        }
+        
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
             $query = "SELECT * FROM cart WHERE user_id='$user_id'";
@@ -675,14 +850,76 @@
                             <?php
                         }
 
-                        $discount = 50.00;
+                        // Calculate coupon discount
+                        if (isset($_SESSION['applied_coupon'])) {
+                            $applied_coupon = $_SESSION['applied_coupon'];
+                            
+                            // Check minimum amount requirement
+                            if ($subtotal >= $applied_coupon['minimum_amount']) {
+                                if ($applied_coupon['discount_type'] == 'percentage') {
+                                    $coupon_discount = ($subtotal * $applied_coupon['discount_value']) / 100;
+                                    
+                                    // Apply maximum discount limit if set
+                                    if ($applied_coupon['maximum_discount'] && $coupon_discount > $applied_coupon['maximum_discount']) {
+                                        $coupon_discount = $applied_coupon['maximum_discount'];
+                                    }
+                                } else {
+                                    $coupon_discount = $applied_coupon['discount_value'];
+                                }
+                            }
+                        }
+
+                        $default_discount = 50.00;
                         $shipping = 150;
-                        $Total = $subtotal - $discount + $shipping;
+                        $Total = $subtotal - $default_discount - $coupon_discount + $shipping;
                         ?>
                     </div>
 
                     <!-- RIGHT: Summary Section -->
                     <div class='col-lg-4'>
+                        <!-- Coupon Code Section -->
+                        <div class='coupon-section'>
+                            <div class='coupon-header'>
+                                <i class="fas fa-ticket-alt"></i>
+                                Apply Coupon Code
+                            </div>
+                            <div class='coupon-content'>
+                                <?php if (empty($applied_coupon_code)): ?>
+                                    <form method="POST" class="coupon-form">
+                                        <input type="text" 
+                                               name="coupon_code" 
+                                               class="coupon-input" 
+                                               placeholder="Enter coupon code" 
+                                               maxlength="50"
+                                               value="<?php echo isset($_POST['coupon_code']) ? htmlspecialchars($_POST['coupon_code']) : ''; ?>">
+                                        <button type="submit" name="apply_coupon" class="apply-coupon-btn">
+                                            <i class="fas fa-check"></i> Apply
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <div class="applied-coupon">
+                                        <div class="applied-coupon-code">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span><?php echo $applied_coupon_code; ?> Applied</span>
+                                        </div>
+                                        <form method="POST" style="display: inline;">
+                                            <button type="submit" name="remove_coupon" class="remove-coupon-btn" title="Remove coupon">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($coupon_message)): ?>
+                                    <div class="coupon-message coupon-<?php echo $message_type; ?>">
+                                        <i class="fas fa-<?php echo $message_type == 'success' ? 'check-circle' : 'exclamation-triangle'; ?>"></i>
+                                        <?php echo $coupon_message; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <!-- Order Summary -->
                         <div class='summary-card'>
                             <div class='summary-header'>
                                 <i class="fas fa-receipt"></i> Order Summary
@@ -694,9 +931,16 @@
                             </div>
                             
                             <div class='summary-row'>
-                                <span>Discount</span>
-                                <span class='discount-amount'>-Rs. <?php echo number_format($discount, 2); ?></span>
+                                <span>Store Discount</span>
+                                <span class='discount-amount'>-Rs. <?php echo number_format($default_discount, 2); ?></span>
                             </div>
+                            
+                            <?php if ($coupon_discount > 0): ?>
+                            <div class='summary-row'>
+                                <span>Coupon Discount (<?php echo $applied_coupon_code; ?>)</span>
+                                <span class='discount-amount'>-Rs. <?php echo number_format($coupon_discount, 2); ?></span>
+                            </div>
+                            <?php endif; ?>
                             
                             <div class='summary-row'>
                                 <span>Shipping Fee</span>
@@ -708,9 +952,9 @@
                                 <span class='total-amount'>Rs. <?php echo number_format($Total, 2); ?></span>
                             </div>
                             
-                            <button href="" class='checkout-btn'>
+                            <button class='checkout-btn'>
                                 <i class="fas fa-credit-card"></i><a href="../checkout/checkout.php"> Proceed to Checkout</a>
-                    </button>
+                            </button>
                             
                             <div class='security-badge'>
                                 <i class='fas fa-shield-alt'></i>

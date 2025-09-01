@@ -508,7 +508,14 @@
               <div class='stat-icon'>
                 <i class="fas fa-calendar-alt"></i>
               </div>
-              <div class='stat-number'><?php echo isset($user_data['created_at']) ? (time() - strtotime($user_data['created_at'])) / (60 * 60 * 24) : 0; ?></div>
+             <div class='stat-number'>
+  <?php 
+    echo isset($user_data['created_at']) 
+      ? number_format((time() - strtotime($user_data['created_at'])) / (60 * 60 * 24), 0) 
+      : 0; 
+  ?>
+</div>
+
               <div class='stat-label'>Days Active</div>
             </div>
           </div>

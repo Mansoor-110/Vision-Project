@@ -10,6 +10,7 @@ if (isset($_GET['id'])) {
     $product_name = $data['product_name'];
     $product_price = $data['product_price'];
     $product_image = $data['product_image'];
+    $seller_id = $data['seller_id'];
     $product_description = $data['product_description'];
 
     $images_query = "SELECT * FROM additional_images WHERE product_id='$product_id'";
@@ -313,6 +314,7 @@ if (isset($_GET['id'])) {
                 <input type="hidden" name="product_name" value="<?php echo $product_name ?>">
                 <input type="hidden" name="product_image" value="<?php echo $product_image ?>">
                 <input type="hidden" name="product_price" value="<?php echo $product_price ?>">
+                <input type="hidden" name="seller_id" value="<?php echo $seller_id ?>">
                 <div class="mb-3">
                     <label for="quantity" class="form-label">Quantity:</label>
                     <input type="number" class="form-control text-center" id="quantity" name="quantity" value="1" min="1" style="max-width: 100px; background: transparent; color: black;">

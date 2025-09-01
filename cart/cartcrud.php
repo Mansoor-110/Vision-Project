@@ -3,10 +3,15 @@ session_start();
 if (isset($_SESSION['user_id'])){
 if(isset($_POST['submit'])){
 
-      $product_image        =  $_POST['product_image'];
-     $product_name  =  $_POST['product_name'];
-      $product_price        =  $_POST['product_price'];
-      $quantity     =  $_POST['quantity'];
+   include '../includes/connection.php';
+
+// Escape user input before query
+$product_name   = mysqli_real_escape_string($conn, $_POST['product_name']);
+$product_image  = mysqli_real_escape_string($conn, $_POST['product_image']);
+$product_price  = mysqli_real_escape_string($conn, $_POST['product_price']);
+$quantity       = mysqli_real_escape_string($conn, $_POST['quantity']);
+$seller_id       = mysqli_real_escape_string($conn, $_POST['seller_id']);
+
       $user_id      =$_SESSION['user_id'];
 
     include'../includes/connection.php';
@@ -23,8 +28,8 @@ if(isset($_POST['submit'])){
     }else{
 
 
-    $insert_query="insert into cart(user_id,product_image,product_name,product_price,quantity) 
-    values('$user_id','$product_image','$product_name','$product_price','$quantity')";
+    $insert_query="insert into cart(user_id,product_image,product_name,product_price,quantity,seller_id) 
+    values('$user_id','$product_image','$product_name','$product_price','$quantity','$seller_id')";
      $insert_sql =  mysqli_query($conn,$insert_query);
     
     } header("location:cart.php");
