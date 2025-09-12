@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2025 at 03:53 PM
+-- Generation Time: Sep 11, 2025 at 08:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -363,9 +363,7 @@ INSERT INTO `add_product` (`product_id`, `product_name`, `product_category`, `pr
 (119, 'Lina Kivaka', 'Beauty Tools', 'Accessories', 5999, '../product_images/pexels-lina-5731811.jpg', 'Its also a Perfect Gifts ', '', '', ''),
 (120, 'Makeup Cosmetics', 'Beauty Tools', 'Accessories', 2999, '../product_images/pexels-rdne-7755138.jpg', 'save lots of your valuable time', '', '', ''),
 (121, 'suzyhazel wood', 'Beauty Tools', 'Accessories', 3699, '../product_images/pexels-suzyhazelwood-1438065.jpg', 'Luxury design make easy to access', '', '', ''),
-(130, 'Ivy Earrings', 'Jewellery', 'Earrings', 3000, '../product_images/Ivy_.webp', 'The Ivy Earrings showcase a mesmerizing combination of elegance and luxury', '', '28', ''),
-(133, 'Burro\'s-tail', 'Jewellery', 'Necklaces', 4000, '../product_images/necklace.jpg', 'this is an amazing burro\'\'s tail necklace', '', '27', 'Buyer Store'),
-(135, 'Beautifull Necklace ', 'Jewellery', 'Necklaces', 4000, '../product_images/cross ruby 3.avif', 'nothing but a necklace', '', '27', 'Buyer Store');
+(130, 'Ivy Earrings', 'Jewellery', 'Earrings', 3000, '../product_images/Ivy_.webp', 'The Ivy Earrings showcase a mesmerizing combination of elegance and luxury', '', '28', '');
 
 -- --------------------------------------------------------
 
@@ -387,8 +385,9 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`user_id`, `user_name`, `user_image`, `user_email`, `user_password`, `status`) VALUES
-(3, 'admin', 'users/admin.jpeg', 'admin@gmail.com', 'admin', 'approved'),
-(5, 'farazkhan', 'users/IMG_20231224_224938.jpg', 'farazkhan61512@gmail.com', 'fk$12345678', 'approved');
+(5, 'farazkhan', 'users/IMG_20231224_224938.jpg', 'farazkhan61512@gmail.com', 'fk$12345678', 'approved'),
+(6, 'abc', 'users/jewelry-10-ruby-position-0 (1).jpg', 'abc@gmail.com', 'abc123', 'approved'),
+(7, 'admin', 'users/admin.webp', 'admin@gmail.com', 'admin', 'approved');
 
 -- --------------------------------------------------------
 
@@ -402,18 +401,47 @@ CREATE TABLE `cart` (
   `product_image` varchar(500) NOT NULL,
   `product_name` varchar(500) NOT NULL,
   `product_price` int(255) NOT NULL,
-  `quantity` int(255) NOT NULL
+  `quantity` int(255) NOT NULL,
+  `seller_id` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`user_id`, `item`, `product_image`, `product_name`, `product_price`, `quantity`) VALUES
-(23, 56, '../product_images/r.png', 'RUBY STUD EARRINGS', 4000, 1),
-(27, 83, '../product_images/r.png', 'PURPLE AMETHYST', 4000, 1),
-(27, 84, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/palin%20emerald%201.avif', 'Customized jewellery', 11000, 1),
-(27, 85, '../product_images/long mirrors.jpeg', 'Mirror', 500, 1);
+INSERT INTO `cart` (`user_id`, `item`, `product_image`, `product_name`, `product_price`, `quantity`, `seller_id`) VALUES
+(23, 56, '../product_images/r.png', 'RUBY STUD EARRINGS', 4000, 1, 0),
+(27, 129, 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/custon_square_ring%203.avif', 'Customized jewellery', 20000, 1, 0),
+(27, 130, '../product_images/r.png', 'PURPLE AMETHYST', 4000, 1, 0),
+(27, 131, '../product_images/pexels-828860-2639947.jpg', 'The New Nude Eyeshadow', 3999, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_settings`
+--
+
+CREATE TABLE `company_settings` (
+  `id` int(11) NOT NULL,
+  `setting_key` varchar(100) NOT NULL,
+  `setting_value` text DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `company_settings`
+--
+
+INSERT INTO `company_settings` (`id`, `setting_key`, `setting_value`, `updated_at`) VALUES
+(1, 'company_name', 'Your Store Name', '2025-08-30 06:02:02'),
+(2, 'company_address', '123 Business Street', '2025-08-30 06:02:02'),
+(3, 'company_city', 'Karachi, Sindh', '2025-08-30 06:02:02'),
+(4, 'company_phone', '+92 300 1234567', '2025-08-30 06:02:02'),
+(5, 'company_email', 'orders@yourstore.com', '2025-08-30 06:02:02'),
+(6, 'company_website', 'www.yourstore.com', '2025-08-30 06:02:02'),
+(7, 'company_tax_number', 'TAX123456789', '2025-08-30 06:02:02'),
+(8, 'invoice_prefix', 'INV', '2025-08-30 06:02:02'),
+(9, 'invoice_footer_note', 'Thank you for your business! If you have any questions about this invoice, please contact us.', '2025-08-30 06:02:02');
 
 -- --------------------------------------------------------
 
@@ -448,6 +476,38 @@ INSERT INTO `contact` (`id`, `FirstName`, `Lastname`, `Email`, `Phnum`, `Subject
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` int(11) NOT NULL,
+  `coupon_code` varchar(50) NOT NULL,
+  `discount_type` enum('percentage','fixed') NOT NULL,
+  `discount_value` decimal(10,2) NOT NULL,
+  `minimum_amount` decimal(10,2) DEFAULT 0.00,
+  `maximum_discount` decimal(10,2) DEFAULT NULL,
+  `usage_limit` int(11) DEFAULT NULL,
+  `used_count` int(11) DEFAULT 0,
+  `valid_from` date NOT NULL,
+  `valid_until` date NOT NULL,
+  `status` enum('active','inactive') DEFAULT 'active',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `coupon_code`, `discount_type`, `discount_value`, `minimum_amount`, `maximum_discount`, `usage_limit`, `used_count`, `valid_from`, `valid_until`, `status`, `created_at`) VALUES
+(1, 'SAVE10', 'percentage', 10.00, 500.00, 200.00, 100, 12, '2025-01-01', '2025-12-31', 'active', '2025-08-29 20:56:57'),
+(2, 'FLAT50', 'fixed', 50.00, 200.00, NULL, 50, 0, '2025-01-01', '2025-12-31', 'active', '2025-08-29 20:56:57'),
+(3, 'WELCOME20', 'percentage', 20.00, 1000.00, 500.00, 200, 1, '2025-01-01', '2025-12-31', 'active', '2025-08-29 20:56:57'),
+(4, 'Elvish40', 'fixed', 300.00, 1000.00, 300.00, 50, 0, '2025-08-29', '2025-12-05', 'active', '2025-08-29 18:53:58'),
+(5, 'PALUND1769', 'percentage', 50.00, 1000.00, NULL, 100, 0, '2025-07-03', '2026-12-27', 'active', '2025-08-30 16:46:52');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `gems`
 --
 
@@ -468,6 +528,41 @@ INSERT INTO `gems` (`gem_id`, `gem_name`, `gem_price`, `gem_image`) VALUES
 (9, 'diamond', 20000, 'custom_jewellery_admin/gems/diamond-thumb.avif'),
 (10, 'black diamond', 7000, 'custom_jewellery_admin/gems/black diamond.avif'),
 (11, 'sapphire', 9000, 'custom_jewellery_admin/gems/sapphire.avif');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_downloads`
+--
+
+CREATE TABLE `invoice_downloads` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `download_type` enum('view','download','print') DEFAULT 'view',
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invoice_downloads`
+--
+
+INSERT INTO `invoice_downloads` (`id`, `order_id`, `user_id`, `download_type`, `ip_address`, `user_agent`, `created_at`) VALUES
+(1, 23, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 06:05:17'),
+(2, 26, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 07:25:24'),
+(3, 27, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 07:43:58'),
+(4, 28, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 07:55:00'),
+(5, 29, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:02:32'),
+(6, 30, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:08:32'),
+(7, 31, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:12:09'),
+(8, 32, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:17:30'),
+(9, 33, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:23:19'),
+(10, 34, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:32:02'),
+(11, 35, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:42:36'),
+(12, 36, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:47:12'),
+(13, 37, 27, 'download', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-30 08:58:01');
 
 -- --------------------------------------------------------
 
@@ -883,21 +978,66 @@ CREATE TABLE `orders` (
   `total_amount` decimal(10,2) NOT NULL,
   `order_status` enum('pending','confirmed','processing','shipped','delivered','cancelled') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `seller_id` int(100) NOT NULL,
+  `coupon_code` varchar(50) DEFAULT NULL,
+  `coupon_discount` decimal(10,2) DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `order_number`, `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `postal_code`, `payment_method`, `payment_status`, `transaction_id`, `subtotal`, `shipping_cost`, `discount_amount`, `total_amount`, `order_status`, `created_at`, `updated_at`) VALUES
-(1, 25, 'ORD202508268926', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'UP', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826095544312', 4098.00, 150.00, 50.00, 4198.00, 'confirmed', '2025-08-26 07:55:44', '2025-08-26 07:55:44'),
-(8, 26, 'ORD202508265195', 'Mansoor', 'Ahmed', 'mansoor@gmail.com', '+923122349613', 'Gulshan', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826101341312', 3599.00, 150.00, 50.00, 3699.00, 'confirmed', '2025-08-26 08:13:41', '2025-08-26 08:13:41'),
-(9, 24, 'ORD202508269984', 'Miswer', 'Ali', 'miswer@gmail.com', '+923146510383', 'Liyari', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826152709315', 12988.00, 150.00, 50.00, 13088.00, 'confirmed', '2025-08-26 13:27:06', '2025-08-26 13:27:09'),
-(10, 24, 'ORD202508265886', 'Miswer', 'Ali', 'miswer@gmail.com', '+923146510383', 'Liyari', 'Karachi', '75850', 'easypaisa', 'completed', 'TXNEASYPAISA20250826153008182', 1499.00, 150.00, 50.00, 1599.00, 'confirmed', '2025-08-26 13:30:08', '2025-08-26 13:30:08'),
-(11, 25, 'ORD202508266184', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826153542776', 4999.00, 150.00, 50.00, 5099.00, 'confirmed', '2025-08-26 13:35:42', '2025-08-26 13:35:42'),
-(12, 25, 'ORD202508267674', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'Up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826154641447', 2999.00, 150.00, 50.00, 3099.00, 'confirmed', '2025-08-26 13:46:41', '2025-08-26 13:46:41'),
-(13, 25, 'ORD202508269367', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826155108632', 3599.00, 150.00, 50.00, 3699.00, 'confirmed', '2025-08-26 13:51:08', '2025-08-26 13:51:08');
+INSERT INTO `orders` (`id`, `user_id`, `order_number`, `first_name`, `last_name`, `email`, `phone`, `address`, `city`, `postal_code`, `payment_method`, `payment_status`, `transaction_id`, `subtotal`, `shipping_cost`, `discount_amount`, `total_amount`, `order_status`, `created_at`, `updated_at`, `seller_id`, `coupon_code`, `coupon_discount`) VALUES
+(1, 25, 'ORD202508268926', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'UP', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826095544312', 4098.00, 150.00, 50.00, 4198.00, 'confirmed', '2025-08-26 07:55:44', '2025-08-26 07:55:44', 0, NULL, 0.00),
+(8, 26, 'ORD202508265195', 'Mansoor', 'Ahmed', 'mansoor@gmail.com', '+923122349613', 'Gulshan', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826101341312', 3599.00, 150.00, 50.00, 3699.00, 'confirmed', '2025-08-26 08:13:41', '2025-08-26 08:13:41', 0, NULL, 0.00),
+(9, 24, 'ORD202508269984', 'Miswer', 'Ali', 'miswer@gmail.com', '+923146510383', 'Liyari', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826152709315', 12988.00, 150.00, 50.00, 13088.00, 'confirmed', '2025-08-26 13:27:06', '2025-08-26 13:27:09', 0, NULL, 0.00),
+(10, 24, 'ORD202508265886', 'Miswer', 'Ali', 'miswer@gmail.com', '+923146510383', 'Liyari', 'Karachi', '75850', 'easypaisa', 'completed', 'TXNEASYPAISA20250826153008182', 1499.00, 150.00, 50.00, 1599.00, 'confirmed', '2025-08-26 13:30:08', '2025-08-26 13:30:08', 0, NULL, 0.00),
+(11, 25, 'ORD202508266184', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826153542776', 4999.00, 150.00, 50.00, 5099.00, 'confirmed', '2025-08-26 13:35:42', '2025-08-26 13:35:42', 0, NULL, 0.00),
+(12, 25, 'ORD202508267674', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'Up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826154641447', 2999.00, 150.00, 50.00, 3099.00, 'confirmed', '2025-08-26 13:46:41', '2025-08-26 13:46:41', 0, NULL, 0.00),
+(13, 25, 'ORD202508269367', 'Aliyan', 'Ahmed', 'aliyan6464@gmail.com', '+923142861509', 'up', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250826155108632', 3599.00, 150.00, 50.00, 3699.00, 'confirmed', '2025-08-26 13:51:08', '2025-08-26 13:51:08', 0, NULL, 0.00),
+(14, 26, 'ORD202508298558', 'Mansoor', 'Ahmed', 'mansoor@gmail.com', '+92976556', 'Pakistan', 'Karachi', '6757556', 'jazzcash', 'failed', NULL, 7600.00, 150.00, 50.00, 7700.00, 'pending', '2025-08-29 15:52:50', '2025-08-29 15:52:50', 0, NULL, 0.00),
+(15, 26, 'ORD202508295607', 'Mansoor', 'Ahmed', 'mansoor@gmail.com', '+929765560', 'Pakistan', 'Karachi', '6757', 'jazzcash', 'completed', 'TXNJAZZCASH20250829175323453', 7600.00, 150.00, 50.00, 7700.00, 'confirmed', '2025-08-29 15:53:23', '2025-08-29 15:53:23', 0, NULL, 0.00),
+(16, 26, 'ORD202508295083', 'Mansoor', 'Ahmed', 'mansoor@gmail.com', '+929765560', 'Pakistan', 'Karachi', '6757556', 'jazzcash', 'completed', 'TXNJAZZCASH20250829175405703', 4000.00, 150.00, 50.00, 4100.00, 'confirmed', '2025-08-29 15:54:05', '2025-08-29 15:54:05', 0, NULL, 0.00),
+(17, 26, 'ORD202508293346', 'Mansoor', 'Ahmed', 'muhammadmansoorahmed123@gmail.com', '+923123456789', 'Suhrab goth ', 'karachi', '75674', 'jazzcash', 'completed', 'TXNJAZZCASH20250829175855598', 8500.00, 150.00, 50.00, 8600.00, 'confirmed', '2025-08-29 15:58:55', '2025-08-29 15:58:55', 0, NULL, 0.00),
+(18, 26, 'ORD202508299617', 'Mansoor', 'Ahmed', 'muhammadmansoorahmed123@gmail.com', '+923122349613', 'Suhrab goth ', 'Karachi', '', 'bank', 'completed', 'TXNBANK20250829212428111', 600.00, 150.00, 50.00, 700.00, 'confirmed', '2025-08-29 19:24:28', '2025-08-29 19:24:28', 0, NULL, 0.00),
+(19, 26, 'ORD202508296970', 'Mansoor', 'Ahmed', 'muhammadmansoorahmed123@gmail.com', '+923122349613', 'Suhrab goth ', 'karachi', '', 'bank', 'completed', 'TXNBANK20250829212520909', 4000.00, 150.00, 50.00, 4100.00, 'confirmed', '2025-08-29 19:25:20', '2025-08-29 19:25:20', 0, NULL, 0.00),
+(20, 35, 'ORD202508299188', 'Mansoor', 'Ahmed', 'muhammadmansoorahmed123@gmail.com', '+923122349613', 'Suhrab goth ', 'karachi', '', 'bank', 'completed', 'TXNBANK20250829221704174', 0.00, 4000.00, 150.00, 50.00, 'confirmed', '2025-08-29 20:17:04', '2025-08-29 20:17:04', 4100, NULL, 0.00),
+(21, 35, 'ORD202508295027', 'Mansoor', 'Ahmed', 'muhammadmansoorahmed123@gmail.com', '+923122349613', 'Suhrab goth ', 'karachi', '', 'bank', 'completed', 'TXNBANK20250829222933817', 8000.00, 150.00, 50.00, 8100.00, 'confirmed', '2025-08-29 20:29:33', '2025-08-29 20:29:33', 0, NULL, 0.00),
+(22, 35, 'ORD202508298212', 'Mansoor', 'Ahmed', 'muhammadmansoorahmed123@gmail.com', '+923122349613', 'Suhrab goth ', 'karachi', '75674', 'bank', 'completed', 'TXNBANK20250829232051996', 4000.00, 150.00, 50.00, 3600.00, 'confirmed', '2025-08-29 21:20:51', '2025-08-29 21:20:51', 0, 'WELCOME20', 500.00),
+(23, 27, 'ORD202508305386', 'Aliyan', 'Ijaz', 'buyer123@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', '', 'TXNBANK20250830080506190', 19500.00, 150.00, 50.00, 19400.00, 'cancelled', '2025-08-30 06:05:06', '2025-08-30 06:06:25', 0, 'SAVE10', 200.00),
+(24, 27, 'ORD202508301351', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'failed', NULL, 7099.00, 150.00, 50.00, 7199.00, 'pending', '2025-08-30 07:19:52', '2025-08-30 07:19:52', 0, '', 0.00),
+(25, 27, 'ORD202508301767', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830092014432', 7099.00, 150.00, 50.00, 7199.00, 'confirmed', '2025-08-30 07:20:14', '2025-08-30 07:20:14', 0, '', 0.00),
+(26, 27, 'ORD202508309784', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830092154757', 1198.00, 150.00, 50.00, 1178.20, 'confirmed', '2025-08-30 07:21:54', '2025-08-30 07:21:54', 0, 'SAVE10', 119.80),
+(27, 27, 'ORD202508309820', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830094346374', 13798.00, 150.00, 50.00, 13698.00, 'confirmed', '2025-08-30 07:43:46', '2025-08-30 07:43:46', 0, 'SAVE10', 200.00),
+(28, 27, 'ORD202508305968', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830095449546', 20599.00, 150.00, 50.00, 20499.00, 'confirmed', '2025-08-30 07:54:49', '2025-08-30 07:54:49', 0, 'SAVE10', 200.00),
+(29, 27, 'ORD202508307486', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830100221142', 6400.00, 150.00, 50.00, 6300.00, 'confirmed', '2025-08-30 08:02:21', '2025-08-30 08:02:21', 0, 'SAVE10', 200.00),
+(30, 27, 'ORD202508303876', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923142861509', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830100821124', 11300.00, 150.00, 50.00, 11200.00, 'confirmed', '2025-08-30 08:08:21', '2025-08-30 08:08:21', 0, 'SAVE10', 200.00),
+(31, 27, 'ORD202508301798', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830101200844', 6599.00, 150.00, 50.00, 6499.00, 'confirmed', '2025-08-30 08:12:00', '2025-08-30 08:12:00', 0, 'SAVE10', 200.00),
+(32, 27, 'ORD202508309860', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923142861509', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830101724452', 12599.00, 150.00, 50.00, 12699.00, 'confirmed', '2025-08-30 08:17:24', '2025-08-30 08:17:24', 0, '', 0.00),
+(33, 27, 'ORD202508305732', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923142861509', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830102302897', 14000.00, 150.00, 50.00, 13900.00, 'confirmed', '2025-08-30 08:23:02', '2025-08-30 08:23:02', 0, 'SAVE10', 200.00),
+(34, 27, 'ORD202508309921', 'Aliyan', 'Ijaz', 'seller123@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830103156244', 9797.00, 150.00, 50.00, 9697.00, 'confirmed', '2025-08-30 08:31:56', '2025-08-30 08:31:56', 0, 'SAVE10', 200.00),
+(35, 27, 'ORD202508308419', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830104224312', 4000.00, 150.00, 50.00, 3900.00, 'confirmed', '2025-08-30 08:42:24', '2025-08-30 08:42:24', 0, 'SAVE10', 200.00),
+(36, 27, 'ORD202508305456', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830104659256', 4000.00, 150.00, 50.00, 3900.00, 'confirmed', '2025-08-30 08:46:59', '2025-08-30 08:46:59', 0, 'SAVE10', 200.00),
+(37, 27, 'ORD202508301682', 'Aliyan', 'Ijaz', 'mansoor@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', '75850', 'bank', 'completed', 'TXNBANK20250830105755672', 24000.00, 150.00, 50.00, 23900.00, 'confirmed', '2025-08-30 08:57:55', '2025-08-30 08:57:55', 0, 'SAVE10', 200.00);
+
+--
+-- Triggers `orders`
+--
+DELIMITER $$
+CREATE TRIGGER `order_status_log` AFTER UPDATE ON `orders` FOR EACH ROW BEGIN
+    IF OLD.order_status != NEW.order_status THEN
+        INSERT INTO `order_logs` (`order_id`, `action`, `description`) 
+        VALUES (NEW.id, 'status_changed', CONCAT('Status changed from ', OLD.order_status, ' to ', NEW.order_status));
+    END IF;
+    
+    IF OLD.payment_status != NEW.payment_status THEN
+        INSERT INTO `order_logs` (`order_id`, `action`, `description`) 
+        VALUES (NEW.id, 'payment_status_changed', CONCAT('Payment status changed from ', OLD.payment_status, ' to ', NEW.payment_status));
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -932,7 +1072,100 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `prod
 (14, 10, 89, 'The Joran Ring', 'https://thegracepk.com/cdn/shop/products/16004a7d-aed4-4fad-b345-a1162c0987d4.jpg?v=1674476273&width=700', 1499.00, 1, 1499.00, '2025-08-26 13:30:08'),
 (15, 11, 90, 'Puzzle Bracelet', 'https://thegracepk.com/cdn/shop/files/IMG-1961.webp?v=1706279468&width=700', 4999.00, 1, 4999.00, '2025-08-26 13:35:42'),
 (16, 12, 91, 'Galaxy Bracelet ', 'https://thegracepk.com/cdn/shop/products/il_794xN.3390133526_jpif.jpg?v=1639763346&width=700', 2999.00, 1, 2999.00, '2025-08-26 13:46:41'),
-(17, 13, 92, 'RUBY STUD EARRINGS', '../product_images/r7.jpg', 3599.00, 1, 3599.00, '2025-08-26 13:51:08');
+(17, 13, 92, 'RUBY STUD EARRINGS', '../product_images/r7.jpg', 3599.00, 1, 3599.00, '2025-08-26 13:51:08'),
+(18, 14, 93, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/hrundl%20black%20diamond%201.avif', 7600.00, 1, 7600.00, '2025-08-29 15:52:50'),
+(19, 15, 93, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/hrundl%20black%20diamond%201.avif', 7600.00, 1, 7600.00, '2025-08-29 15:53:23'),
+(20, 16, 94, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-29 15:54:05'),
+(21, 17, 95, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/lytop%20emerald%201.avif', 8500.00, 1, 8500.00, '2025-08-29 15:58:55'),
+(22, 18, 96, 'Lipstick', '../product_images/pexels-valeriya-850801.jpg', 600.00, 1, 600.00, '2025-08-29 19:24:28'),
+(23, 19, 97, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-29 19:25:20'),
+(24, 20, 98, 'Burro\'s-tail', '../product_images/necklace.jpg', 4000.00, 1, 4000.00, '2025-08-29 20:17:04'),
+(25, 21, 99, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-29 20:29:33'),
+(26, 21, 100, 'Beautifull Necklace ', '../product_images/cross ruby 3.avif', 4000.00, 1, 4000.00, '2025-08-29 20:29:33'),
+(27, 22, 101, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-29 21:20:51'),
+(28, 23, 83, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 2, 8000.00, '2025-08-30 06:05:06'),
+(29, 23, 84, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/palin%20emerald%201.avif', 11000.00, 1, 11000.00, '2025-08-30 06:05:06'),
+(30, 23, 85, 'Mirror', '../product_images/long mirrors.jpeg', 500.00, 1, 500.00, '2025-08-30 06:05:06'),
+(31, 24, 102, 'Infinite Whisper', '../product_images/m.webp', 599.00, 1, 599.00, '2025-08-30 07:19:52'),
+(32, 24, 103, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/lytop%20ruby%201.avif', 6500.00, 1, 6500.00, '2025-08-30 07:19:52'),
+(33, 25, 102, 'Infinite Whisper', '../product_images/m.webp', 599.00, 1, 599.00, '2025-08-30 07:20:14'),
+(34, 25, 103, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/lytop%20ruby%201.avif', 6500.00, 1, 6500.00, '2025-08-30 07:20:14'),
+(35, 26, 104, 'Infinite Whisper', '../product_images/m.webp', 599.00, 2, 1198.00, '2025-08-30 07:21:54'),
+(36, 27, 105, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/hrundl%20emerald%201.avif', 8600.00, 1, 8600.00, '2025-08-30 07:43:46'),
+(37, 27, 106, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-30 07:43:46'),
+(38, 27, 107, 'Infinite Whisper', '../product_images/m.webp', 599.00, 2, 1198.00, '2025-08-30 07:43:46'),
+(39, 28, 108, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/diamond.avif', 20000.00, 1, 20000.00, '2025-08-30 07:54:49'),
+(40, 28, 109, 'Infinite Whisper', '../product_images/m.webp', 599.00, 1, 599.00, '2025-08-30 07:54:49'),
+(41, 29, 110, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/ruby.avif', 6000.00, 1, 6000.00, '2025-08-30 08:02:21'),
+(42, 29, 111, 'Foundation', 'https://www.toofaced.com/media/export/cms/products/1000x1000/2f_sku_100453_1000x1000_0.jpg', 400.00, 1, 400.00, '2025-08-30 08:02:21'),
+(43, 30, 112, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/finifugal%20ruby%202.avif', 10000.00, 1, 10000.00, '2025-08-30 08:08:21'),
+(44, 30, 113, 'Lipstick', '../product_images/pexels-valeriya-850801.jpg', 600.00, 1, 600.00, '2025-08-30 08:08:21'),
+(45, 30, 114, 'Eye Shadow', '../product_images/shadow.jpeg', 700.00, 1, 700.00, '2025-08-30 08:08:21'),
+(46, 31, 115, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/ruby.avif', 6000.00, 1, 6000.00, '2025-08-30 08:12:00'),
+(47, 31, 116, 'Infinite Whisper', '../product_images/m.webp', 599.00, 1, 599.00, '2025-08-30 08:12:00'),
+(48, 32, 117, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/emerald.avif', 8000.00, 1, 8000.00, '2025-08-30 08:17:24'),
+(49, 32, 118, 'Infinite Whisper', '../product_images/m.webp', 599.00, 1, 599.00, '2025-08-30 08:17:24'),
+(50, 32, 119, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-30 08:17:24'),
+(51, 33, 120, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 2, 8000.00, '2025-08-30 08:23:02'),
+(52, 33, 121, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/custom%20square%20ring%20ruby%203.avif', 6000.00, 1, 6000.00, '2025-08-30 08:23:02'),
+(53, 34, 122, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/custom%20sqare%20emerald%203.avif', 8000.00, 1, 8000.00, '2025-08-30 08:31:56'),
+(54, 34, 123, 'Infinite Whisper', '../product_images/m.webp', 599.00, 3, 1797.00, '2025-08-30 08:31:56'),
+(55, 35, 124, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-30 08:42:24'),
+(56, 36, 126, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-30 08:46:59'),
+(57, 37, 127, 'Customized jewellery', 'http://localhost/Vision-Project/admin/custom_jewellery_admin/jewellery/custon_square_ring%203.avif', 20000.00, 1, 20000.00, '2025-08-30 08:57:55'),
+(58, 37, 128, 'PURPLE AMETHYST', '../product_images/r.png', 4000.00, 1, 4000.00, '2025-08-30 08:57:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_logs`
+--
+
+CREATE TABLE `order_logs` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `action` varchar(50) NOT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_logs`
+--
+
+INSERT INTO `order_logs` (`id`, `order_id`, `action`, `description`, `created_at`) VALUES
+(1, 23, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 06:05:06'),
+(2, 23, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 06:05:06'),
+(3, 23, 'status_changed', 'Status changed from confirmed to cancelled', '2025-08-30 06:06:25'),
+(4, 23, 'payment_status_changed', 'Payment status changed from completed to ', '2025-08-30 06:06:25'),
+(5, 23, 'cancelled', 'Order cancelled by customer', '2025-08-30 06:06:25'),
+(6, 24, 'payment_status_changed', 'Payment status changed from pending to failed', '2025-08-30 07:19:52'),
+(7, 25, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 07:20:14'),
+(8, 25, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 07:20:14'),
+(9, 26, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 07:21:54'),
+(10, 26, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 07:21:54'),
+(11, 27, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 07:43:46'),
+(12, 27, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 07:43:46'),
+(13, 28, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 07:54:49'),
+(14, 28, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 07:54:49'),
+(15, 29, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:02:21'),
+(16, 29, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:02:21'),
+(17, 30, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:08:21'),
+(18, 30, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:08:21'),
+(19, 31, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:12:00'),
+(20, 31, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:12:00'),
+(21, 32, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:17:24'),
+(22, 32, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:17:24'),
+(23, 33, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:23:02'),
+(24, 33, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:23:02'),
+(25, 34, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:31:56'),
+(26, 34, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:31:56'),
+(27, 35, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:42:24'),
+(28, 35, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:42:24'),
+(29, 36, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:46:59'),
+(30, 36, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:46:59'),
+(31, 37, 'status_changed', 'Status changed from pending to confirmed', '2025-08-30 08:57:55'),
+(32, 37, 'payment_status_changed', 'Payment status changed from pending to completed', '2025-08-30 08:57:55');
 
 -- --------------------------------------------------------
 
@@ -981,9 +1214,11 @@ INSERT INTO `user_acc` (`id`, `avatar`, `name`, `email`, `phone`, `address`, `ci
 (23, '', 'farazkhan', 'farazkhan61512@gmail.com', '', '', '', '', '', 'fk$12345678', '', 0, '2025-08-22 07:47:13'),
 (24, '', 'Miswer', 'miswer@gmail.com', '', '', '', '', '', 'miswer', '', 0, '2025-08-22 07:47:13'),
 (25, '', 'Aliyan', 'aliyan6464@gmail.com', '', '', '', '', '', 'aliyan', '', 0, '2025-08-22 07:47:13'),
-(26, '', 'Mansoor', 'mansoor@gmail.com', '', '', '', '', '', 'mansoor', '', 0, '2025-08-22 07:47:13'),
-(27, '', 'Buyer Store', 'buyer123@gmail.com', '', '', '', '', '', '123', 'seller', 0, '2025-08-22 07:47:13'),
-(28, '', 'Sample Buyer', 'sample@gmail.com', '', '', '', '', '', '1111', 'seller', 0, '2025-08-22 07:47:13');
+(26, 'uploads/avatars/avatar_26_1756483422.png', 'Mansoor', 'mansoor@gmail.com', '', '', '', '', '', 'mansoor', '', 0, '2025-08-22 07:47:13'),
+(27, 'uploads/avatars/avatar_27_1756537518.jpeg', 'Seller Store', 'seller123@gmail.com', '+923146510383', 'Sector 11 J North Karachi', 'Karachi', 'Pakistan', 'male', '123', 'seller', 0, '2025-08-22 07:47:13'),
+(28, '', 'Sample Buyer', 'sample@gmail.com', '', '', '', '', '', '1111', 'seller', 0, '2025-08-22 07:47:13'),
+(35, '', 'Mansoor', 'm.mansoorahmed1000@gmail.com', '', '', '', '', '', '123', 'seller', 1, '2025-08-29 19:54:54'),
+(36, '', 'Rabeel Khan', 'rabeelnaeem329@gmail.com', '', '', '', '', '', 'Rabeel123', 'buyer', 1, '2025-08-30 09:15:59');
 
 -- --------------------------------------------------------
 
@@ -1008,9 +1243,7 @@ INSERT INTO `wishlist` (`id`, `user_id`, `product_name`, `product_image`, `produ
 (44, 26, 'RUBY STUD EARRINGS', '../product_images/r.png', 4000, 1),
 (45, 26, 'The Joran Ring', 'https://thegracepk.com/cdn/shop/products/16004a7d-aed4-4fad-b345-a1162c0987d4.jpg?v=1674476273&width=700', 1499, 1),
 (46, 26, 'MARINA STUD ', '../product_images/rr.jpg', 4999, 1),
-(48, 27, 'Infinite Whisper', '../product_images/m.webp', 599, 1),
-(49, 27, 'PURPLE AMETHYST', '../product_images/r.png', 4000, 1),
-(50, 27, 'Eye Shadow', '../product_images/shadow.jpeg', 700, 1);
+(54, 27, 'Galaxy Bracelet ', 'https://thegracepk.com/cdn/shop/products/il_794xN.3390133526_jpif.jpg?v=1639763346&width=700', 2999, 1);
 
 --
 -- Indexes for dumped tables
@@ -1043,16 +1276,38 @@ ALTER TABLE `cart`
   ADD KEY `cart_user` (`user_id`);
 
 --
+-- Indexes for table `company_settings`
+--
+ALTER TABLE `company_settings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `setting_key` (`setting_key`);
+
+--
 -- Indexes for table `contact`
 --
 ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `coupon_code` (`coupon_code`);
+
+--
 -- Indexes for table `gems`
 --
 ALTER TABLE `gems`
   ADD PRIMARY KEY (`gem_id`);
+
+--
+-- Indexes for table `invoice_downloads`
+--
+ALTER TABLE `invoice_downloads`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `jewellery_bodies`
@@ -1073,12 +1328,24 @@ ALTER TABLE `jewellery_variants`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `order_number` (`order_number`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `idx_user_status` (`user_id`,`order_status`),
+  ADD KEY `idx_created_at` (`created_at`),
+  ADD KEY `idx_order_number` (`order_number`);
 
 --
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `idx_order_id` (`order_id`),
+  ADD KEY `idx_product_id` (`product_id`);
+
+--
+-- Indexes for table `order_logs`
+--
+ALTER TABLE `order_logs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`);
 
@@ -1115,19 +1382,25 @@ ALTER TABLE `additional_images`
 -- AUTO_INCREMENT for table `add_product`
 --
 ALTER TABLE `add_product`
-  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+
+--
+-- AUTO_INCREMENT for table `company_settings`
+--
+ALTER TABLE `company_settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -1136,10 +1409,22 @@ ALTER TABLE `contact`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `gems`
 --
 ALTER TABLE `gems`
   MODIFY `gem_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `invoice_downloads`
+--
+ALTER TABLE `invoice_downloads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `jewellery_bodies`
@@ -1157,13 +1442,19 @@ ALTER TABLE `jewellery_variants`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- AUTO_INCREMENT for table `order_logs`
+--
+ALTER TABLE `order_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `payment_details`
@@ -1175,13 +1466,13 @@ ALTER TABLE `payment_details`
 -- AUTO_INCREMENT for table `user_acc`
 --
 ALTER TABLE `user_acc`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- Constraints for dumped tables
@@ -1200,6 +1491,12 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `cart_user` FOREIGN KEY (`user_id`) REFERENCES `user_acc` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `invoice_downloads`
+--
+ALTER TABLE `invoice_downloads`
+  ADD CONSTRAINT `invoice_downloads_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `jewellery_variants`
 --
 ALTER TABLE `jewellery_variants`
@@ -1216,6 +1513,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `order_logs`
+--
+ALTER TABLE `order_logs`
+  ADD CONSTRAINT `order_logs_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `payment_details`
